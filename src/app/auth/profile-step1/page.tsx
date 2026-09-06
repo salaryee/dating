@@ -34,7 +34,9 @@ export default function ProfileStep1Page() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <span className="text-xs font-extrabold text-[#3182F6]">2 / 4 단계</span>
+            <span className="text-xs font-extrabold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
+              2 / 4 단계
+            </span>
           </div>
         </div>
 
@@ -121,7 +123,7 @@ export default function ProfileStep1Page() {
               <button
                 type="button"
                 onClick={simulateCameraCapture}
-                className="w-full h-36 rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
+                className="w-full h-40 rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
               >
                 <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#8B95A1] group-hover:text-[#3182F6] transition-colors">
                   <Camera className="w-5 h-5" />
@@ -138,7 +140,7 @@ export default function ProfileStep1Page() {
             )}
 
             {handPhotoStatus === "analyzing" && (
-              <div className="w-full h-36 rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2.5">
+              <div className="w-full h-40 rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2.5">
                 <RefreshCw className="w-5 h-5 text-[#3182F6] animate-spin" />
                 <div className="text-center">
                   <p className="text-xs font-bold text-[#3182F6]">
@@ -152,7 +154,7 @@ export default function ProfileStep1Page() {
             )}
 
             {handPhotoStatus === "success" && (
-              <div className="w-full rounded-2xl bg-gradient-to-br from-[#FFF5ED] via-[#FDF0E7] to-[#F7E6D9] p-4 flex flex-col justify-between h-36 relative overflow-hidden">
+              <div className="w-full rounded-2xl bg-gradient-to-br from-[#FFF5ED] via-[#FDF0E7] to-[#F7E6D9] p-4 flex flex-col justify-between h-40 relative overflow-hidden">
                 <div className="flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 bg-white/95 px-2.5 py-1 rounded-full text-xs font-bold text-[#191F28] shadow-sm">
                     <Hand className="w-3.5 h-3.5 text-[#FF6F61]" />
@@ -182,11 +184,15 @@ export default function ProfileStep1Page() {
               </div>
             )}
 
-            <div className="flex items-center gap-1.5 text-[11px] text-[#8B95A1] font-medium pt-1 px-1">
-              <Lock className="w-3 h-3 text-[#00B368] shrink-0" />
-              <span>얼굴이나 배경은 자동으로 가려지니 안심하세요</span>
-            </div>
           </div>
+        </div>
+
+        {/* 프라이버시 안심 노트 (verify-work와 동일한 레이아웃) */}
+        <div className="mt-6 flex items-start gap-2 text-[11px] text-[#8B95A1] font-medium px-1">
+          <Lock className="w-3.5 h-3.5 text-[#00B368] shrink-0 mt-0.5" />
+          <p className="leading-relaxed">
+            얼굴이나 배경은 자동으로 가려지며, <strong>지인에게는 절대 프로필이 노출되지 않아요.</strong>
+          </p>
         </div>
       </div>
 
@@ -196,7 +202,7 @@ export default function ProfileStep1Page() {
           href={isFormValid ? "/auth/profile-step2" : "#"}
           className={`w-full h-14 rounded-2xl font-extrabold text-sm transition-all flex items-center justify-center ${
             isFormValid
-              ? "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-md shadow-blue-500/20 active:scale-[0.98]"
+              ? "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:scale-[0.98]"
               : "bg-[#E5E8EB] text-[#8B95A1] cursor-not-allowed pointer-events-none"
           }`}
         >

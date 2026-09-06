@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, ChevronRight, ArrowLeft } from "lucide-react";
+import { Check, ChevronRight, ArrowLeft, Lock } from "lucide-react";
 
 export default function TermsPage() {
   const [allAgreed, setAllAgreed] = useState(false);
@@ -47,7 +47,9 @@ export default function TermsPage() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <span className="text-xs font-extrabold text-[#3182F6]">1 / 4 단계</span>
+            <span className="text-xs font-extrabold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
+              1 / 4 단계
+            </span>
           </div>
         </div>
 
@@ -172,6 +174,14 @@ export default function TermsPage() {
             </div>
           </div>
         </div>
+
+        {/* 프라이버시 안심 노트 (verify-work와 동일한 레이아웃) */}
+        <div className="mt-6 flex items-start gap-2 text-[11px] text-[#8B95A1] font-medium px-1">
+          <Lock className="w-3.5 h-3.5 text-[#00B368] shrink-0 mt-0.5" />
+          <p className="leading-relaxed">
+            동의하신 정보는 안전하게 암호화되며, <strong>지인에게는 절대 프로필이 노출되지 않아요.</strong>
+          </p>
+        </div>
       </div>
 
       {/* 하단 CTA (56px 토스 표준 버튼) */}
@@ -180,7 +190,7 @@ export default function TermsPage() {
           href={isRequiredDone ? "/auth/profile-step1" : "#"}
           className={`w-full h-14 rounded-2xl font-extrabold text-sm transition-all flex items-center justify-center ${
             isRequiredDone
-              ? "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-md shadow-blue-500/20 active:scale-[0.98]"
+              ? "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:scale-[0.98]"
               : "bg-[#E5E8EB] text-[#8B95A1] cursor-not-allowed pointer-events-none"
           }`}
         >
