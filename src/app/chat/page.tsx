@@ -18,35 +18,55 @@ import {
   RotateCcw,
   MessageCircleHeart,
   Check,
+  Train,
+  Coffee,
+  Briefcase,
+  Lock,
+  MessageSquareQuote,
+  Flame,
 } from "lucide-react";
 
-// 오늘의 인연 데이터 (기존 홈 카드 통합)
+// 토스 PO & 디자이너 관점: 풍부한 맥락과 라이프스타일 가치를 담은 인연 데이터
 const TODAY_RECOMMENDATIONS = [
   {
     id: "rec-1",
     name: "지민",
     age: 29,
     company: "네이버",
-    job: "기획자",
-    location: "판교",
+    department: "서비스 기획 (6년차)",
+    location: "판교 그린팩토리",
+    matchInsight: "민지님과 출퇴근 시간(09:30)과 주말 취향이 92% 닮았어요",
+    commute: "09:30 출근 · 판교역 신분당선",
     mbti: "ENFP",
-    commute: "09:30 출근 · 지하철",
-    lifestyle: "비흡연 · 가끔 한잔",
-    handGradient: "from-[#F7EFE8] to-[#EFE2D6]",
-    quote: "퇴근 후 좋아하는 음악 들으며 밤 산책하는 시간을 가장 아껴요.",
+    lifestyle: "비흡연 · 가끔 와인 한잔",
+    routine: "퇴근 후 탄천 40분 러닝 · 주말엔 독립서점 탐방",
+    qna: {
+      question: "퇴근 후 가장 힐링되는 순간은 언제인가요?",
+      answer: "복잡한 하루 일과 마치고 좋아하는 재즈 들으며 밤 산책할 때 가장 편안해요.",
+    },
+    verificationBadge: "네이버 사내메일 재직 인증 완료",
+    handGradient: "from-[#F7EFE8] via-[#F4E8DC] to-[#EFE2D6]",
+    quote: "사소한 일상을 편안하게 나누고, 서로의 성장을 조용히 응원해 줄 인연을 찾고 있어요.",
   },
   {
     id: "rec-2",
     name: "준호",
     age: 31,
     company: "토스",
-    job: "데이터 엔지니어",
-    location: "강남",
+    department: "데이터 엔지니어 (7년차)",
+    location: "강남 테헤란로",
+    matchInsight: "판교 · 강남 오피스 생활권 · 퇴근 후 커피 한잔하기 좋은 거리예요",
+    commute: "10:00 출근 · 자차 (테헤란로)",
     mbti: "INTJ",
-    commute: "10:00 출근 · 자차",
-    lifestyle: "비흡연 · 안 마심",
-    handGradient: "from-[#E8F0F8] to-[#D6E4F2]",
-    quote: "주말엔 러닝을 하거나 서점에서 서로의 가치관을 나누고 싶어요.",
+    lifestyle: "비흡연 · 술 안 마심",
+    routine: "주말 아침 한강 러닝 · 테크 팟캐스트 듣기",
+    qna: {
+      question: "어떤 관계를 꿈꾸시나요?",
+      answer: "주말에 각자 일에 몰입하다가도, 저녁엔 마주 앉아 편안하게 서로의 생각을 나눌 수 있는 관계요.",
+    },
+    verificationBadge: "토스 사내메일 재직 인증 완료",
+    handGradient: "from-[#E8F0F8] via-[#DFECF8] to-[#D6E4F2]",
+    quote: "꾸밈없는 담백한 대화 속에서 자연스러운 서로의 가치관을 알아가고 싶습니다.",
   },
 ];
 
@@ -58,7 +78,6 @@ function ChatContent() {
 
   // 오늘의 인연 상태
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardTab, setCardTab] = useState<"hand" | "note">("hand");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -77,7 +96,6 @@ function ChatContent() {
 
   const handlePass = () => {
     showToast("다음 추천으로 넘어갔어요");
-    setCardTab("hand");
     setCurrentIndex((prev) => prev + 1);
   };
 
@@ -85,13 +103,11 @@ function ChatContent() {
     if (currentProfile) {
       showToast(`${currentProfile.name}님에게 호감을 보냈어요`);
     }
-    setCardTab("hand");
     setCurrentIndex((prev) => prev + 1);
   };
 
   const handleReset = () => {
     setCurrentIndex(0);
-    setCardTab("hand");
   };
 
   // 매칭된 대화 목록
@@ -228,119 +244,165 @@ function ChatContent() {
         </div>
       </div>
 
-      {/* 탭 1: 오늘의 인연 (1순위 핵심 탭) */}
+      {/* 탭 1: 오늘의 인연 (토스 PO/디자이너 관점 전면 재구성) */}
       {activeTab === "today" && (
-        <div className="flex-1 px-4 pb-24 flex flex-col justify-start">
+        <div className="flex-1 px-4 pb-28 flex flex-col justify-start">
           <div className="py-2 flex items-center justify-between px-1">
             <span className="text-xs font-bold text-[#8B95A1]">
               매일 밤 10시에 도착하는 소중한 인연이에요
             </span>
-            <span className="text-xs bg-[#E8F3FF] text-[#3182F6] font-extrabold px-2 py-0.5 rounded-full">
+            <span className="text-xs bg-[#E8F3FF] text-[#3182F6] font-extrabold px-2.5 py-0.5 rounded-full">
               {Math.min(currentIndex + 1, TODAY_RECOMMENDATIONS.length)} / {TODAY_RECOMMENDATIONS.length}
             </span>
           </div>
 
           {currentProfile ? (
-            <div className="bg-white rounded-[28px] p-4 sm:p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#E5E8EB]/60 flex flex-col gap-3.5 mt-1">
-              {/* 손등 사진 ↔ 자필 글씨 토글 */}
-              <div className="flex bg-[#F2F4F6] p-1 rounded-xl">
-                <button
-                  onClick={() => setCardTab("hand")}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    cardTab === "hand"
-                      ? "bg-white text-[#191F28] shadow-sm font-black"
-                      : "text-[#8B95A1]"
-                  }`}
-                >
-                  손등 사진
-                </button>
-                <button
-                  onClick={() => setCardTab("note")}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    cardTab === "note"
-                      ? "bg-white text-[#191F28] shadow-sm font-black"
-                      : "text-[#8B95A1]"
-                  }`}
-                >
-                  자필 글씨
-                </button>
-              </div>
-
-              {/* 비주얼 영역 */}
-              {cardTab === "hand" ? (
-                <div
-                  className={`h-48 sm:h-52 rounded-[20px] bg-gradient-to-br ${currentProfile.handGradient} flex flex-col justify-between p-4 relative overflow-hidden`}
-                >
-                  <span className="self-start bg-white/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-bold text-[#333D4B]">
-                    얼굴 대신 손등의 온기
-                  </span>
-                  <span className="self-end text-[10px] font-bold text-[#4E5968] bg-white/70 backdrop-blur-md px-2 py-0.5 rounded-lg">
-                    Gemini AI 검증 완료
-                  </span>
+            <div className="bg-white rounded-[28px] p-5 shadow-sm border border-[#E5E8EB] flex flex-col gap-4 mt-1">
+              
+              {/* 1. 토스 매칭 인사이트 칩 (Why this match?) */}
+              <div className="bg-[#E8F3FF] rounded-2xl p-3 flex items-center gap-2.5 border border-[#3182F6]/15">
+                <div className="w-7 h-7 rounded-xl bg-[#3182F6] flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/30">
+                  <Sparkles className="w-3.5 h-3.5 text-white" />
                 </div>
-              ) : (
-                <div className="h-48 sm:h-52 rounded-[20px] bg-[#FFFBF2] p-5 flex flex-col justify-between border border-[#F5E8D0]">
-                  <span className="self-start bg-white px-2.5 py-1 rounded-full text-[11px] font-bold text-[#8F6B00]">
-                    직접 쓴 정갈한 손글씨
-                  </span>
-                  <p className="text-sm text-[#333D4B] leading-relaxed font-serif italic my-auto text-center px-2">
-                    &ldquo;{currentProfile.quote}&rdquo;
-                  </p>
-                  <span className="self-end text-[10px] font-bold text-[#8F6B00]/70">
-                    클린 문구 검증 완료
-                  </span>
-                </div>
-              )}
-
-              {/* 인적사항 */}
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="text-[22px] font-black text-[#191F28] tracking-tight">
-                    {currentProfile.name}
-                  </h2>
-                  <span className="text-base font-bold text-[#8B95A1]">
-                    {currentProfile.age}세
-                  </span>
-                  <span className="ml-auto text-xs text-[#00B368] font-bold bg-[#E6F7F0] px-2 py-0.5 rounded-md flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#00B368]" />
-                    {currentProfile.company}
-                  </span>
-                </div>
-
-                <p className="text-xs text-[#6B7684] mt-1 font-medium">
-                  {currentProfile.job} · {currentProfile.location}
+                <p className="text-xs font-bold text-[#1B64DA] leading-snug">
+                  {currentProfile.matchInsight}
                 </p>
               </div>
 
-              {/* 라이프스타일 칩 3종 */}
-              <div className="flex items-center gap-1.5 flex-wrap pt-1 border-t border-[#F2F4F6]">
-                <span className="bg-[#F2F4F6] text-[#4E5968] text-xs font-semibold px-2.5 py-1 rounded-lg">
-                  {currentProfile.mbti}
-                </span>
-                <span className="bg-[#F2F4F6] text-[#4E5968] text-xs font-semibold px-2.5 py-1 rounded-lg">
-                  {currentProfile.commute}
-                </span>
-                <span className="bg-[#F2F4F6] text-[#4E5968] text-xs font-semibold px-2.5 py-1 rounded-lg">
-                  {currentProfile.lifestyle}
-                </span>
+              {/* 2. 아이덴티티 & 안심 인증 영역 */}
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-baseline gap-2">
+                    <h2 className="text-[24px] font-black text-[#191F28] tracking-tight">
+                      {currentProfile.name}
+                    </h2>
+                    <span className="text-base font-bold text-[#8B95A1]">
+                      {currentProfile.age}세
+                    </span>
+                  </div>
+
+                  <span className="text-[11px] text-[#00B368] font-extrabold bg-[#E6F7F0] px-2.5 py-1 rounded-full flex items-center gap-1 border border-[#00B368]/20">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#00B368]" />
+                    <span>{currentProfile.company} 재직 인증</span>
+                  </span>
+                </div>
+
+                <p className="text-xs text-[#6B7684] font-medium flex items-center gap-1.5 mt-0.5">
+                  <Building2 className="w-3.5 h-3.5 text-[#8B95A1]" />
+                  <span>{currentProfile.department} · {currentProfile.location}</span>
+                </p>
               </div>
 
-              {/* 하단 버튼 2개 */}
-              <div className="flex items-center gap-2.5 pt-1">
-                <button
-                  onClick={handlePass}
-                  className="w-1/3 h-13 rounded-2xl bg-[#F2F4F6] text-[#4E5968] font-extrabold text-sm hover:bg-[#E5E8EB] active:scale-[0.98] transition-all"
+              {/* 3. 체온 & 필체 듀얼 뷰 (Dual Visual 2분할 카드) */}
+              <div className="grid grid-cols-2 gap-2.5">
+                {/* 좌측: 손등의 온기 카드 */}
+                <div
+                  className={`h-36 rounded-2xl bg-gradient-to-br ${currentProfile.handGradient} p-3 flex flex-col justify-between border border-black/5 relative overflow-hidden`}
                 >
-                  다음에 만나요
-                </button>
-                <button
-                  onClick={handleLike}
-                  className="w-2/3 h-13 rounded-2xl bg-[#3182F6] text-white font-extrabold text-sm hover:bg-[#1B64DA] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md shadow-blue-500/20"
-                >
-                  <Heart className="w-4 h-4 fill-white" />
-                  <span>호감 보내기</span>
-                </button>
+                  <span className="self-start text-[10px] font-bold text-[#4E5968] bg-white/80 backdrop-blur-sm px-2 py-0.5 rounded-md">
+                    얼굴 대신 손등의 온기
+                  </span>
+                  
+                  <div className="flex items-center justify-center my-auto opacity-70">
+                    <Hand className="w-7 h-7 text-slate-500" />
+                  </div>
+
+                  <span className="self-end text-[9px] font-extrabold text-[#3182F6] bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded-md">
+                    AI 손등 검증 완료
+                  </span>
+                </div>
+
+                {/* 우측: 정갈한 자필 엽서 카드 */}
+                <div className="h-36 rounded-2xl bg-[#FFFDF8] border border-[#F2E8D5] p-3 flex flex-col justify-between shadow-xs">
+                  <span className="self-start text-[10px] font-bold text-[#8F6B00] bg-amber-50 px-2 py-0.5 rounded-md">
+                    정갈한 자필 엽서
+                  </span>
+
+                  <p className="text-xs text-[#333D4B] leading-relaxed font-serif italic my-auto line-clamp-3 text-center px-1">
+                    &ldquo;{currentProfile.quote}&rdquo;
+                  </p>
+
+                  <span className="self-end text-[9px] font-bold text-[#8F6B00]/70">
+                    클린 문구 검증
+                  </span>
+                </div>
               </div>
+
+              {/* 4. 직장인 라이프스타일 팩트 시트 (TDS Row List) */}
+              <div className="bg-[#F9FAFB] rounded-2xl p-4 border border-[#F2F4F6] flex flex-col gap-3">
+                <div className="flex items-center gap-2.5">
+                  <Train className="w-4 h-4 text-[#8B95A1] shrink-0" />
+                  <div className="flex items-center justify-between flex-1 text-xs">
+                    <span className="font-bold text-[#8B95A1]">출퇴근 루틴</span>
+                    <span className="font-extrabold text-[#191F28]">{currentProfile.commute}</span>
+                  </div>
+                </div>
+
+                <div className="h-px bg-[#E5E8EB]/60 w-full" />
+
+                <div className="flex items-center gap-2.5">
+                  <Coffee className="w-4 h-4 text-[#8B95A1] shrink-0" />
+                  <div className="flex items-center justify-between flex-1 text-xs">
+                    <span className="font-bold text-[#8B95A1]">성향 · 라이프</span>
+                    <span className="font-extrabold text-[#191F28]">
+                      {currentProfile.mbti} · {currentProfile.lifestyle}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="h-px bg-[#E5E8EB]/60 w-full" />
+
+                <div className="flex items-center gap-2.5">
+                  <Briefcase className="w-4 h-4 text-[#8B95A1] shrink-0" />
+                  <div className="flex items-center justify-between flex-1 text-xs">
+                    <span className="font-bold text-[#8B95A1]">직무 및 연차</span>
+                    <span className="font-extrabold text-[#191F28]">{currentProfile.department}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 5. 토스식 가치관 1문 1답 */}
+              <div className="bg-[#F9FAFB] rounded-2xl p-4 border border-[#F2F4F6] flex flex-col gap-1.5">
+                <div className="flex items-center gap-1.5">
+                  <MessageSquareQuote className="w-3.5 h-3.5 text-[#3182F6]" />
+                  <span className="text-[11px] font-extrabold text-[#3182F6]">가치관 1문 1답</span>
+                </div>
+                <h4 className="text-xs font-bold text-[#191F28] mt-0.5">
+                  Q. {currentProfile.qna.question}
+                </h4>
+                <p className="text-xs text-[#4E5968] font-medium leading-relaxed mt-0.5 bg-white p-2.5 rounded-xl border border-[#E5E8EB]/50">
+                  &ldquo;{currentProfile.qna.answer}&rdquo;
+                </p>
+              </div>
+
+              {/* 6. 안심 보호 문구 */}
+              <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#8B95A1] font-medium pt-0.5">
+                <Lock className="w-3 h-3 text-[#00B368]" />
+                <span>회사 동료 및 지인에게는 절대 프로필이 노출되지 않아요</span>
+              </div>
+
+              {/* 7. 하단 듀얼 액션 버튼 (54px TDS Buttons) */}
+              <div className="flex flex-col gap-2 pt-1">
+                <div className="flex items-center gap-2.5">
+                  <button
+                    onClick={handlePass}
+                    className="w-1/3 h-13 rounded-2xl bg-[#F2F4F6] text-[#6B7684] font-extrabold text-sm hover:bg-[#E5E8EB] active:scale-[0.98] transition-all"
+                  >
+                    다음에 만나요
+                  </button>
+                  <button
+                    onClick={handleLike}
+                    className="w-2/3 h-13 rounded-2xl bg-[#3182F6] text-white font-extrabold text-sm hover:bg-[#1B64DA] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md shadow-blue-500/20"
+                  >
+                    <Heart className="w-4 h-4 fill-white" />
+                    <span>호감 보내기</span>
+                  </button>
+                </div>
+                <p className="text-center text-[10px] text-[#8B95A1] font-medium">
+                  상대방에게 거절 알림이 가지 않으며, 서로 호감을 보내야 대화가 열려요
+                </p>
+              </div>
+
             </div>
           ) : (
             <div className="bg-white rounded-[28px] p-8 text-center flex flex-col items-center justify-center gap-4 my-auto border border-[#E5E8EB]/60 mt-4">
