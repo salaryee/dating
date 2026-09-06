@@ -32,40 +32,40 @@ export default function LoginPage() {
           가치관이 통하는 인연을 만나요.
         </p>
 
-        {/* 토스 3대 안심 약속 카드 */}
-        <div className="mt-8 flex flex-col gap-2.5">
-          <div className="bg-[#F9FAFB] p-4 rounded-2xl border border-[#F2F4F6] flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-[#E8F3FF] flex items-center justify-center text-[#3182F6] shrink-0">
+        {/* 토스 3대 안심 가치 (카드 박스 형태 제거 ➔ 화면 일체형 오픈 리스트) */}
+        <div className="mt-9 flex flex-col gap-5">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-2xl bg-[#E8F3FF] flex items-center justify-center text-[#3182F6] shrink-0">
               <Hand className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-xs font-bold text-[#191F28]">얼굴 비노출 안심</h3>
-              <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
-                얼굴 대신 손등 사진과 자필 엽서로 만나요
+              <h3 className="text-sm font-extrabold text-[#191F28]">얼굴 비노출 안심</h3>
+              <p className="text-xs text-[#6B7684] mt-1 font-medium leading-relaxed">
+                얼굴 사진 대신 손등의 체온과 자필 엽서로 만나요
               </p>
             </div>
           </div>
 
-          <div className="bg-[#F9FAFB] p-4 rounded-2xl border border-[#F2F4F6] flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-[#E6F7F0] flex items-center justify-center text-[#00B368] shrink-0">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-2xl bg-[#E6F7F0] flex items-center justify-center text-[#00B368] shrink-0">
               <ShieldCheck className="w-5 h-5 text-[#00B368]" />
             </div>
             <div>
-              <h3 className="text-xs font-bold text-[#191F28]">100% 직장인 안심</h3>
-              <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
-                명함과 사내메일 재직 인증된 사람만 활동해요
+              <h3 className="text-sm font-extrabold text-[#191F28]">100% 직장인 안심 인증</h3>
+              <p className="text-xs text-[#6B7684] mt-1 font-medium leading-relaxed">
+                명함과 사내메일 재직 인증을 통과한 직장인만 활동해요
               </p>
             </div>
           </div>
 
-          <div className="bg-[#F9FAFB] p-4 rounded-2xl border border-[#F2F4F6] flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-[#F2F4F6] flex items-center justify-center text-[#4E5968] shrink-0">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-2xl bg-[#F2F4F6] flex items-center justify-center text-[#4E5968] shrink-0">
               <Lock className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-xs font-bold text-[#191F28]">회사 지인 완벽 차단</h3>
-              <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
-                같은 회사 동료에게는 프로필이 노출되지 않아요
+              <h3 className="text-sm font-extrabold text-[#191F28]">회사 지인 완벽 차단</h3>
+              <p className="text-xs text-[#6B7684] mt-1 font-medium leading-relaxed">
+                같은 회사 동료에게는 내 프로필이 절대 노출되지 않아요
               </p>
             </div>
           </div>

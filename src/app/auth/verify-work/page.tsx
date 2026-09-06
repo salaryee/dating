@@ -13,6 +13,7 @@ import {
   Clock,
   Lock,
   CheckCircle2,
+  Check,
 } from "lucide-react";
 
 export default function VerifyWorkPage() {
@@ -108,16 +109,16 @@ export default function VerifyWorkPage() {
           </button>
         </div>
 
-        {/* 1. 명함 OCR 방식 */}
+        {/* 1. 명함 OCR 방식 (박스 카드 제거 ➔ 일체형 오픈 레이아웃) */}
         {method === "card" && (
-          <div className="mt-4 flex flex-col gap-3">
+          <div className="mt-5 flex flex-col gap-3">
             {ocrStatus === "empty" && (
               <button
                 type="button"
                 onClick={handleCardCapture}
-                className="w-full h-44 rounded-2xl border-2 border-dashed border-[#E5E8EB] bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
+                className="w-full h-40 rounded-2xl border-2 border-dashed border-[#E5E8EB] bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
               >
-                <div className="w-11 h-11 rounded-2xl bg-white shadow-sm flex items-center justify-center text-[#00B368] group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#00B368] group-hover:scale-105 transition-transform">
                   <Camera className="w-5 h-5" />
                 </div>
                 <div className="text-center">
@@ -125,14 +126,14 @@ export default function VerifyWorkPage() {
                     명함 촬영하기 (터치 시뮬레이션)
                   </p>
                   <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
-                    회사명과 부서가 잘 보이도록 촬영해 주세요
+                    회사명과 소속 부서가 잘 보이도록 촬영해 주세요
                   </p>
                 </div>
               </button>
             )}
 
             {ocrStatus === "scanning" && (
-              <div className="w-full h-44 rounded-2xl bg-[#E8F3FF]/70 border border-[#3182F6]/30 flex flex-col items-center justify-center gap-2.5">
+              <div className="w-full h-40 rounded-2xl bg-[#E8F3FF]/70 border border-[#3182F6]/30 flex flex-col items-center justify-center gap-2.5">
                 <RefreshCw className="w-6 h-6 text-[#3182F6] animate-spin" />
                 <div className="text-center">
                   <p className="text-xs font-extrabold text-[#3182F6]">
@@ -146,40 +147,42 @@ export default function VerifyWorkPage() {
             )}
 
             {ocrStatus === "verified" && (
-              <div className="w-full rounded-2xl bg-[#F0FDF4] border border-[#BBF7D0] p-4 flex flex-col gap-3 shadow-sm">
+              <div className="flex flex-col gap-3 pt-1">
+                {/* 상단 인증 통과 상태 */}
                 <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 bg-[#00B368] text-white px-2.5 py-1 rounded-full text-xs font-black shadow-sm">
-                    <ShieldCheck className="w-3.5 h-3.5" />
+                  <span className="inline-flex items-center gap-1.5 bg-[#E6F7F0] text-[#00B368] px-3 py-1 rounded-full text-xs font-black">
+                    <ShieldCheck className="w-4 h-4 text-[#00B368]" />
                     <span>100% 직장인 인증 완료</span>
                   </span>
                   <button
                     type="button"
                     onClick={handleCardCapture}
-                    className="text-[11px] text-[#6B7684] font-semibold bg-white px-2.5 py-1 rounded-lg border border-[#E5E8EB] active:scale-95 transition-all"
+                    className="text-xs text-[#8B95A1] hover:text-[#191F28] font-bold active:scale-95 transition-all"
                   >
                     다시 찍기
                   </button>
                 </div>
 
-                <div className="bg-white p-3.5 rounded-xl border border-[#DCFCE7] flex flex-col gap-2">
-                  <div className="flex items-center justify-between text-xs">
+                {/* 오픈형 정보 리스트 (중첩 박스 카드 제거) */}
+                <div className="flex flex-col divide-y divide-[#F2F4F6] pt-1">
+                  <div className="py-2.5 flex items-center justify-between text-xs">
                     <span className="text-[#8B95A1] font-bold">인증 회사</span>
-                    <span className="text-[#191F28] font-black">{companyInfo.name}</span>
+                    <span className="text-[#191F28] font-black text-sm">{companyInfo.name}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="py-2.5 flex items-center justify-between text-xs">
                     <span className="text-[#8B95A1] font-bold">소속 부서</span>
                     <span className="text-[#191F28] font-semibold">{companyInfo.dept}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="py-2.5 flex items-center justify-between text-xs">
                     <span className="text-[#8B95A1] font-bold">사내 메일</span>
                     <span className="text-[#191F28] font-medium">{companyInfo.email}</span>
                   </div>
-                </div>
-
-                <div className="flex items-center justify-between text-[11px] px-1 text-[#00B368] font-bold">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" /> 6개월간 인증 상태가 안전하게 유지돼요
-                  </span>
+                  <div className="py-2.5 flex items-center justify-between text-xs">
+                    <span className="text-[#8B95A1] font-bold">재인증 주기</span>
+                    <span className="text-[#00B368] font-bold flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5" /> 6개월간 안전 유지
+                    </span>
+                  </div>
                 </div>
               </div>
             )}
@@ -188,7 +191,7 @@ export default function VerifyWorkPage() {
 
         {/* 2. 회사 이메일 방식 */}
         {method === "email" && (
-          <div className="mt-4 flex flex-col gap-3">
+          <div className="mt-5 flex flex-col gap-3">
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-extrabold text-[#333D4B]">회사 이메일 주소</label>
               <div className="flex gap-2">
@@ -241,14 +244,11 @@ export default function VerifyWorkPage() {
           </div>
         )}
 
-        {/* 프라이버시 안심 노트 */}
-        <div className="mt-4 bg-[#F9FAFB] p-3.5 rounded-2xl border border-[#F2F4F6] flex flex-col gap-1.5 text-[11px] text-[#8B95A1] font-medium">
-          <div className="flex items-center gap-1 text-[#00B368] font-bold">
-            <Lock className="w-3.5 h-3.5" />
-            <span>철저한 프라이버시 보호</span>
-          </div>
+        {/* 프라이버시 안심 노트 (박스 카드 제거 ➔ 일체형 오픈 노트) */}
+        <div className="mt-6 flex items-start gap-2 text-[11px] text-[#8B95A1] font-medium px-1">
+          <Lock className="w-3.5 h-3.5 text-[#00B368] shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            인증 정보는 직장인 확인 목적으로만 사용되며, <strong>회사 동료 및 지인에게는 절대 프로필이 노출되지 않아요.</strong>
+            인증 정보는 직장인 확인 목적으로만 안전하게 사용되며, <strong>회사 동료 및 지인에게는 절대 프로필이 노출되지 않아요.</strong>
           </p>
         </div>
       </div>

@@ -62,39 +62,41 @@ export default function TermsPage() {
           </p>
         </div>
 
-        {/* 약관 리스트 */}
-        <div className="mt-7 flex flex-col gap-3">
-          {/* 전체 동의 버튼 카드 */}
+        {/* 약관 리스트 (박스 카드 형태 제거 ➔ 화면 일체형 오픈 레이아웃) */}
+        <div className="mt-8 flex flex-col">
+          {/* 전체 동의 오픈 헤더 */}
           <button
+            type="button"
             onClick={handleAllAgree}
-            className={`w-full p-4 rounded-2xl border flex items-center gap-3.5 transition-all text-left active:scale-[0.99] ${
-              allAgreed
-                ? "bg-[#E8F3FF] border-[#3182F6]/40 text-[#191F28]"
-                : "bg-[#F9FAFB] border-[#E5E8EB] text-[#191F28]"
-            }`}
+            className="flex items-center gap-3.5 text-left py-2 active:opacity-75 transition-opacity"
           >
             <div
-              className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors ${
-                allAgreed ? "bg-[#3182F6] text-white" : "bg-[#D1D6DB] text-white"
+              className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors shrink-0 ${
+                allAgreed ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
               }`}
             >
-              <Check className="w-3.5 h-3.5 stroke-[3]" />
+              <Check className="w-4 h-4 stroke-[3]" />
             </div>
             <div>
-              <span className="text-sm font-black">약관 전체 동의하기</span>
-              <p className="text-[11px] text-[#8B95A1] mt-0.5">선택 항목까지 모두 포함해요</p>
+              <span className="text-base font-black text-[#191F28]">약관 전체 동의하기</span>
+              <p className="text-xs text-[#8B95A1] mt-0.5 font-medium">선택 항목까지 모두 포함해요</p>
             </div>
           </button>
 
-          <div className="px-2 py-2 flex flex-col gap-3.5 divide-y divide-[#F2F4F6]">
+          {/* 구분선 */}
+          <div className="h-px bg-[#F2F4F6] my-4 w-full" />
+
+          {/* 개별 항목들 */}
+          <div className="flex flex-col gap-4">
             {/* 필수 0: 만 19세 이상 */}
-            <div className="pt-2 flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <button
+                type="button"
                 onClick={() => handleToggle("age")}
                 className="flex items-center gap-3 text-left flex-1"
               >
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors ${
+                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0 ${
                     terms.age ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
                   }`}
                 >
@@ -107,13 +109,14 @@ export default function TermsPage() {
             </div>
 
             {/* 필수 1: 서비스 이용약관 */}
-            <div className="pt-3 flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <button
+                type="button"
                 onClick={() => handleToggle("service")}
                 className="flex items-center gap-3 text-left flex-1"
               >
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors ${
+                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0 ${
                     terms.service ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
                   }`}
                 >
@@ -127,13 +130,14 @@ export default function TermsPage() {
             </div>
 
             {/* 필수 2: 개인정보 수집 및 이용 */}
-            <div className="pt-3 flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <button
+                type="button"
                 onClick={() => handleToggle("privacy")}
                 className="flex items-center gap-3 text-left flex-1"
               >
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors ${
+                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0 ${
                     terms.privacy ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
                   }`}
                 >
@@ -147,13 +151,14 @@ export default function TermsPage() {
             </div>
 
             {/* 선택 1: 마케팅 / 알림 */}
-            <div className="pt-3 flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <button
+                type="button"
                 onClick={() => handleToggle("marketing")}
                 className="flex items-center gap-3 text-left flex-1"
               >
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors ${
+                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0 ${
                     terms.marketing ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
                   }`}
                 >
