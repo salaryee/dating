@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Bell, ShieldCheck } from "lucide-react";
 
 interface MobileHeaderProps {
@@ -14,18 +15,17 @@ export default function MobileHeader({
 }: MobileHeaderProps) {
   return (
     <header className="sticky top-0 z-40 bg-[#F2F4F6]/95 backdrop-blur-md px-5 h-14 flex items-center justify-between transition-colors">
-      {/* 토스 스타일 볼드 로고 / 타이틀 */}
+      {/* 토스 스타일 미니멀 로고 (가로형 사원증 로고) */}
       <Link href="/" className="flex items-center gap-2">
-        <div className="w-7 h-7 rounded-lg bg-[#3182F6] flex items-center justify-center text-white shadow-sm font-black text-xs tracking-tighter">
-          S
-        </div>
-        <div className="flex items-baseline gap-1.5">
-          <span className="font-extrabold text-[17px] text-[#191F28] tracking-tight">
-            {title || "샐러리"}
-          </span>
-          <span className="text-[10px] text-[#3182F6] font-bold bg-[#E8F3FF] px-1.5 py-0.5 rounded-md">
-            직장인 소개팅
-          </span>
+        <div className="relative h-7 w-28 flex items-center">
+          <Image
+            src="/logo-horizontal.png"
+            alt="salaryee"
+            width={120}
+            height={32}
+            className="object-contain object-left h-7 w-auto"
+            priority
+          />
         </div>
       </Link>
 
@@ -45,7 +45,7 @@ export default function MobileHeader({
           className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-200/60 text-[#4E5968] relative transition-colors"
         >
           <Bell className="w-5 h-5 stroke-[2.2]" />
-          <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#3182F6] rounded-full"></span>
+          <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#FF6F61] rounded-full"></span>
         </button>
       </div>
     </header>
