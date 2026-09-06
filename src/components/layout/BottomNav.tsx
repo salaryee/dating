@@ -14,7 +14,7 @@ export default function BottomNav() {
 
   const navItems = [
     {
-      label: "오늘의 추천",
+      label: "오늘의 인연",
       href: "/",
       icon: Sparkles,
       badge: "2",

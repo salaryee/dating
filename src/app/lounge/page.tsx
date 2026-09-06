@@ -66,10 +66,10 @@ export default function LoungePage() {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all active:scale-95 ${
               activeCategory === cat
                 ? "bg-[#191F28] text-white shadow-sm"
-                : "bg-white text-[#4E5968] border border-[#E5E8EB] hover:bg-slate-50"
+                : "bg-white text-[#4E5968] border border-[#E5E8EB] hover:bg-[#F2F4F6]"
             }`}
           >
             {cat}
@@ -77,8 +77,20 @@ export default function LoungePage() {
         ))}
       </div>
 
+      {/* 라운지 글 작성 프롬프트 (토스 커뮤니티 스타일) */}
+      <div className="px-5 pb-2">
+        <div className="bg-white rounded-2xl p-3.5 border border-[#E5E8EB] flex items-center justify-between shadow-sm cursor-pointer hover:border-[#3182F6]/40 transition-all active:scale-[0.99]">
+          <span className="text-xs text-[#8B95A1] font-medium">
+            동료 직장인들과 연애나 소개팅 이야기를 나눠보세요
+          </span>
+          <span className="text-xs font-extrabold text-[#3182F6] flex items-center gap-0.5 shrink-0 ml-2">
+            <Plus className="w-3.5 h-3.5 stroke-[3]" /> 글쓰기
+          </span>
+        </div>
+      </div>
+
       {/* 피드 리스트 영역 (토스 스타일 화이트 카드) */}
-      <div className="p-5 flex flex-col gap-3 pb-28">
+      <div className="p-5 pt-1 flex flex-col gap-3 pb-28">
         {posts.map((post) => (
           <article
             key={post.id}

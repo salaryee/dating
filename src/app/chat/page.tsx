@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import MobileHeader from "@/components/layout/MobileHeader";
 import {
   MessageCircleHeart,
@@ -85,28 +86,28 @@ export default function MatchingAndChatPage() {
 
       {/* 3대 탭 메뉴 (토스 UX: 정갈한 세그먼트 컨트롤) */}
       <div className="px-5 pt-3 pb-2">
-        <div className="flex bg-slate-100 p-1 rounded-2xl">
+        <div className="flex bg-[#E5E8EB]/70 p-1 rounded-2xl">
           <button
             onClick={() => setActiveTab("matched")}
             className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${
               activeTab === "matched"
-                ? "bg-white text-slate-900 shadow-sm"
-                : "text-slate-500 hover:text-slate-800"
+                ? "bg-white text-[#191F28] shadow-sm"
+                : "text-[#6B7684] hover:text-[#191F28]"
             }`}
           >
-            매칭된 대화 ({matchedRooms.length})
+            대화 중 ({matchedRooms.length})
           </button>
           <button
             onClick={() => setActiveTab("received")}
             className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all relative ${
               activeTab === "received"
-                ? "bg-white text-slate-900 shadow-sm"
-                : "text-slate-500 hover:text-slate-800"
+                ? "bg-white text-[#191F28] shadow-sm"
+                : "text-[#6B7684] hover:text-[#191F28]"
             }`}
           >
             받은 호감
             {receivedLikes.length > 0 && (
-              <span className="ml-1 px-1.5 py-0.2 bg-[#3182F6] text-white text-[9px] rounded-full">
+              <span className="ml-1 px-1.5 py-0.2 bg-[#3182F6] text-white text-[9px] rounded-full font-black">
                 {receivedLikes.length}
               </span>
             )}
@@ -115,8 +116,8 @@ export default function MatchingAndChatPage() {
             onClick={() => setActiveTab("sent")}
             className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${
               activeTab === "sent"
-                ? "bg-white text-slate-900 shadow-sm"
-                : "text-slate-500 hover:text-slate-800"
+                ? "bg-white text-[#191F28] shadow-sm"
+                : "text-[#6B7684] hover:text-[#191F28]"
             }`}
           >
             보낸 호감 ({sentLikes.length})
@@ -128,22 +129,23 @@ export default function MatchingAndChatPage() {
       {activeTab === "matched" && (
         <div className="p-5 flex flex-col gap-3 pb-24">
           <div className="flex items-center justify-between px-1">
-            <span className="text-xs font-bold text-slate-500">
+            <span className="text-xs font-bold text-[#8B95A1]">
               서로 호감을 수락한 대화방이에요
             </span>
           </div>
 
           {matchedRooms.map((room) => (
-            <div
+            <Link
               key={room.id}
-              className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex items-center gap-3.5 hover:border-blue-100 transition-all cursor-pointer active:scale-[0.99]"
+              href={`/chat/${room.id}`}
+              className="bg-white rounded-2xl p-4 border border-[#E5E8EB] shadow-sm flex items-center gap-3.5 hover:border-[#3182F6]/40 transition-all cursor-pointer active:scale-[0.99]"
             >
               {/* 손등 썸네일 아바타 */}
               <div
-                className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${room.handGradient} flex items-center justify-center text-slate-700 font-bold text-sm shadow-inner shrink-0 relative`}
+                className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${room.handGradient} flex items-center justify-center text-[#191F28] font-bold text-sm shadow-inner shrink-0 relative`}
               >
-                <Hand className="w-5 h-5 opacity-40 text-slate-900" />
-                <div className="absolute -bottom-1 -right-1 bg-emerald-500 text-white rounded-full p-0.5 ring-2 ring-white">
+                <Hand className="w-5 h-5 opacity-40 text-[#191F28]" />
+                <div className="absolute -bottom-1 -right-1 bg-[#00B368] text-white rounded-full p-0.5 ring-2 ring-white">
                   <ShieldCheck className="w-3 h-3" />
                 </div>
               </div>
@@ -152,25 +154,25 @@ export default function MatchingAndChatPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-sm font-bold text-slate-900">{room.name}</span>
-                    <span className="text-[11px] text-slate-400 font-medium">
+                    <span className="text-sm font-extrabold text-[#191F28]">{room.name}</span>
+                    <span className="text-[11px] text-[#8B95A1] font-semibold">
                       · {room.company} ({room.job})
                     </span>
                   </div>
-                  <span className="text-[10px] text-slate-400">{room.lastMessageTime}</span>
+                  <span className="text-[10px] text-[#8B95A1] font-medium">{room.lastMessageTime}</span>
                 </div>
-                <p className="text-xs text-slate-600 truncate mt-1 leading-normal">
+                <p className="text-xs text-[#4E5968] truncate mt-1 leading-normal font-medium">
                   {room.lastMessage}
                 </p>
               </div>
 
               {/* 안 읽은 메시지 뱃지 */}
               {room.unreadCount > 0 && (
-                <div className="w-5 h-5 rounded-full bg-[#3182F6] text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+                <div className="w-5 h-5 rounded-full bg-[#3182F6] text-white text-[10px] font-black flex items-center justify-center shrink-0">
                   {room.unreadCount}
                 </div>
               )}
-            </div>
+            </Link>
           ))}
         </div>
       )}

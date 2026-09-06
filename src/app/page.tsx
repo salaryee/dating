@@ -204,13 +204,13 @@ export default function HomePage() {
             <div className="flex items-center gap-2.5 pt-1">
               <button
                 onClick={handlePass}
-                className="w-1/3 h-13 rounded-2xl bg-[#F2F4F6] text-[#4E5968] font-extrabold text-sm hover:bg-[#E5E8EB] toss-press-effect"
+                className="w-1/3 h-13 rounded-2xl bg-[#F2F4F6] text-[#4E5968] font-extrabold text-sm hover:bg-[#E5E8EB] active:scale-[0.98] transition-all"
               >
-                다음에
+                다음에 만나요
               </button>
               <button
                 onClick={handleLike}
-                className="w-2/3 h-13 rounded-2xl bg-[#3182F6] text-white font-extrabold text-sm hover:bg-[#1B64DA] toss-press-effect flex items-center justify-center gap-2 shadow-md shadow-blue-500/20"
+                className="w-2/3 h-13 rounded-2xl bg-[#3182F6] text-white font-extrabold text-sm hover:bg-[#1B64DA] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md shadow-blue-500/20"
               >
                 <Heart className="w-4 h-4 fill-white" />
                 <span>호감 보내기</span>
@@ -220,23 +220,23 @@ export default function HomePage() {
           </div>
         ) : (
           /* 추천 완료 화면 (토스 스타일 미니멀) */
-          <div className="bg-white rounded-[28px] p-8 text-center flex flex-col items-center justify-center gap-4 my-auto">
+          <div className="bg-white rounded-[28px] p-8 text-center flex flex-col items-center justify-center gap-4 my-auto border border-[#E5E8EB]/60">
             <div className="w-14 h-14 rounded-2xl bg-[#E8F3FF] flex items-center justify-center text-[#3182F6]">
               <Sparkles className="w-7 h-7" />
             </div>
             <div>
               <h3 className="text-lg font-extrabold text-[#191F28]">
-                오늘의 추천이 끝났어요
+                오늘의 인연을 모두 확인했어요
               </h3>
               <p className="text-xs text-[#8B95A1] mt-1.5 leading-relaxed">
-                매일 밤 10시에 새로운 추천 2명이 도착해요.
+                매일 밤 10시에 새로운 인연 2명이 도착해요.
               </p>
             </div>
             <button
               onClick={handleReset}
-              className="w-full h-12 rounded-2xl bg-[#F2F4F6] text-[#333D4B] font-bold text-sm hover:bg-[#E5E8EB] toss-press-effect mt-2"
+              className="w-full h-12 rounded-2xl bg-[#F2F4F6] text-[#333D4B] font-bold text-sm hover:bg-[#E5E8EB] active:scale-[0.98] transition-all mt-2"
             >
-              추천 다시 보기
+              오늘의 인연 다시 보기
             </button>
           </div>
         )}
