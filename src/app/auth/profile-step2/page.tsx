@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -62,7 +64,7 @@ export default function ProfileStep2Page() {
           </p>
         </div>
 
-        {/* 1. 자필 글씨 촬영 & AI 검증 */}
+        {/* 1. 자필 글씨 촬영 & AI 검증 (verify-work와 동일한 레이아웃 구조) */}
         <div className="mt-6 flex flex-col gap-2">
           <div className="flex items-center justify-between">
             <label className="text-xs font-extrabold text-[#333D4B]">
@@ -78,9 +80,9 @@ export default function ProfileStep2Page() {
             <button
               type="button"
               onClick={simulateCameraCapture}
-              className="w-full h-40 rounded-2xl bg-[#FFFBF2] hover:bg-[#FFF8EA] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
+              className="w-full h-40 rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
             >
-              <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-amber-600 group-hover:text-amber-700 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-amber-600 group-hover:scale-105 transition-transform">
                 <Camera className="w-5 h-5" />
               </div>
               <div className="text-center">
@@ -95,10 +97,10 @@ export default function ProfileStep2Page() {
           )}
 
           {noteStatus === "analyzing" && (
-            <div className="w-full h-40 rounded-2xl bg-[#FFFBF2] flex flex-col items-center justify-center gap-2.5">
-              <RefreshCw className="w-5 h-5 text-amber-600 animate-spin" />
+            <div className="w-full h-40 rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2.5">
+              <RefreshCw className="w-5 h-5 text-[#3182F6] animate-spin" />
               <div className="text-center">
-                <p className="text-xs font-bold text-amber-800">
+                <p className="text-xs font-bold text-[#3182F6]">
                   Gemini AI가 필체와 문구를 분석하고 있어요
                 </p>
                 <p className="text-[11px] text-[#8B95A1] mt-0.5">
@@ -109,32 +111,40 @@ export default function ProfileStep2Page() {
           )}
 
           {noteStatus === "success" && (
-            <div className="w-full rounded-2xl bg-[#FFFDF8] p-4 flex flex-col justify-between h-40 relative">
+            <div className="flex flex-col gap-3 pt-1">
+              {/* 상단 인증 통과 상태 (verify-work와 동일한 레이아웃) */}
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-full text-xs font-bold text-amber-900 shadow-xs">
-                  <FileText className="w-3.5 h-3.5 text-amber-600" />
+                <span className="inline-flex items-center gap-1.5 bg-[#FFF2E8] text-[#FF6F61] px-3 py-1 rounded-full text-xs font-black">
+                  <FileText className="w-4 h-4 text-[#FF6F61]" />
                   <span>자필 엽서 등록 완료</span>
                 </span>
                 <button
                   type="button"
                   onClick={simulateCameraCapture}
-                  className="text-[11px] text-[#6B7684] font-semibold bg-white px-2.5 py-1 rounded-lg hover:bg-slate-50 active:scale-95 transition-all"
+                  className="text-xs text-[#8B95A1] hover:text-[#191F28] font-bold active:scale-95 transition-all"
                 >
                   다시 찍기
                 </button>
               </div>
 
-              <p className="text-xs text-[#333D4B] leading-relaxed font-serif italic my-auto text-center px-3 line-clamp-2">
-                &ldquo;사소한 일상을 편안하게 나누고, 서로의 성장을 조용히 응원해 줄 인연을 찾고 있어요.&rdquo;
-              </p>
-
-              <div className="flex items-center justify-between text-[11px]">
-                <span className="text-[#00B368] font-black flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5" /> 클린 문구 통과
-                </span>
-                <span className="text-[#8B95A1] font-medium font-sans">
-                  비속어 없음 판별
-                </span>
+              {/* 오픈형 정보 리스트 (순백색 캔버스 일체형, 박스 테두리 제거) */}
+              <div className="flex flex-col divide-y divide-[#F2F4F6] pt-1">
+                <div className="py-2.5 flex items-start justify-between text-xs gap-3">
+                  <span className="text-[#8B95A1] font-bold shrink-0">등록 문구</span>
+                  <span className="text-[#191F28] font-serif italic text-right leading-relaxed">
+                    &ldquo;사소한 일상을 편안하게 나누고, 서로의 성장을 조용히 응원해 줄 인연을 찾고 있어요.&rdquo;
+                  </span>
+                </div>
+                <div className="py-2.5 flex items-center justify-between text-xs">
+                  <span className="text-[#8B95A1] font-bold">클린 검증</span>
+                  <span className="text-[#00B368] font-bold flex items-center gap-1">
+                    <Check className="w-3.5 h-3.5" /> 비속어 없음 판정 통과
+                  </span>
+                </div>
+                <div className="py-2.5 flex items-center justify-between text-xs">
+                  <span className="text-[#8B95A1] font-bold">필체 감지</span>
+                  <span className="text-[#3182F6] font-bold">자필 손글씨 인식 완료</span>
+                </div>
               </div>
             </div>
           )}

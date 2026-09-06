@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Camera, Sparkles, Hand, RefreshCw, Lock, Check } from "lucide-react";
@@ -107,7 +109,7 @@ export default function ProfileStep1Page() {
             </div>
           </div>
 
-          {/* 2. 손등 사진 등록 & Gemini AI 실시간 검증 */}
+          {/* 2. 손등 사진 등록 & Gemini AI 실시간 검증 (verify-work와 동일한 레이아웃 구조) */}
           <div className="flex flex-col gap-2 pt-1">
             <div className="flex items-center justify-between">
               <label className="text-xs font-extrabold text-[#333D4B]">
@@ -125,7 +127,7 @@ export default function ProfileStep1Page() {
                 onClick={simulateCameraCapture}
                 className="w-full h-40 rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
               >
-                <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#8B95A1] group-hover:text-[#3182F6] transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#FF6F61] group-hover:scale-105 transition-transform">
                   <Camera className="w-5 h-5" />
                 </div>
                 <div className="text-center">
@@ -154,32 +156,38 @@ export default function ProfileStep1Page() {
             )}
 
             {handPhotoStatus === "success" && (
-              <div className="w-full rounded-2xl bg-gradient-to-br from-[#FFF5ED] via-[#FDF0E7] to-[#F7E6D9] p-4 flex flex-col justify-between h-40 relative overflow-hidden">
+              <div className="flex flex-col gap-3 pt-1">
+                {/* 상단 인증 통과 상태 (verify-work와 동일한 레이아웃) */}
                 <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 bg-white/95 px-2.5 py-1 rounded-full text-xs font-bold text-[#191F28] shadow-sm">
-                    <Hand className="w-3.5 h-3.5 text-[#FF6F61]" />
+                  <span className="inline-flex items-center gap-1.5 bg-[#FFF0EE] text-[#FF6F61] px-3 py-1 rounded-full text-xs font-black">
+                    <Hand className="w-4 h-4 text-[#FF6F61]" />
                     <span>손등 사진 등록 완료</span>
                   </span>
                   <button
                     type="button"
                     onClick={simulateCameraCapture}
-                    className="text-[11px] text-[#6B7684] font-semibold bg-white/90 px-2.5 py-1 rounded-lg hover:bg-white active:scale-95 transition-all"
+                    className="text-xs text-[#8B95A1] hover:text-[#191F28] font-bold active:scale-95 transition-all"
                   >
                     다시 찍기
                   </button>
                 </div>
 
-                <div className="flex items-center justify-center opacity-70">
-                  <Hand className="w-9 h-9 text-[#C98B6D]" />
-                </div>
-
-                <div className="flex items-center justify-between text-[11px]">
-                  <span className="text-[#00B368] font-black flex items-center gap-1">
-                    <Check className="w-3.5 h-3.5" /> AI 검증 통과
-                  </span>
-                  <span className="text-[#8B95A1] font-medium">
-                    얼굴 비노출 확인됨
-                  </span>
+                {/* 오픈형 정보 리스트 (순백색 캔버스 일체형, 박스 테두리 제거) */}
+                <div className="flex flex-col divide-y divide-[#F2F4F6] pt-1">
+                  <div className="py-2.5 flex items-center justify-between text-xs">
+                    <span className="text-[#8B95A1] font-bold">인식 대상</span>
+                    <span className="text-[#191F28] font-black text-sm">손등 피부톤 감지 완료</span>
+                  </div>
+                  <div className="py-2.5 flex items-center justify-between text-xs">
+                    <span className="text-[#8B95A1] font-bold">얼굴 비노출</span>
+                    <span className="text-[#00B368] font-bold flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5" /> 얼굴 미포함 안심 판정
+                    </span>
+                  </div>
+                  <div className="py-2.5 flex items-center justify-between text-xs">
+                    <span className="text-[#8B95A1] font-bold">프라이버시</span>
+                    <span className="text-[#3182F6] font-bold">배경 자동 블러 보호</span>
+                  </div>
                 </div>
               </div>
             )}

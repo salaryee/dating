@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#E5E8EB]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MobileContainer>
           <main className="flex-1 flex flex-col">{children}</main>

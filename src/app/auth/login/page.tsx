@@ -1,15 +1,27 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, Hand, Lock } from "lucide-react";
+import { ShieldCheck, Hand, Lock, ArrowLeft } from "lucide-react";
 
 export default function LoginPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 max-w-[440px] mx-auto">
-      <div className="pt-8 flex flex-col">
+      <div>
+        {/* 상단 뒤로가기 헤더 (verify-work와 동일한 레이아웃 구조) */}
+        <div className="pt-2 pb-5">
+          <Link
+            href="/"
+            className="text-[#4E5968] hover:text-[#191F28] inline-flex items-center gap-1 active:scale-95 transition-transform"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+        </div>
+
         {/* 브랜드 로고 */}
-        <div className="mb-6 flex items-center">
+        <div className="mb-5 flex items-center">
           <Image
             src="/logo-vertical.png"
             alt="salaryee"
@@ -33,7 +45,7 @@ export default function LoginPage() {
         </p>
 
         {/* 토스 3대 안심 가치 (순백색 캔버스 일체형 오픈 리스트) */}
-        <div className="mt-9 flex flex-col gap-5">
+        <div className="mt-8 flex flex-col gap-5">
           <div className="flex items-start gap-3.5">
             <div className="w-10 h-10 rounded-2xl bg-[#E8F3FF] flex items-center justify-center text-[#3182F6] shrink-0">
               <Hand className="w-5 h-5" />
@@ -69,6 +81,14 @@ export default function LoginPage() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* 프라이버시 안심 노트 (verify-work와 동일한 레이아웃) */}
+        <div className="mt-7 flex items-start gap-2 text-[11px] text-[#8B95A1] font-medium px-1">
+          <Lock className="w-3.5 h-3.5 text-[#00B368] shrink-0 mt-0.5" />
+          <p className="leading-relaxed">
+            인증 정보는 직장인 확인 목적으로만 안전하게 사용되며, <strong>회사 동료 및 지인에게는 절대 프로필이 노출되지 않아요.</strong>
+          </p>
         </div>
       </div>
 
