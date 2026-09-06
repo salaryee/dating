@@ -6,9 +6,9 @@ interface MobileContainerProps {
 
 export default function MobileContainer({ children }: MobileContainerProps) {
   return (
-    <div className="min-h-screen bg-neutral-900 flex justify-center text-neutral-900 antialiased selection:bg-rose-500 selection:text-white">
-      {/* 스마트폰 비율 컨테이너 (최대 가로 480px, 중앙 정렬) */}
-      <div className="w-full max-w-md min-h-screen bg-slate-50 flex flex-col relative shadow-2xl border-x border-slate-200/80">
+    <div className="min-h-screen bg-[#E5E8EB] flex justify-center text-[#191F28] antialiased selection:bg-[#3182F6] selection:text-white">
+      {/* 토스 앱 전용 모바일 뷰포트 컨테이너 (최대 가로 450px) */}
+      <div className="w-full max-w-[440px] min-h-screen bg-[#F2F4F6] flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.08)] border-x border-[#E5E8EB]">
         {children}
       </div>
     </div>
