@@ -107,7 +107,7 @@ export default function ProfileStep2Page() {
           )}
 
           {noteStatus === "success" && (
-            <div className="w-full rounded-2xl bg-[#FFFDF8] border border-[#F2E8D5] p-4 flex flex-col justify-between h-36 shadow-xs relative">
+            <div className="w-full rounded-2xl bg-[#FFFDF8] p-4 flex flex-col justify-between h-36 relative">
               <div className="flex items-center justify-between">
                 <span className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-full text-xs font-bold text-amber-900 border border-[#F2E8D5] shadow-xs">
                   <FileText className="w-3.5 h-3.5 text-amber-600" />

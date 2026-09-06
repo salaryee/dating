@@ -172,7 +172,7 @@ function ChatContent() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F2F4F6]">
+    <div className="flex flex-col min-h-screen bg-white">
       <MobileHeader title="인연 · 대화" showVerifiedBadge={false} />
 
       {/* 토스 상단 토스트 */}
@@ -257,10 +257,10 @@ function ChatContent() {
           </div>
 
           {currentProfile ? (
-            <div className="bg-white rounded-[28px] p-5 shadow-sm border border-[#E5E8EB] flex flex-col gap-4 mt-1">
+            <div className="flex flex-col gap-4 mt-1">
               
               {/* 1. 토스 매칭 인사이트 칩 (Why this match?) */}
-              <div className="bg-[#E8F3FF] rounded-2xl p-3 flex items-center gap-2.5 border border-[#3182F6]/15">
+              <div className="bg-[#E8F3FF] rounded-2xl p-3.5 flex items-center gap-2.5">
                 <div className="w-7 h-7 rounded-xl bg-[#3182F6] flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/30">
                   <Sparkles className="w-3.5 h-3.5 text-white" />
                 </div>
@@ -293,11 +293,11 @@ function ChatContent() {
                 </p>
               </div>
 
-              {/* 3. 체온 & 필체 듀얼 뷰 (Dual Visual 2분할 카드) */}
+              {/* 3. 체온 & 필체 듀얼 뷰 (Dual Visual 2분할) */}
               <div className="grid grid-cols-2 gap-2.5">
                 {/* 좌측: 손등의 온기 카드 */}
                 <div
-                  className={`h-36 rounded-2xl bg-gradient-to-br ${currentProfile.handGradient} p-3 flex flex-col justify-between border border-black/5 relative overflow-hidden`}
+                  className={`h-36 rounded-2xl bg-gradient-to-br ${currentProfile.handGradient} p-3.5 flex flex-col justify-between relative overflow-hidden`}
                 >
                   <span className="self-start text-[10px] font-bold text-[#4E5968] bg-white/80 backdrop-blur-sm px-2 py-0.5 rounded-md">
                     얼굴 대신 손등의 온기
@@ -313,7 +313,7 @@ function ChatContent() {
                 </div>
 
                 {/* 우측: 정갈한 자필 엽서 카드 */}
-                <div className="h-36 rounded-2xl bg-[#FFFDF8] border border-[#F2E8D5] p-3 flex flex-col justify-between shadow-xs">
+                <div className="h-36 rounded-2xl bg-[#FFFDF8] p-3.5 flex flex-col justify-between">
                   <span className="self-start text-[10px] font-bold text-[#8F6B00] bg-amber-50 px-2 py-0.5 rounded-md">
                     정갈한 자필 엽서
                   </span>
@@ -328,9 +328,9 @@ function ChatContent() {
                 </div>
               </div>
 
-              {/* 4. 직장인 라이프스타일 팩트 시트 (TDS Row List) */}
-              <div className="bg-[#F9FAFB] rounded-2xl p-4 border border-[#F2F4F6] flex flex-col gap-3">
-                <div className="flex items-center gap-2.5">
+              {/* 4. 직장인 라이프스타일 팩트 시트 (박스 제거 ➔ 오픈 리스트) */}
+              <div className="flex flex-col divide-y divide-[#F2F4F6] pt-1">
+                <div className="py-3 flex items-center gap-2.5">
                   <Train className="w-4 h-4 text-[#8B95A1] shrink-0" />
                   <div className="flex items-center justify-between flex-1 text-xs">
                     <span className="font-bold text-[#8B95A1]">출퇴근 루틴</span>
@@ -338,9 +338,7 @@ function ChatContent() {
                   </div>
                 </div>
 
-                <div className="h-px bg-[#E5E8EB]/60 w-full" />
-
-                <div className="flex items-center gap-2.5">
+                <div className="py-3 flex items-center gap-2.5">
                   <Coffee className="w-4 h-4 text-[#8B95A1] shrink-0" />
                   <div className="flex items-center justify-between flex-1 text-xs">
                     <span className="font-bold text-[#8B95A1]">성향 · 라이프</span>
@@ -350,9 +348,7 @@ function ChatContent() {
                   </div>
                 </div>
 
-                <div className="h-px bg-[#E5E8EB]/60 w-full" />
-
-                <div className="flex items-center gap-2.5">
+                <div className="py-3 flex items-center gap-2.5">
                   <Briefcase className="w-4 h-4 text-[#8B95A1] shrink-0" />
                   <div className="flex items-center justify-between flex-1 text-xs">
                     <span className="font-bold text-[#8B95A1]">직무 및 연차</span>
@@ -361,8 +357,8 @@ function ChatContent() {
                 </div>
               </div>
 
-              {/* 5. 토스식 가치관 1문 1답 */}
-              <div className="bg-[#F9FAFB] rounded-2xl p-4 border border-[#F2F4F6] flex flex-col gap-1.5">
+              {/* 5. 토스식 가치관 1문 1답 (박스 제거 ➔ 오픈 리스트) */}
+              <div className="flex flex-col gap-1.5 pt-1">
                 <div className="flex items-center gap-1.5">
                   <MessageSquareQuote className="w-3.5 h-3.5 text-[#3182F6]" />
                   <span className="text-[11px] font-extrabold text-[#3182F6]">가치관 1문 1답</span>
@@ -370,7 +366,7 @@ function ChatContent() {
                 <h4 className="text-xs font-bold text-[#191F28] mt-0.5">
                   Q. {currentProfile.qna.question}
                 </h4>
-                <p className="text-xs text-[#4E5968] font-medium leading-relaxed mt-0.5 bg-white p-2.5 rounded-xl border border-[#E5E8EB]/50">
+                <p className="text-xs text-[#4E5968] font-medium leading-relaxed mt-0.5 bg-[#F9FAFB] p-3 rounded-2xl">
                   &ldquo;{currentProfile.qna.answer}&rdquo;
                 </p>
               </div>
@@ -405,7 +401,7 @@ function ChatContent() {
 
             </div>
           ) : (
-            <div className="bg-white rounded-[28px] p-8 text-center flex flex-col items-center justify-center gap-4 my-auto border border-[#E5E8EB]/60 mt-4">
+            <div className="bg-[#F9FAFB] rounded-3xl p-8 text-center flex flex-col items-center justify-center gap-4 my-auto mt-4">
               <div className="w-14 h-14 rounded-2xl bg-[#E8F3FF] flex items-center justify-center text-[#3182F6]">
                 <Sparkles className="w-7 h-7" />
               </div>

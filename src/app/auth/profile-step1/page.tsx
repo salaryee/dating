@@ -152,7 +152,7 @@ export default function ProfileStep1Page() {
             )}
 
             {handPhotoStatus === "success" && (
-              <div className="w-full rounded-2xl bg-gradient-to-br from-[#FFF5ED] via-[#FDF0E7] to-[#F7E6D9] border border-[#FFD2C0] p-4 flex flex-col justify-between h-36 shadow-sm relative overflow-hidden">
+              <div className="w-full rounded-2xl bg-gradient-to-br from-[#FFF5ED] via-[#FDF0E7] to-[#F7E6D9] p-4 flex flex-col justify-between h-36 relative overflow-hidden">
                 <div className="flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 bg-white/95 px-2.5 py-1 rounded-full text-xs font-bold text-[#191F28] shadow-sm">
                     <Hand className="w-3.5 h-3.5 text-[#FF6F61]" />
