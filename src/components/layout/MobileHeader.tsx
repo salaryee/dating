@@ -15,19 +15,21 @@ export default function MobileHeader({
 }: MobileHeaderProps) {
   return (
     <header className="sticky top-0 z-40 bg-[#F2F4F6]/95 backdrop-blur-md px-5 h-14 flex items-center justify-between transition-colors">
-      {/* 토스 스타일 미니멀 로고 (가로형 사원증 로고) */}
-      <Link href="/" className="flex items-center gap-2">
-        <div className="relative h-7 w-28 flex items-center">
+      {/* 토스 스타일: 홈에서는 브랜드 로고, 서브페이지에서는 페이지 타이틀 */}
+      {title ? (
+        <h1 className="text-[19px] font-bold text-[#191F28] tracking-tight">{title}</h1>
+      ) : (
+        <Link href="/" className="flex items-center active:opacity-80 transition-opacity">
           <Image
             src="/logo-horizontal.png"
             alt="salaryee"
-            width={120}
-            height={32}
-            className="object-contain object-left h-7 w-auto"
+            width={105}
+            height={35}
+            className="h-[34px] w-auto object-contain"
             priority
           />
-        </div>
-      </Link>
+        </Link>
+      )}
 
       {/* 우측 상단 액션 (인증 상태 & 토스 벨 아이콘) */}
       <div className="flex items-center gap-2">

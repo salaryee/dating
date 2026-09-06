@@ -7,15 +7,14 @@ import { ShieldCheck, Hand, FileText } from "lucide-react";
 export default function LoginPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-7">
-      {/* 상단 브랜딩 및 세로형 사원증 로고 (토스 스타일 여백) */}
       <div className="pt-8 flex flex-col">
-        <div className="relative w-40 h-24 mb-6">
+        <div className="mb-6 flex items-center">
           <Image
             src="/logo-vertical.png"
             alt="salaryee"
-            width={180}
+            width={128}
             height={100}
-            className="object-contain object-left h-24 w-auto"
+            className="h-20 w-auto object-contain"
             priority
           />
         </div>
