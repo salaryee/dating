@@ -172,7 +172,7 @@ function ChatContent() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-[#F2F4F6]">
       <MobileHeader title="인연 · 대화" showVerifiedBadge={false} />
 
       {/* 토스 상단 토스트 */}
@@ -257,7 +257,7 @@ function ChatContent() {
           </div>
 
           {currentProfile ? (
-            <div className="flex flex-col gap-4 mt-1">
+            <div className="bg-white rounded-[28px] p-5 shadow-sm border border-[#E5E8EB] flex flex-col gap-4 mt-1">
               
               {/* 1. 토스 매칭 인사이트 칩 (Why this match?) */}
               <div className="bg-[#E8F3FF] rounded-2xl p-3.5 flex items-center gap-2.5">
@@ -401,7 +401,7 @@ function ChatContent() {
 
             </div>
           ) : (
-            <div className="bg-[#F9FAFB] rounded-3xl p-8 text-center flex flex-col items-center justify-center gap-4 my-auto mt-4">
+            <div className="bg-white rounded-[28px] p-8 text-center flex flex-col items-center justify-center gap-4 my-auto border border-[#E5E8EB]/60 mt-4">
               <div className="w-14 h-14 rounded-2xl bg-[#E8F3FF] flex items-center justify-center text-[#3182F6]">
                 <Sparkles className="w-7 h-7" />
               </div>
