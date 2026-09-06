@@ -1,25 +1,100 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import MobileHeader from "@/components/layout/MobileHeader";
 import {
-  MessageCircleHeart,
-  ShieldCheck,
   Heart,
   X,
-  Check,
-  Clock,
   Sparkles,
-  ChevronRight,
+  Building2,
+  ShieldCheck,
+  CheckCircle2,
   Hand,
   FileText,
+  ChevronRight,
+  Clock,
+  RotateCcw,
+  MessageCircleHeart,
+  Check,
 } from "lucide-react";
 
-export default function MatchingAndChatPage() {
-  const [activeTab, setActiveTab] = useState<"matched" | "received" | "sent">("matched");
+// 오늘의 인연 데이터 (기존 홈 카드 통합)
+const TODAY_RECOMMENDATIONS = [
+  {
+    id: "rec-1",
+    name: "지민",
+    age: 29,
+    company: "네이버",
+    job: "기획자",
+    location: "판교",
+    mbti: "ENFP",
+    commute: "09:30 출근 · 지하철",
+    lifestyle: "비흡연 · 가끔 한잔",
+    handGradient: "from-[#F7EFE8] to-[#EFE2D6]",
+    quote: "퇴근 후 좋아하는 음악 들으며 밤 산책하는 시간을 가장 아껴요.",
+  },
+  {
+    id: "rec-2",
+    name: "준호",
+    age: 31,
+    company: "토스",
+    job: "데이터 엔지니어",
+    location: "강남",
+    mbti: "INTJ",
+    commute: "10:00 출근 · 자차",
+    lifestyle: "비흡연 · 안 마심",
+    handGradient: "from-[#E8F0F8] to-[#D6E4F2]",
+    quote: "주말엔 러닝을 하거나 서점에서 서로의 가치관을 나누고 싶어요.",
+  },
+];
 
-  // 매칭된 대화 목록 (기획서 7번: 매칭 성공 시 대화방 개설)
+function ChatContent() {
+  const searchParams = useSearchParams();
+  const initialTab = (searchParams.get("tab") as "today" | "matched" | "received" | "sent") || "today";
+
+  const [activeTab, setActiveTab] = useState<"today" | "matched" | "received" | "sent">(initialTab);
+
+  // 오늘의 인연 상태
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardTab, setCardTab] = useState<"hand" | "note">("hand");
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const tabParam = searchParams.get("tab") as "today" | "matched" | "received" | "sent";
+    if (tabParam && ["today", "matched", "received", "sent"].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [searchParams]);
+
+  const currentProfile = TODAY_RECOMMENDATIONS[currentIndex];
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    setTimeout(() => setToastMessage(null), 2500);
+  };
+
+  const handlePass = () => {
+    showToast("다음 추천으로 넘어갔어요");
+    setCardTab("hand");
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  const handleLike = () => {
+    if (currentProfile) {
+      showToast(`${currentProfile.name}님에게 호감을 보냈어요`);
+    }
+    setCardTab("hand");
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  const handleReset = () => {
+    setCurrentIndex(0);
+    setCardTab("hand");
+  };
+
+  // 매칭된 대화 목록
   const matchedRooms = [
     {
       id: "room-1",
@@ -45,7 +120,7 @@ export default function MatchingAndChatPage() {
     },
   ];
 
-  // 내가 받은 호감 목록 (기획서 6번: 수락/거절 선택)
+  // 내가 받은 호감 목록
   const receivedLikes = [
     {
       id: "recv-1",
@@ -60,7 +135,7 @@ export default function MatchingAndChatPage() {
     },
   ];
 
-  // 내가 보낸 호감 목록 (기획서 6번: 대기 중 / 거절 뱃지)
+  // 내가 보낸 호감 목록
   const sentLikes = [
     {
       id: "sent-1",
@@ -68,7 +143,7 @@ export default function MatchingAndChatPage() {
       company: "라인플러스",
       job: "UI/UX 디자이너",
       sentTime: "어제",
-      status: "pending", // 수락 대기 중
+      status: "pending",
     },
     {
       id: "sent-2",
@@ -76,61 +151,227 @@ export default function MatchingAndChatPage() {
       company: "LG전자",
       job: "마케팅",
       sentTime: "3일 전",
-      status: "rejected", // 거절됨 (기획서: 거절 뱃지 표시)
+      status: "rejected",
     },
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F2F4F6]">
-      <MobileHeader title="호감 · 대화" showVerifiedBadge={false} />
+      <MobileHeader title="인연 · 대화" showVerifiedBadge={false} />
 
-      {/* 3대 탭 메뉴 (토스 UX: 정갈한 세그먼트 컨트롤) */}
-      <div className="px-5 pt-3 pb-2">
-        <div className="flex bg-[#E5E8EB]/70 p-1 rounded-2xl">
+      {/* 토스 상단 토스트 */}
+      {toastMessage && (
+        <div className="fixed top-14 left-1/2 -translate-x-1/2 w-[90%] max-w-sm z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+          <div className="bg-[#191F28] text-white px-4 py-3 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-[#3182F6] shrink-0" />
+            <span>{toastMessage}</span>
+          </div>
+        </div>
+      )}
+
+      {/* 4대 탭 메뉴 (토스 스타일 세그먼트) */}
+      <div className="px-4 pt-3 pb-2">
+        <div className="flex bg-[#E5E8EB]/80 p-1 rounded-2xl">
           <button
-            onClick={() => setActiveTab("matched")}
-            className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${
-              activeTab === "matched"
-                ? "bg-white text-[#191F28] shadow-sm"
+            onClick={() => setActiveTab("today")}
+            className={`flex-1 py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all relative ${
+              activeTab === "today"
+                ? "bg-white text-[#191F28] shadow-sm font-black"
                 : "text-[#6B7684] hover:text-[#191F28]"
             }`}
           >
-            대화 중 ({matchedRooms.length})
+            오늘의 인연
+            {remainingCountCheck(currentIndex) > 0 && (
+              <span className="ml-1 px-1.5 py-0.2 bg-[#3182F6] text-white text-[9px] rounded-full font-black">
+                {remainingCountCheck(currentIndex)}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => setActiveTab("matched")}
+            className={`flex-1 py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all relative ${
+              activeTab === "matched"
+                ? "bg-white text-[#191F28] shadow-sm font-black"
+                : "text-[#6B7684] hover:text-[#191F28]"
+            }`}
+          >
+            대화 중
+            <span className="ml-1 px-1.5 py-0.2 bg-[#3182F6] text-white text-[9px] rounded-full font-black">
+              {matchedRooms.length}
+            </span>
           </button>
           <button
             onClick={() => setActiveTab("received")}
-            className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all relative ${
+            className={`flex-1 py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all relative ${
               activeTab === "received"
-                ? "bg-white text-[#191F28] shadow-sm"
+                ? "bg-white text-[#191F28] shadow-sm font-black"
                 : "text-[#6B7684] hover:text-[#191F28]"
             }`}
           >
             받은 호감
             {receivedLikes.length > 0 && (
-              <span className="ml-1 px-1.5 py-0.2 bg-[#3182F6] text-white text-[9px] rounded-full font-black">
+              <span className="ml-1 px-1.5 py-0.2 bg-[#FF6F61] text-white text-[9px] rounded-full font-black">
                 {receivedLikes.length}
               </span>
             )}
           </button>
           <button
             onClick={() => setActiveTab("sent")}
-            className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all ${
+            className={`flex-1 py-2 text-[11px] sm:text-xs font-bold rounded-xl transition-all ${
               activeTab === "sent"
-                ? "bg-white text-[#191F28] shadow-sm"
+                ? "bg-white text-[#191F28] shadow-sm font-black"
                 : "text-[#6B7684] hover:text-[#191F28]"
             }`}
           >
-            보낸 호감 ({sentLikes.length})
+            보낸 호감
           </button>
         </div>
       </div>
 
-      {/* 탭 1: 매칭된 대화방 목록 */}
+      {/* 탭 1: 오늘의 인연 (1순위 핵심 탭) */}
+      {activeTab === "today" && (
+        <div className="flex-1 px-4 pb-24 flex flex-col justify-start">
+          <div className="py-2 flex items-center justify-between px-1">
+            <span className="text-xs font-bold text-[#8B95A1]">
+              매일 밤 10시에 도착하는 소중한 인연이에요
+            </span>
+            <span className="text-xs bg-[#E8F3FF] text-[#3182F6] font-extrabold px-2 py-0.5 rounded-full">
+              {Math.min(currentIndex + 1, TODAY_RECOMMENDATIONS.length)} / {TODAY_RECOMMENDATIONS.length}
+            </span>
+          </div>
+
+          {currentProfile ? (
+            <div className="bg-white rounded-[28px] p-4 sm:p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#E5E8EB]/60 flex flex-col gap-3.5 mt-1">
+              {/* 손등 사진 ↔ 자필 글씨 토글 */}
+              <div className="flex bg-[#F2F4F6] p-1 rounded-xl">
+                <button
+                  onClick={() => setCardTab("hand")}
+                  className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    cardTab === "hand"
+                      ? "bg-white text-[#191F28] shadow-sm font-black"
+                      : "text-[#8B95A1]"
+                  }`}
+                >
+                  손등 사진
+                </button>
+                <button
+                  onClick={() => setCardTab("note")}
+                  className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    cardTab === "note"
+                      ? "bg-white text-[#191F28] shadow-sm font-black"
+                      : "text-[#8B95A1]"
+                  }`}
+                >
+                  자필 글씨
+                </button>
+              </div>
+
+              {/* 비주얼 영역 */}
+              {cardTab === "hand" ? (
+                <div
+                  className={`h-48 sm:h-52 rounded-[20px] bg-gradient-to-br ${currentProfile.handGradient} flex flex-col justify-between p-4 relative overflow-hidden`}
+                >
+                  <span className="self-start bg-white/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-bold text-[#333D4B]">
+                    얼굴 대신 손등의 온기
+                  </span>
+                  <span className="self-end text-[10px] font-bold text-[#4E5968] bg-white/70 backdrop-blur-md px-2 py-0.5 rounded-lg">
+                    Gemini AI 검증 완료
+                  </span>
+                </div>
+              ) : (
+                <div className="h-48 sm:h-52 rounded-[20px] bg-[#FFFBF2] p-5 flex flex-col justify-between border border-[#F5E8D0]">
+                  <span className="self-start bg-white px-2.5 py-1 rounded-full text-[11px] font-bold text-[#8F6B00]">
+                    직접 쓴 정갈한 손글씨
+                  </span>
+                  <p className="text-sm text-[#333D4B] leading-relaxed font-serif italic my-auto text-center px-2">
+                    &ldquo;{currentProfile.quote}&rdquo;
+                  </p>
+                  <span className="self-end text-[10px] font-bold text-[#8F6B00]/70">
+                    클린 문구 검증 완료
+                  </span>
+                </div>
+              )}
+
+              {/* 인적사항 */}
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-[22px] font-black text-[#191F28] tracking-tight">
+                    {currentProfile.name}
+                  </h2>
+                  <span className="text-base font-bold text-[#8B95A1]">
+                    {currentProfile.age}세
+                  </span>
+                  <span className="ml-auto text-xs text-[#00B368] font-bold bg-[#E6F7F0] px-2 py-0.5 rounded-md flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#00B368]" />
+                    {currentProfile.company}
+                  </span>
+                </div>
+
+                <p className="text-xs text-[#6B7684] mt-1 font-medium">
+                  {currentProfile.job} · {currentProfile.location}
+                </p>
+              </div>
+
+              {/* 라이프스타일 칩 3종 */}
+              <div className="flex items-center gap-1.5 flex-wrap pt-1 border-t border-[#F2F4F6]">
+                <span className="bg-[#F2F4F6] text-[#4E5968] text-xs font-semibold px-2.5 py-1 rounded-lg">
+                  {currentProfile.mbti}
+                </span>
+                <span className="bg-[#F2F4F6] text-[#4E5968] text-xs font-semibold px-2.5 py-1 rounded-lg">
+                  {currentProfile.commute}
+                </span>
+                <span className="bg-[#F2F4F6] text-[#4E5968] text-xs font-semibold px-2.5 py-1 rounded-lg">
+                  {currentProfile.lifestyle}
+                </span>
+              </div>
+
+              {/* 하단 버튼 2개 */}
+              <div className="flex items-center gap-2.5 pt-1">
+                <button
+                  onClick={handlePass}
+                  className="w-1/3 h-13 rounded-2xl bg-[#F2F4F6] text-[#4E5968] font-extrabold text-sm hover:bg-[#E5E8EB] active:scale-[0.98] transition-all"
+                >
+                  다음에 만나요
+                </button>
+                <button
+                  onClick={handleLike}
+                  className="w-2/3 h-13 rounded-2xl bg-[#3182F6] text-white font-extrabold text-sm hover:bg-[#1B64DA] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md shadow-blue-500/20"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  <span>호감 보내기</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-white rounded-[28px] p-8 text-center flex flex-col items-center justify-center gap-4 my-auto border border-[#E5E8EB]/60 mt-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#E8F3FF] flex items-center justify-center text-[#3182F6]">
+                <Sparkles className="w-7 h-7" />
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-[#191F28]">
+                  오늘의 인연을 모두 확인했어요
+                </h3>
+                <p className="text-xs text-[#8B95A1] mt-1.5 leading-relaxed">
+                  매일 밤 10시에 새로운 직장인 인연 2명이 도착해요.
+                </p>
+              </div>
+              <button
+                onClick={handleReset}
+                className="w-full h-12 rounded-2xl bg-[#F2F4F6] text-[#333D4B] font-bold text-sm hover:bg-[#E5E8EB] active:scale-[0.98] transition-all mt-2"
+              >
+                오늘의 인연 다시 보기
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 탭 2: 매칭된 대화방 목록 */}
       {activeTab === "matched" && (
-        <div className="p-5 flex flex-col gap-3 pb-24">
+        <div className="p-4 flex flex-col gap-3 pb-24">
           <div className="flex items-center justify-between px-1">
             <span className="text-xs font-bold text-[#8B95A1]">
-              서로 호감을 수락한 대화방이에요
+              서로 호감을 수락한 안심 대화방이에요
             </span>
           </div>
 
@@ -138,37 +379,35 @@ export default function MatchingAndChatPage() {
             <Link
               key={room.id}
               href={`/chat/${room.id}`}
-              className="bg-white rounded-2xl p-4 border border-[#E5E8EB] shadow-sm flex items-center gap-3.5 hover:border-[#3182F6]/40 transition-all cursor-pointer active:scale-[0.99]"
+              className="bg-white rounded-3xl p-4 shadow-sm border border-[#E5E8EB] flex items-center gap-3.5 hover:bg-slate-50 transition-colors active:scale-[0.99]"
             >
-              {/* 손등 썸네일 아바타 */}
               <div
-                className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${room.handGradient} flex items-center justify-center text-[#191F28] font-bold text-sm shadow-inner shrink-0 relative`}
+                className={`w-13 h-13 rounded-2xl bg-gradient-to-br ${room.handGradient} flex items-center justify-center shrink-0 border border-black/5`}
               >
-                <Hand className="w-5 h-5 opacity-40 text-[#191F28]" />
-                <div className="absolute -bottom-1 -right-1 bg-[#00B368] text-white rounded-full p-0.5 ring-2 ring-white">
-                  <ShieldCheck className="w-3 h-3" />
-                </div>
+                <Hand className="w-5 h-5 text-slate-500/80" />
               </div>
 
-              {/* 대화방 정보 */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-sm font-extrabold text-[#191F28]">{room.name}</span>
-                    <span className="text-[11px] text-[#8B95A1] font-semibold">
-                      · {room.company} ({room.job})
+                    <span className="font-extrabold text-sm text-[#191F28]">
+                      {room.name}
+                    </span>
+                    <span className="text-[11px] text-[#00B368] font-bold bg-[#E6F7F0] px-1.5 py-0.2 rounded">
+                      {room.company}
                     </span>
                   </div>
-                  <span className="text-[10px] text-[#8B95A1] font-medium">{room.lastMessageTime}</span>
+                  <span className="text-[11px] text-[#8B95A1] font-medium">
+                    {room.lastMessageTime}
+                  </span>
                 </div>
-                <p className="text-xs text-[#4E5968] truncate mt-1 leading-normal font-medium">
+                <p className="text-xs text-[#4E5968] truncate font-medium">
                   {room.lastMessage}
                 </p>
               </div>
 
-              {/* 안 읽은 메시지 뱃지 */}
               {room.unreadCount > 0 && (
-                <div className="w-5 h-5 rounded-full bg-[#3182F6] text-white text-[10px] font-black flex items-center justify-center shrink-0">
+                <div className="w-5 h-5 rounded-full bg-[#3182F6] text-white text-[10px] font-bold flex items-center justify-center shrink-0">
                   {room.unreadCount}
                 </div>
               )}
@@ -177,86 +416,114 @@ export default function MatchingAndChatPage() {
         </div>
       )}
 
-      {/* 탭 2: 내가 받은 호감 목록 (수락 / 거절) */}
+      {/* 탭 3: 내가 받은 호감 목록 */}
       {activeTab === "received" && (
-        <div className="p-5 flex flex-col gap-3 pb-24">
-          <span className="text-xs font-bold text-slate-500 px-1">
-            내 손글씨와 가치관에 호감을 표현한 직장인이에요
-          </span>
+        <div className="p-4 flex flex-col gap-3 pb-24">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs font-bold text-[#8B95A1]">
+              나에게 도착한 호감을 72시간 내 수락해 보세요
+            </span>
+          </div>
 
-          {receivedLikes.map((like) => (
+          {receivedLikes.map((item) => (
             <div
-              key={like.id}
-              className="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col gap-3.5"
+              key={item.id}
+              className="bg-white rounded-3xl p-5 shadow-sm border border-[#E5E8EB] flex flex-col gap-3.5"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-base font-bold text-slate-900">{like.name}</span>
-                  <span className="text-xs text-slate-500 font-medium">
-                    {like.age}세 · {like.company}
-                  </span>
-                  <span className="text-[10px] bg-blue-50 text-[#3182F6] px-1.5 py-0.5 rounded font-bold">
-                    {like.mbti}
-                  </span>
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${item.handGradient} flex items-center justify-center shrink-0 border border-black/5`}
+                  >
+                    <Hand className="w-5 h-5 text-slate-500/80" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-extrabold text-sm text-[#191F28]">
+                        {item.name}
+                      </span>
+                      <span className="text-xs text-[#8B95A1] font-bold">{item.age}세</span>
+                    </div>
+                    <p className="text-xs text-[#4E5968] font-medium mt-0.5">
+                      {item.company} · {item.job}
+                    </p>
+                  </div>
                 </div>
-                <span className="text-[11px] text-slate-400">{like.receivedTime}</span>
+
+                <span className="text-[11px] text-[#FF6F61] font-extrabold bg-[#FFF0EE] px-2 py-0.5 rounded-full">
+                  {item.receivedTime}
+                </span>
               </div>
 
-              {/* 상대방 자필 요약 문구 */}
-              <div className="bg-amber-50/60 p-3 rounded-2xl border border-amber-100 text-xs text-slate-700 italic flex items-center gap-2">
+              <div className="bg-[#FFFBF2] p-3 rounded-2xl border border-[#F5E8D0] flex items-center gap-2">
                 <FileText className="w-4 h-4 text-amber-600 shrink-0" />
-                <span>"{like.handwritingSummary}"</span>
+                <p className="text-xs text-[#6B7684] italic truncate font-serif">
+                  &ldquo;{item.handwritingSummary}&rdquo;
+                </p>
               </div>
 
-              {/* 수락 / 거절 버튼 (토스 UX: 거절권 보장 및 명확한 행동 라벨) */}
               <div className="flex items-center gap-2 pt-1">
-                <button className="flex-1 py-2.5 rounded-xl bg-slate-100 text-slate-600 font-bold text-xs hover:bg-slate-200 transition-colors flex items-center justify-center gap-1">
-                  <X className="w-3.5 h-3.5" />
-                  <span>거절하기</span>
+                <button
+                  onClick={() => showToast("호감을 거절했어요")}
+                  className="flex-1 py-3 bg-[#F2F4F6] text-[#6B7684] text-xs font-bold rounded-2xl hover:bg-[#E5E8EB] active:scale-95 transition-all"
+                >
+                  정중히 거절
                 </button>
-                <button className="flex-2 py-2.5 rounded-xl bg-[#3182F6] text-white font-bold text-xs hover:bg-[#256fd8] transition-colors flex items-center justify-center gap-1 shadow-sm">
-                  <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>호감 수락하고 대화하기</span>
-                </button>
+                <Link
+                  href="/chat/room-1"
+                  className="flex-1 py-3 bg-[#3182F6] text-white text-xs font-bold rounded-2xl hover:bg-[#1B64DA] active:scale-95 transition-all flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/20"
+                >
+                  <Heart className="w-3.5 h-3.5 fill-white" />
+                  수락하고 대화하기
+                </Link>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* 탭 3: 내가 보낸 호감 목록 (대기 / 거절 뱃지) */}
+      {/* 탭 4: 내가 보낸 호감 목록 */}
       {activeTab === "sent" && (
-        <div className="p-5 flex flex-col gap-3 pb-24">
-          <span className="text-xs font-bold text-slate-500 px-1">
-            내가 호감을 보낸 내역이에요
-          </span>
+        <div className="p-4 flex flex-col gap-3 pb-24">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs font-bold text-[#8B95A1]">
+              내가 보낸 호감의 응답 상태예요
+            </span>
+          </div>
 
-          {sentLikes.map((sent) => (
+          {sentLikes.map((item) => (
             <div
-              key={sent.id}
-              className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex items-center justify-between"
+              key={item.id}
+              className="bg-white rounded-3xl p-4 shadow-sm border border-[#E5E8EB] flex items-center justify-between"
             >
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xs">
-                  {sent.name[0]}
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-[#F2F4F6] flex items-center justify-center font-bold text-sm text-[#4E5968]">
+                  {item.name[0]}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-slate-900">{sent.name}</p>
-                  <p className="text-xs text-slate-400">
-                    {sent.company} · {sent.job}
-                  </p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-extrabold text-sm text-[#191F28]">
+                      {item.name}
+                    </span>
+                    <span className="text-xs text-[#8B95A1]">
+                      {item.company}
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-[#8B95A1] font-medium">
+                    {item.sentTime}에 보냄
+                  </span>
                 </div>
               </div>
 
               <div>
-                {sent.status === "pending" ? (
-                  <span className="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-xs font-bold px-2.5 py-1 rounded-full border border-amber-200/60">
-                    <Clock className="w-3 h-3" />
-                    <span>상대방 확인 중</span>
+                {item.status === "pending" ? (
+                  <span className="text-xs font-bold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-1 rounded-full flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5" />
+                    수락 대기 중
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 bg-slate-100 text-slate-500 text-xs font-bold px-2.5 py-1 rounded-full">
-                    <span>인연이 닿지 않았어요</span>
+                  <span className="text-xs font-bold text-[#8B95A1] bg-[#F2F4F6] px-2.5 py-1 rounded-full">
+                    인연이 닿지 않았어요
                   </span>
                 )}
               </div>
@@ -265,5 +532,17 @@ export default function MatchingAndChatPage() {
         </div>
       )}
     </div>
+  );
+}
+
+function remainingCountCheck(currentIndex: number) {
+  return Math.max(0, TODAY_RECOMMENDATIONS.length - currentIndex);
+}
+
+export default function MatchingAndChatPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#F2F4F6]" />}>
+      <ChatContent />
+    </Suspense>
   );
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sparkles, MessageCircleHeart, Users, User } from "lucide-react";
+import { Activity, HeartHandshake, Users, User } from "lucide-react";
 
 export default function BottomNav() {
   const pathname = usePathname();
@@ -14,9 +14,15 @@ export default function BottomNav() {
 
   const navItems = [
     {
-      label: "오늘의 인연",
+      label: "홈",
       href: "/",
-      icon: Sparkles,
+      icon: Activity,
+      badge: null,
+    },
+    {
+      label: "인연 · 대화",
+      href: "/chat",
+      icon: HeartHandshake,
       badge: "2",
     },
     {
@@ -24,12 +30,6 @@ export default function BottomNav() {
       href: "/lounge",
       icon: Users,
       badge: null,
-    },
-    {
-      label: "호감 · 대화",
-      href: "/chat",
-      icon: MessageCircleHeart,
-      badge: "1",
     },
     {
       label: "내 정보",
