@@ -109,7 +109,7 @@ export default function ProfileStep1Page() {
             </div>
           </div>
 
-          {/* 2. 손등 사진 등록 & Gemini AI 실시간 검증 (verify-work와 동일한 레이아웃 구조) */}
+          {/* 2. 손등 사진 등록 & Gemini AI 실시간 검증 */}
           <div className="flex flex-col gap-2 pt-1">
             <div className="flex items-center justify-between">
               <label className="text-xs font-extrabold text-[#333D4B]">
@@ -121,76 +121,74 @@ export default function ProfileStep1Page() {
               </span>
             </div>
 
-            {handPhotoStatus === "empty" && (
-              <button
-                type="button"
-                onClick={simulateCameraCapture}
-                className="w-full h-40 rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
-              >
-                <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#FF6F61] group-hover:scale-105 transition-transform">
-                  <Camera className="w-5 h-5" />
-                </div>
-                <div className="text-center">
-                  <p className="text-xs font-extrabold text-[#191F28]">
-                    손등 촬영하기 (터치 시뮬레이션)
-                  </p>
-                  <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
-                    얼굴 대신 손등의 온기를 담아주세요
-                  </p>
-                </div>
-              </button>
-            )}
-
-            {handPhotoStatus === "analyzing" && (
-              <div className="w-full h-40 rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2.5">
-                <RefreshCw className="w-5 h-5 text-[#3182F6] animate-spin" />
-                <div className="text-center">
-                  <p className="text-xs font-bold text-[#3182F6]">
-                    Gemini AI가 손등 이미지를 확인하고 있어요
-                  </p>
-                  <p className="text-[11px] text-[#8B95A1] mt-0.5">
-                    얼굴 비노출 및 손등 피부톤 적합도 분석 중
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {handPhotoStatus === "success" && (
-              <div className="flex flex-col gap-3 pt-1">
-                {/* 상단 인증 통과 상태 (verify-work와 동일한 레이아웃) */}
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 bg-[#FFF0EE] text-[#FF6F61] px-3 py-1 rounded-full text-xs font-black">
-                    <Hand className="w-4 h-4 text-[#FF6F61]" />
-                    <span>손등 사진 등록 완료</span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={simulateCameraCapture}
-                    className="text-xs text-[#8B95A1] hover:text-[#191F28] font-bold active:scale-95 transition-all"
-                  >
-                    다시 찍기
-                  </button>
-                </div>
-
-                {/* 오픈형 정보 리스트 (순백색 캔버스 일체형, 박스 테두리 제거) */}
-                <div className="flex flex-col divide-y divide-[#F2F4F6] pt-1">
-                  <div className="py-2.5 flex items-center justify-between text-xs">
-                    <span className="text-[#8B95A1] font-bold">인식 대상</span>
-                    <span className="text-[#191F28] font-black text-sm">손등 피부톤 감지 완료</span>
+            {/* 고정 높이 h-[132px]를 통해 상태 변화 시 레이아웃 시프트/여백 조정 원천 방지 */}
+            <div className="w-full h-[132px] relative">
+              {handPhotoStatus === "empty" && (
+                <button
+                  type="button"
+                  onClick={simulateCameraCapture}
+                  className="w-full h-full rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#FF6F61] group-hover:scale-105 transition-transform">
+                    <Camera className="w-5 h-5" />
                   </div>
-                  <div className="py-2.5 flex items-center justify-between text-xs">
-                    <span className="text-[#8B95A1] font-bold">얼굴 비노출</span>
-                    <span className="text-[#00B368] font-bold flex items-center gap-1">
-                      <Check className="w-3.5 h-3.5" /> 얼굴 미포함 안심 판정
+                  <div className="text-center">
+                    <p className="text-xs font-extrabold text-[#191F28]">
+                      손등 촬영하기 (터치 시뮬레이션)
+                    </p>
+                    <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
+                      얼굴 대신 손등의 온기를 담아주세요
+                    </p>
+                  </div>
+                </button>
+              )}
+
+              {handPhotoStatus === "analyzing" && (
+                <div className="w-full h-full rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2">
+                  <RefreshCw className="w-5 h-5 text-[#3182F6] animate-spin" />
+                  <div className="text-center">
+                    <p className="text-xs font-bold text-[#3182F6]">
+                      Gemini AI가 손등 이미지를 확인하고 있어요
+                    </p>
+                    <p className="text-[11px] text-[#8B95A1] mt-0.5">
+                      얼굴 비노출 및 손등 피부톤 적합도 분석 중
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {handPhotoStatus === "success" && (
+                <div className="w-full h-full rounded-2xl bg-[#F9FAFB] p-3 flex flex-col justify-between border border-[#F2F4F6]">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-black text-[#FF6F61]">
+                      <Hand className="w-3.5 h-3.5 text-[#FF6F61]" />
+                      <span>손등 사진 등록 완료</span>
                     </span>
+                    <button
+                      type="button"
+                      onClick={simulateCameraCapture}
+                      className="text-xs text-[#8B95A1] hover:text-[#191F28] font-bold active:scale-95 transition-all"
+                    >
+                      다시 찍기
+                    </button>
                   </div>
-                  <div className="py-2.5 flex items-center justify-between text-xs">
-                    <span className="text-[#8B95A1] font-bold">프라이버시</span>
+
+                  <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#191F28] my-auto">
+                    <div className="w-7 h-7 rounded-full bg-[#FFF0EE] flex items-center justify-center text-[#FF6F61]">
+                      <Hand className="w-4 h-4" />
+                    </div>
+                    <span>손등 피부톤 감지 완료</span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] pt-1.5 border-t border-[#E5E8EB]/60">
+                    <span className="text-[#00B368] font-bold flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5" /> 얼굴 미포함 안심 확인
+                    </span>
                     <span className="text-[#3182F6] font-bold">배경 자동 블러 보호</span>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
           </div>
         </div>
