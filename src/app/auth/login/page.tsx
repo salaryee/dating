@@ -8,7 +8,7 @@ import { ShieldCheck, Hand, Lock, ArrowLeft } from "lucide-react";
 
 export default function LoginPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 max-w-[440px] mx-auto">
+    <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 w-full">
       <div>
         {/* 상단 뒤로가기 헤더 (verify-work와 동일한 레이아웃 구조) */}
         <div className="pt-2 pb-5">

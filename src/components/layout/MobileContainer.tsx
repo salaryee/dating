@@ -23,7 +23,7 @@ export default function MobileContainer({ children }: MobileContainerProps) {
           isAuth
             ? "bg-white border-none shadow-none"
             : "bg-[#F2F4F6] border-x border-[#E5E8EB] shadow-[0_0_50px_rgba(0,0,0,0.08)]"
-        } flex flex-col relative`}
+        } flex flex-col relative overflow-x-hidden`}
       >
         {children}
       </div>

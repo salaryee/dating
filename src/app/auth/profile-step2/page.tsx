@@ -33,7 +33,7 @@ export default function ProfileStep2Page() {
   const isFormValid = noteStatus === "success";
 
   return (
-    <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 max-w-[440px] mx-auto">
+    <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 w-full">
       <div>
         {/* 상단 프로그레스 바 (토스 스타일 75%, 1/4단계와 완벽 일치) */}
         <div className="pt-2 pb-5">
@@ -76,20 +76,20 @@ export default function ProfileStep2Page() {
             </span>
           </div>
 
-          {/* 클릭 전/후 높이를 h-[132px]로 완전 고정하여 여백 조정/레이아웃 시프트 원천 차단 */}
-          <div className="w-full h-[132px] relative">
+          {/* 클릭 전/후 높이를 h-[88px]로 완전 고정하여 여백 조정/레이아웃 시프트 원천 차단 */}
+          <div className="w-full h-[88px] relative">
             {noteStatus === "empty" && (
               <button
                 type="button"
                 onClick={simulateCameraCapture}
-                className="w-full h-full rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
+                className="w-full h-full rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex items-center px-4 gap-3.5 group cursor-pointer active:scale-[0.99]"
               >
-                <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-amber-600 group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-white shadow-xs flex items-center justify-center text-amber-600 shrink-0 group-hover:scale-105 transition-transform">
                   <Camera className="w-5 h-5" />
                 </div>
-                <div className="text-center">
+                <div className="text-left">
                   <p className="text-xs font-extrabold text-[#191F28]">
-                    자필 엽서 촬영하기 (터치 시뮬레이션)
+                    자필 엽서 촬영하기
                   </p>
                   <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
                     좋아하는 문구나 인사를 종이에 적어주세요
@@ -99,13 +99,15 @@ export default function ProfileStep2Page() {
             )}
 
             {noteStatus === "analyzing" && (
-              <div className="w-full h-full rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2">
-                <RefreshCw className="w-5 h-5 text-[#3182F6] animate-spin" />
-                <div className="text-center">
+              <div className="w-full h-full rounded-2xl bg-[#E8F3FF]/70 flex items-center px-4 gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-white/80 flex items-center justify-center shrink-0">
+                  <RefreshCw className="w-5 h-5 text-[#3182F6] animate-spin" />
+                </div>
+                <div className="text-left">
                   <p className="text-xs font-bold text-[#3182F6]">
                     Gemini AI가 필체와 문구를 분석하고 있어요
                   </p>
-                  <p className="text-[11px] text-[#8B95A1] mt-0.5">
+                  <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
                     비속어 필터링 및 자필 손글씨 감지 중
                   </p>
                 </div>
@@ -113,7 +115,7 @@ export default function ProfileStep2Page() {
             )}
 
             {noteStatus === "success" && (
-              <div className="w-full h-full rounded-2xl bg-[#F9FAFB] p-3 flex flex-col justify-between border border-[#F2F4F6]">
+              <div className="w-full h-full rounded-2xl bg-[#F9FAFB] px-4 py-2.5 flex flex-col justify-between border border-[#F2F4F6]">
                 <div className="flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 text-xs font-black text-[#FF6F61]">
                     <FileText className="w-3.5 h-3.5 text-[#FF6F61]" />
@@ -128,13 +130,13 @@ export default function ProfileStep2Page() {
                   </button>
                 </div>
 
-                <p className="text-xs text-[#191F28] font-serif italic text-center px-1 leading-relaxed my-auto line-clamp-2">
-                  &ldquo;사소한 일상을 편안하게 나누고, 서로의 성장을 조용히 응원해 줄 인연을 찾고 있어요.&rdquo;
+                <p className="text-xs text-[#191F28] font-serif italic text-left truncate leading-relaxed">
+                  &ldquo;사소한 일상을 편안하게 나누고, 서로의 성장을 응원해요.&rdquo;
                 </p>
 
-                <div className="flex items-center justify-between text-[11px] pt-1.5 border-t border-[#E5E8EB]/60">
+                <div className="flex items-center justify-between text-[11px] pt-1 border-t border-[#E5E8EB]/60">
                   <span className="text-[#00B368] font-bold flex items-center gap-1">
-                    <Check className="w-3.5 h-3.5" /> 비속어 없음 판정 통과
+                    <Check className="w-3.5 h-3.5" /> 비속어 없음 통과
                   </span>
                   <span className="text-[#3182F6] font-bold">자필 판정 완료</span>
                 </div>
@@ -142,12 +144,12 @@ export default function ProfileStep2Page() {
             )}
           </div>
 
-          {/* 1/4단계 약관과 동일한 구분선 여백 (my-4) */}
-          <div className="h-px bg-[#F2F4F6] my-4 w-full" />
+          {/* 1/4단계 약관과 동일한 구분선 여백 (my-3.5) */}
+          <div className="h-px bg-[#F2F4F6] my-3.5 w-full" />
 
-          {/* 2. 직장인 라이프스타일 원터치 칩 (1/4단계 리스트와 동일한 정갈한 밀도) */}
-          <div className="flex flex-col gap-3">
-            {/* 출퇴근 시간 */}
+          {/* 2. 직장인 일상 루틴 원터치 칩 (1/4단계 리스트와 동일한 여백 밀도) */}
+          <div className="flex flex-col gap-2.5">
+            {/* 출퇴근 루틴 */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-extrabold text-[#333D4B] flex items-center gap-1.5">
@@ -162,9 +164,9 @@ export default function ProfileStep2Page() {
                     key={time}
                     type="button"
                     onClick={() => setCommuteTime(time)}
-                    className={`py-2 rounded-xl text-xs font-extrabold transition-all ${
+                    className={`py-1.5 rounded-xl text-xs font-extrabold transition-all ${
                       commuteTime === time
-                        ? "bg-[#3182F6] text-white shadow-sm"
+                        ? "bg-[#3182F6] text-white shadow-xs"
                         : "bg-[#F2F4F6] text-[#6B7684] hover:bg-[#E5E8EB]"
                     }`}
                   >
@@ -174,34 +176,7 @@ export default function ProfileStep2Page() {
               </div>
             </div>
 
-            {/* 출퇴근 수단 */}
-            <div className="flex flex-col gap-1.5">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-extrabold text-[#333D4B] flex items-center gap-1.5">
-                  <Train className="w-3.5 h-3.5 text-[#8B95A1]" />
-                  <span>주요 출퇴근 수단</span>
-                </span>
-                <span className="text-[11px] font-bold text-[#3182F6]">{commuteMethod}</span>
-              </div>
-              <div className="grid grid-cols-4 gap-1.5">
-                {["지하철", "버스", "자차", "도보/재택"].map((method) => (
-                  <button
-                    key={method}
-                    type="button"
-                    onClick={() => setCommuteMethod(method)}
-                    className={`py-2 rounded-xl text-xs font-extrabold transition-all ${
-                      commuteMethod === method
-                        ? "bg-[#3182F6] text-white shadow-sm"
-                        : "bg-[#F2F4F6] text-[#6B7684] hover:bg-[#E5E8EB]"
-                    }`}
-                  >
-                    {method}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* 음주 및 라이프 */}
+            {/* 성향 및 라이프스타일 */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-extrabold text-[#333D4B] flex items-center gap-1.5">
@@ -216,9 +191,9 @@ export default function ProfileStep2Page() {
                     key={item}
                     type="button"
                     onClick={() => setLifestyle(item)}
-                    className={`py-2 px-1 rounded-xl text-[11px] font-extrabold transition-all text-center ${
+                    className={`py-1.5 px-1 rounded-xl text-[11px] font-extrabold transition-all text-center ${
                       lifestyle === item
-                        ? "bg-[#3182F6] text-white shadow-sm"
+                        ? "bg-[#3182F6] text-white shadow-xs"
                         : "bg-[#F2F4F6] text-[#6B7684] hover:bg-[#E5E8EB]"
                     }`}
                   >

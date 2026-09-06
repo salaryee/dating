@@ -22,7 +22,7 @@ export default function ProfileStep1Page() {
   const isFormValid = nickname.trim().length >= 2 && handPhotoStatus === "success";
 
   return (
-    <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 max-w-[440px] mx-auto">
+    <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 w-full">
       <div>
         {/* 상단 프로그레스 바 (토스 스타일 50%) */}
         <div className="pt-2 pb-5">
