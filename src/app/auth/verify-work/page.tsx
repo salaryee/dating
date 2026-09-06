@@ -66,8 +66,8 @@ export default function VerifyWorkPage() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <span className="text-xs font-extrabold text-[#00B368] bg-[#E6F7F0] px-2 py-0.5 rounded-full">
-              3 / 3 마지막 단계
+            <span className="text-xs font-extrabold text-[#00B368] bg-[#E6F7F0] px-2.5 py-0.5 rounded-full">
+              4 / 4 마지막 단계
             </span>
           </div>
         </div>
@@ -109,14 +109,14 @@ export default function VerifyWorkPage() {
           </button>
         </div>
 
-        {/* 1. 명함 OCR 방식 (박스 카드 제거 ➔ 일체형 오픈 레이아웃) */}
+        {/* 1. 명함 OCR 방식 (화면 일체형 오픈 레이아웃) */}
         {method === "card" && (
           <div className="mt-5 flex flex-col gap-3">
             {ocrStatus === "empty" && (
               <button
                 type="button"
                 onClick={handleCardCapture}
-                className="w-full h-40 rounded-2xl border-2 border-dashed border-[#E5E8EB] bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
+                className="w-full h-40 rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
               >
                 <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#00B368] group-hover:scale-105 transition-transform">
                   <Camera className="w-5 h-5" />
@@ -133,7 +133,7 @@ export default function VerifyWorkPage() {
             )}
 
             {ocrStatus === "scanning" && (
-              <div className="w-full h-40 rounded-2xl bg-[#E8F3FF]/70 border border-[#3182F6]/30 flex flex-col items-center justify-center gap-2.5">
+              <div className="w-full h-40 rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2.5">
                 <RefreshCw className="w-6 h-6 text-[#3182F6] animate-spin" />
                 <div className="text-center">
                   <p className="text-xs font-extrabold text-[#3182F6]">
@@ -163,7 +163,7 @@ export default function VerifyWorkPage() {
                   </button>
                 </div>
 
-                {/* 오픈형 정보 리스트 (중첩 박스 카드 제거) */}
+                {/* 오픈형 정보 리스트 */}
                 <div className="flex flex-col divide-y divide-[#F2F4F6] pt-1">
                   <div className="py-2.5 flex items-center justify-between text-xs">
                     <span className="text-[#8B95A1] font-bold">인증 회사</span>
@@ -200,7 +200,7 @@ export default function VerifyWorkPage() {
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
                   placeholder="name@company.com"
-                  className="flex-1 px-4 py-3 rounded-xl bg-[#F2F4F6] border border-[#E5E8EB] text-xs font-bold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
+                  className="flex-1 px-4 py-3 rounded-xl bg-[#F2F4F6] border border-transparent text-xs font-bold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
                 />
                 <button
                   type="button"
@@ -222,7 +222,7 @@ export default function VerifyWorkPage() {
                     onChange={(e) => setCodeInput(e.target.value)}
                     placeholder="인증번호 입력"
                     maxLength={6}
-                    className="flex-1 px-4 py-3 rounded-xl bg-[#F2F4F6] border border-[#E5E8EB] text-xs font-bold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
+                    className="flex-1 px-4 py-3 rounded-xl bg-[#F2F4F6] border border-transparent text-xs font-bold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
                   />
                   <button
                     type="button"
@@ -236,7 +236,7 @@ export default function VerifyWorkPage() {
             )}
 
             {emailVerified && (
-              <div className="p-3 bg-[#F0FDF4] rounded-xl border border-[#BBF7D0] flex items-center gap-2 text-xs text-[#00B368] font-bold">
+              <div className="p-3 bg-[#F0FDF4] rounded-xl flex items-center gap-2 text-xs text-[#00B368] font-bold">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>회사 이메일 인증이 완료되었어요!</span>
               </div>
@@ -244,7 +244,7 @@ export default function VerifyWorkPage() {
           </div>
         )}
 
-        {/* 프라이버시 안심 노트 (박스 카드 제거 ➔ 일체형 오픈 노트) */}
+        {/* 프라이버시 안심 노트 */}
         <div className="mt-6 flex items-start gap-2 text-[11px] text-[#8B95A1] font-medium px-1">
           <Lock className="w-3.5 h-3.5 text-[#00B368] shrink-0 mt-0.5" />
           <p className="leading-relaxed">

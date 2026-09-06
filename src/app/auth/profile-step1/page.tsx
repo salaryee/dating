@@ -22,10 +22,10 @@ export default function ProfileStep1Page() {
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 max-w-[440px] mx-auto">
       <div>
-        {/* 상단 프로그레스 바 (토스 스타일 66%) */}
+        {/* 상단 프로그레스 바 (토스 스타일 50%) */}
         <div className="pt-2 pb-5">
           <div className="h-1 w-full bg-[#F2F4F6] rounded-full overflow-hidden">
-            <div className="h-full bg-[#3182F6] rounded-full w-2/3 transition-all duration-300"></div>
+            <div className="h-full bg-[#3182F6] rounded-full w-1/2 transition-all duration-300"></div>
           </div>
           <div className="flex items-center justify-between mt-3">
             <Link
@@ -34,7 +34,7 @@ export default function ProfileStep1Page() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <span className="text-xs font-extrabold text-[#3182F6]">2 / 3 단계</span>
+            <span className="text-xs font-extrabold text-[#3182F6]">2 / 4 단계</span>
           </div>
         </div>
 
@@ -45,7 +45,7 @@ export default function ProfileStep1Page() {
             손등 사진을 올려주세요
           </h1>
           <p className="text-xs text-[#8B95A1] mt-2 leading-relaxed font-medium">
-            얼굴 대신 손등의 체온으로 편안하게 나를 표현해요.
+            얼굴 대신 손등의 온기로 나와 닮은 인연을 찾아요.
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export default function ProfileStep1Page() {
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               placeholder="상대방에게 불릴 닉네임을 입력해 주세요"
-              className="w-full px-4 py-3.5 rounded-2xl bg-[#F2F4F6] border border-[#E5E8EB] text-sm font-bold text-[#191F28] placeholder:text-[#8B95A1] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
+              className="w-full px-4 py-3.5 rounded-2xl bg-[#F2F4F6] border border-transparent text-sm font-bold text-[#191F28] placeholder:text-[#8B95A1] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
               maxLength={10}
             />
             <div className="flex justify-between text-[11px] text-[#8B95A1] px-1 font-medium">
@@ -94,7 +94,7 @@ export default function ProfileStep1Page() {
               <select
                 value={age}
                 onChange={(e) => setAge(Number(e.target.value))}
-                className="w-full py-2.5 px-3 rounded-xl bg-[#F2F4F6] border border-[#E5E8EB] text-xs font-extrabold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
+                className="w-full py-2.5 px-3 rounded-xl bg-[#F2F4F6] border border-transparent text-xs font-extrabold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
               >
                 {Array.from({ length: 15 }, (_, i) => 24 + i).map((num) => (
                   <option key={num} value={num}>
@@ -121,7 +121,7 @@ export default function ProfileStep1Page() {
               <button
                 type="button"
                 onClick={simulateCameraCapture}
-                className="w-full h-36 rounded-2xl border-2 border-dashed border-[#E5E8EB] bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
+                className="w-full h-36 rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
               >
                 <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#8B95A1] group-hover:text-[#3182F6] transition-colors">
                   <Camera className="w-5 h-5" />
@@ -138,7 +138,7 @@ export default function ProfileStep1Page() {
             )}
 
             {handPhotoStatus === "analyzing" && (
-              <div className="w-full h-36 rounded-2xl bg-[#E8F3FF]/70 border border-[#3182F6]/30 flex flex-col items-center justify-center gap-2.5">
+              <div className="w-full h-36 rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2.5">
                 <RefreshCw className="w-5 h-5 text-[#3182F6] animate-spin" />
                 <div className="text-center">
                   <p className="text-xs font-bold text-[#3182F6]">
@@ -184,7 +184,7 @@ export default function ProfileStep1Page() {
 
             <div className="flex items-center gap-1.5 text-[11px] text-[#8B95A1] font-medium pt-1 px-1">
               <Lock className="w-3 h-3 text-[#00B368] shrink-0" />
-              <span>얼굴이나 배경은 자동으로 블러 처리되니 안심하세요</span>
+              <span>얼굴이나 배경은 자동으로 가려지니 안심하세요</span>
             </div>
           </div>
         </div>

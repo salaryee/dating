@@ -20,7 +20,7 @@ export default function LoginPage() {
           />
         </div>
 
-        {/* 토스식 헤드라인 */}
+        {/* 토스식 대화형 헤드라인 */}
         <h1 className="text-[26px] font-black text-[#191F28] tracking-tight leading-[1.35]">
           얼굴 노출 없는<br />
           직장인 안심 소개팅,<br />
@@ -28,11 +28,11 @@ export default function LoginPage() {
         </h1>
 
         <p className="text-sm text-[#6B7684] mt-2.5 font-medium leading-relaxed">
-          손등의 온기와 정성 자필 손글씨로<br />
+          손등의 온기와 정갈한 자필 손글씨로<br />
           가치관이 통하는 인연을 만나요.
         </p>
 
-        {/* 토스 3대 안심 가치 (카드 박스 형태 제거 ➔ 화면 일체형 오픈 리스트) */}
+        {/* 토스 3대 안심 가치 (순백색 캔버스 일체형 오픈 리스트) */}
         <div className="mt-9 flex flex-col gap-5">
           <div className="flex items-start gap-3.5">
             <div className="w-10 h-10 rounded-2xl bg-[#E8F3FF] flex items-center justify-center text-[#3182F6] shrink-0">
@@ -41,7 +41,7 @@ export default function LoginPage() {
             <div>
               <h3 className="text-sm font-extrabold text-[#191F28]">얼굴 비노출 안심</h3>
               <p className="text-xs text-[#6B7684] mt-1 font-medium leading-relaxed">
-                얼굴 사진 대신 손등의 체온과 자필 엽서로 만나요
+                얼굴 사진 대신 손등의 온기와 자필 엽서로 첫인상을 전해요
               </p>
             </div>
           </div>
@@ -53,7 +53,7 @@ export default function LoginPage() {
             <div>
               <h3 className="text-sm font-extrabold text-[#191F28]">100% 직장인 안심 인증</h3>
               <p className="text-xs text-[#6B7684] mt-1 font-medium leading-relaxed">
-                명함과 사내메일 재직 인증을 통과한 직장인만 활동해요
+                사내메일과 명함 재직 인증을 통과한 직장인만 활동해요
               </p>
             </div>
           </div>
@@ -72,7 +72,7 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* 하단 카카오 버튼 (토스 시그니처 56px 풀 너비 버튼) */}
+      {/* 하단 카카오 버튼 (56px 토스 표준 풀 너비 버튼) */}
       <div className="pb-6 pt-6 flex flex-col gap-3">
         <Link
           href="/auth/terms"

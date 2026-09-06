@@ -35,10 +35,10 @@ export default function TermsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 max-w-[440px] mx-auto">
       <div>
-        {/* 상단 프로그레스 바 (토스 스타일 33%) */}
+        {/* 상단 프로그레스 바 (토스 스타일 25%) */}
         <div className="pt-2 pb-5">
           <div className="h-1 w-full bg-[#F2F4F6] rounded-full overflow-hidden">
-            <div className="h-full bg-[#3182F6] rounded-full w-1/3 transition-all duration-300"></div>
+            <div className="h-full bg-[#3182F6] rounded-full w-1/4 transition-all duration-300"></div>
           </div>
           <div className="flex items-center justify-between mt-3">
             <Link
@@ -47,7 +47,7 @@ export default function TermsPage() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <span className="text-xs font-extrabold text-[#3182F6]">1 / 3 단계</span>
+            <span className="text-xs font-extrabold text-[#3182F6]">1 / 4 단계</span>
           </div>
         </div>
 
@@ -58,11 +58,11 @@ export default function TermsPage() {
             약관에 동의해 주세요
           </h1>
           <p className="text-xs text-[#8B95A1] mt-2 font-medium">
-            신뢰할 수 있는 직장인 인연을 만들기 위해 꼭 필요해요.
+            안전하고 깨끗한 직장인 만남을 위해 꼭 필요해요.
           </p>
         </div>
 
-        {/* 약관 리스트 (박스 카드 형태 제거 ➔ 화면 일체형 오픈 레이아웃) */}
+        {/* 약관 리스트 (화면 일체형 오픈 레이아웃) */}
         <div className="mt-8 flex flex-col">
           {/* 전체 동의 오픈 헤더 */}
           <button

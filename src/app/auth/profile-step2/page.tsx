@@ -19,7 +19,6 @@ export default function ProfileStep2Page() {
   const [commuteTime, setCommuteTime] = useState("09:30 출근");
   const [commuteMethod, setCommuteMethod] = useState("지하철");
   const [lifestyle, setLifestyle] = useState("비흡연 · 가끔 한잔");
-  const [mbti, setMbti] = useState("ENFP");
 
   const simulateCameraCapture = () => {
     setNoteStatus("analyzing");
@@ -33,10 +32,10 @@ export default function ProfileStep2Page() {
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 max-w-[440px] mx-auto">
       <div>
-        {/* 상단 프로그레스 바 (토스 스타일 85%) */}
+        {/* 상단 프로그레스 바 (토스 스타일 75%) */}
         <div className="pt-2 pb-5">
           <div className="h-1 w-full bg-[#F2F4F6] rounded-full overflow-hidden">
-            <div className="h-full bg-[#3182F6] rounded-full w-[85%] transition-all duration-300"></div>
+            <div className="h-full bg-[#3182F6] rounded-full w-3/4 transition-all duration-300"></div>
           </div>
           <div className="flex items-center justify-between mt-3">
             <Link
@@ -45,7 +44,7 @@ export default function ProfileStep2Page() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <span className="text-xs font-extrabold text-[#3182F6]">2.5 / 3 단계</span>
+            <span className="text-xs font-extrabold text-[#3182F6]">3 / 4 단계</span>
           </div>
         </div>
 
@@ -56,7 +55,7 @@ export default function ProfileStep2Page() {
             나의 일상을 알려주세요
           </h1>
           <p className="text-xs text-[#8B95A1] mt-2 leading-relaxed font-medium">
-            종이에 적은 따뜻한 글씨와 생활 패턴으로 나와 통하는 사람을 만나요.
+            종이에 적은 따뜻한 글씨와 생활 루틴으로 가치관을 맞춰보아요.
           </p>
         </div>
 
@@ -76,7 +75,7 @@ export default function ProfileStep2Page() {
             <button
               type="button"
               onClick={simulateCameraCapture}
-              className="w-full h-36 rounded-2xl border-2 border-dashed border-[#F5E8D0] bg-[#FFFBF2] hover:bg-[#FFF8EA] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
+              className="w-full h-36 rounded-2xl bg-[#FFFBF2] hover:bg-[#FFF8EA] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
             >
               <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-amber-600 group-hover:text-amber-700 transition-colors">
                 <Camera className="w-5 h-5" />
@@ -93,7 +92,7 @@ export default function ProfileStep2Page() {
           )}
 
           {noteStatus === "analyzing" && (
-            <div className="w-full h-36 rounded-2xl bg-[#FFFBF2] border border-[#F5E8D0] flex flex-col items-center justify-center gap-2.5">
+            <div className="w-full h-36 rounded-2xl bg-[#FFFBF2] flex flex-col items-center justify-center gap-2.5">
               <RefreshCw className="w-5 h-5 text-amber-600 animate-spin" />
               <div className="text-center">
                 <p className="text-xs font-bold text-amber-800">
@@ -109,14 +108,14 @@ export default function ProfileStep2Page() {
           {noteStatus === "success" && (
             <div className="w-full rounded-2xl bg-[#FFFDF8] p-4 flex flex-col justify-between h-36 relative">
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-full text-xs font-bold text-amber-900 border border-[#F2E8D5] shadow-xs">
+                <span className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-full text-xs font-bold text-amber-900 shadow-xs">
                   <FileText className="w-3.5 h-3.5 text-amber-600" />
                   <span>자필 엽서 등록 완료</span>
                 </span>
                 <button
                   type="button"
                   onClick={simulateCameraCapture}
-                  className="text-[11px] text-[#6B7684] font-semibold bg-white px-2.5 py-1 rounded-lg border border-[#F2E8D5] hover:bg-slate-50 active:scale-95 transition-all"
+                  className="text-[11px] text-[#6B7684] font-semibold bg-white px-2.5 py-1 rounded-lg hover:bg-slate-50 active:scale-95 transition-all"
                 >
                   다시 찍기
                 </button>
