@@ -29,37 +29,20 @@ export default function LoginPage() {
           신뢰할 수 있는 인연을 만나요
         </p>
 
-        {/* 3대 핵심 포인트 (심플 리스트) */}
-        <div className="mt-10 flex flex-col gap-4">
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-2xl bg-[#E6F7F0] flex items-center justify-center text-[#00B368] shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-[#102A43]">100% 명함 & 직장 인증</p>
-              <p className="text-xs text-[#8B95A1] mt-0.5">AI가 명함을 확인하고 회사 메일로 검증해요</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-2xl bg-[#EBF3FC] flex items-center justify-center text-[#102A43] shrink-0">
-              <Hand className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-[#102A43]">얼굴 사진 없는 안심 프로필</p>
-              <p className="text-xs text-[#8B95A1] mt-0.5">지인에게 얼굴이 노출될 걱정이 없어요</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-2xl bg-[#FFF2F0] flex items-center justify-center text-[#FF6F61] shrink-0">
-              <FileText className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-[#102A43]">정성 가득한 자필 손글씨</p>
-              <p className="text-xs text-[#8B95A1] mt-0.5">AI가 손글씨와 클린 문구를 확인해요</p>
-            </div>
-          </div>
+        {/* 토스 스타일: 심플하고 강력한 3대 신뢰 칩 */}
+        <div className="mt-8 flex flex-wrap gap-2">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#E6F7F0] text-[#00B368] text-xs font-bold">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            100% 직장 인증
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#EBF3FC] text-[#3182F6] text-xs font-bold">
+            <Hand className="w-3.5 h-3.5" />
+            얼굴 비노출 안심
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#FFF2F0] text-[#FF6F61] text-xs font-bold">
+            <FileText className="w-3.5 h-3.5" />
+            정성 자필 손글씨
+          </span>
         </div>
       </div>
 

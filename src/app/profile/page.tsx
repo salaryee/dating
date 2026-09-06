@@ -20,7 +20,7 @@ import {
 
 export default function ProfilePage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#F9FAFB]">
+    <div className="flex flex-col min-h-screen bg-[#F2F4F6]">
       <MobileHeader title="내 정보" showVerifiedBadge={false} />
 
       <div className="p-5 flex flex-col gap-4 pb-28">

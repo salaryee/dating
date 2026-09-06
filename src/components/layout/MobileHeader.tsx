@@ -14,7 +14,7 @@ export default function MobileHeader({
   showVerifiedBadge = true,
 }: MobileHeaderProps) {
   return (
-    <header className="sticky top-0 z-40 bg-[#F2F4F6]/95 backdrop-blur-md px-5 h-14 flex items-center justify-between transition-colors">
+    <header className="sticky top-0 z-40 bg-[#F2F4F6] border-b border-[#E5E8EB]/70 px-5 h-14 flex items-center justify-between transition-colors">
       {/* 토스 스타일: 홈에서는 브랜드 로고, 서브페이지에서는 페이지 타이틀 */}
       {title ? (
         <h1 className="text-[19px] font-bold text-[#191F28] tracking-tight">{title}</h1>

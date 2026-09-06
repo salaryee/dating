@@ -55,8 +55,8 @@ export default function ChatRoomPage() {
 
   return (
     <div className="flex flex-col h-screen bg-[#F9FAFB] justify-between">
-      {/* 1. 상단 채팅방 헤더 */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 px-4 h-14 flex items-center justify-between">
+      {/* 1. 상단 채팅방 헤더 (스크롤 시 컨텐츠 비침 방지 솔리드 헤더) */}
+      <header className="sticky top-0 z-40 bg-white border-b border-slate-200 px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href="/chat" className="text-slate-600 hover:text-slate-900">
             <ArrowLeft className="w-5 h-5" />

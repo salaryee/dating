@@ -7,8 +7,8 @@ import { Sparkles, MessageCircleHeart, Users, User } from "lucide-react";
 export default function BottomNav() {
   const pathname = usePathname();
 
-  // 로그인/회원가입 온보딩 단계에서는 탭바 숨기기
-  if (pathname.startsWith("/auth")) {
+  // 로그인/온보딩 및 1:1 채팅방 내부에서는 하단 탭바 숨기기
+  if (pathname.startsWith("/auth") || pathname.startsWith("/chat/")) {
     return null;
   }
 
@@ -40,9 +40,9 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="fixed bottom-5 left-1/2 -translate-x-1/2 w-full max-w-[440px] px-5 z-50 pointer-events-none">
-      {/* 토스 가이드라인 준수: 완벽한 플로팅(Floating) 캡슐 탭바 */}
-      <nav className="pointer-events-auto bg-white/95 backdrop-blur-xl rounded-[24px] shadow-[0_12px_32px_rgba(0,0,0,0.12)] border border-[#E5E8EB]/80 px-2 py-2">
+    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-50 bg-white border-t border-[#E5E8EB]">
+      {/* 토스 앱 표준 하단 탭바 (하단 컨텐츠 비침 방지 솔리드 디자인) */}
+      <nav className="px-3 pt-1.5 pb-[max(env(safe-area-inset-bottom),10px)]">
         <div className="flex items-center justify-around">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -52,7 +52,7 @@ export default function BottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center justify-center flex-1 py-1.5 px-2 rounded-2xl transition-all ${
+                className={`flex flex-col items-center justify-center flex-1 py-1 px-1 rounded-xl transition-all ${
                   isActive
                     ? "text-[#3182F6] font-extrabold"
                     : "text-[#8B95A1] hover:text-[#4E5968] font-medium"

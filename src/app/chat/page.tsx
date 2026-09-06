@@ -80,7 +80,7 @@ export default function MatchingAndChatPage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F9FAFB]">
+    <div className="flex flex-col min-h-screen bg-[#F2F4F6]">
       <MobileHeader title="호감 · 대화" showVerifiedBadge={false} />
 
       {/* 3대 탭 메뉴 (토스 UX: 정갈한 세그먼트 컨트롤) */}
@@ -126,7 +126,7 @@ export default function MatchingAndChatPage() {
 
       {/* 탭 1: 매칭된 대화방 목록 */}
       {activeTab === "matched" && (
-        <div className="p-5 flex flex-col gap-3">
+        <div className="p-5 flex flex-col gap-3 pb-24">
           <div className="flex items-center justify-between px-1">
             <span className="text-xs font-bold text-slate-500">
               서로 호감을 수락한 대화방이에요
@@ -177,7 +177,7 @@ export default function MatchingAndChatPage() {
 
       {/* 탭 2: 내가 받은 호감 목록 (수락 / 거절) */}
       {activeTab === "received" && (
-        <div className="p-5 flex flex-col gap-3">
+        <div className="p-5 flex flex-col gap-3 pb-24">
           <span className="text-xs font-bold text-slate-500 px-1">
             내 손글씨와 가치관에 호감을 표현한 직장인이에요
           </span>
@@ -224,7 +224,7 @@ export default function MatchingAndChatPage() {
 
       {/* 탭 3: 내가 보낸 호감 목록 (대기 / 거절 뱃지) */}
       {activeTab === "sent" && (
-        <div className="p-5 flex flex-col gap-3">
+        <div className="p-5 flex flex-col gap-3 pb-24">
           <span className="text-xs font-bold text-slate-500 px-1">
             내가 호감을 보낸 내역이에요
           </span>
