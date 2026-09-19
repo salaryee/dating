@@ -60,17 +60,17 @@ export default function BottomNav() {
               >
                 <div className="relative">
                   <Icon
-                    className={`w-[22px] h-[22px] transition-transform ${
+                    className={`w-[23px] h-[23px] transition-transform ${
                       isActive ? "scale-105 stroke-[2.5]" : "stroke-[1.8]"
                     }`}
                   />
                   {item.badge && (
-                    <span className="absolute -top-1 -right-2.5 bg-[#3182F6] text-white text-[9px] font-black px-1.5 py-0.2 rounded-full ring-2 ring-white">
+                    <span className="absolute -top-1 -right-2.5 bg-[#3182F6] text-white text-[10px] font-black min-w-[16px] h-4 px-1 rounded-full ring-2 ring-white flex items-center justify-center">
                       {item.badge}
                     </span>
                   )}
                 </div>
-                <span className="text-[11px] mt-1 tracking-tight">{item.label}</span>
+                <span className="text-[12px] mt-1 tracking-tight">{item.label}</span>
               </Link>
             );
           })}

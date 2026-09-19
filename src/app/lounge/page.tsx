@@ -66,7 +66,7 @@ export default function LoungePage() {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all active:scale-95 ${
+            className={`px-4 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition-all active:scale-95 cursor-pointer ${
               activeCategory === cat
                 ? "bg-[#191F28] text-white shadow-sm"
                 : "bg-white text-[#4E5968] border border-[#E5E8EB] hover:bg-[#F2F4F6]"
@@ -79,73 +79,73 @@ export default function LoungePage() {
 
       {/* 라운지 글 작성 프롬프트 (토스 커뮤니티 스타일) */}
       <div className="px-5 pb-2">
-        <div className="bg-white rounded-2xl p-3.5 border border-[#E5E8EB] flex items-center justify-between shadow-sm cursor-pointer hover:border-[#3182F6]/40 transition-all active:scale-[0.99]">
-          <span className="text-xs text-[#8B95A1] font-medium">
+        <div className="bg-white rounded-2xl p-4 border border-[#E5E8EB] flex items-center justify-between shadow-sm cursor-pointer hover:border-[#3182F6]/40 transition-all active:scale-[0.99]">
+          <span className="text-[13.5px] text-[#8B95A1] font-medium">
             동료 직장인들과 연애나 소개팅 이야기를 나눠보세요
           </span>
-          <span className="text-xs font-extrabold text-[#3182F6] flex items-center gap-0.5 shrink-0 ml-2">
-            <Plus className="w-3.5 h-3.5 stroke-[3]" /> 글쓰기
+          <span className="text-sm font-bold text-[#3182F6] flex items-center gap-1 shrink-0 ml-2">
+            <Plus className="w-4 h-4 stroke-[3]" /> 글쓰기
           </span>
         </div>
       </div>
 
       {/* 피드 리스트 영역 (토스 스타일 화이트 카드) */}
-      <div className="p-5 pt-1 flex flex-col gap-3 pb-28">
+      <div className="p-5 pt-1 flex flex-col gap-3.5 pb-28">
         {posts.map((post) => (
           <article
             key={post.id}
-            className="bg-white rounded-[24px] p-5 border border-[#E5E8EB] shadow-sm flex flex-col gap-3 hover:border-blue-200 transition-all cursor-pointer"
+            className="bg-white rounded-[24px] p-5.5 border border-[#E5E8EB] shadow-sm flex flex-col gap-3.5 hover:border-blue-200 transition-all cursor-pointer"
           >
             {/* 글 헤더 */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-extrabold text-[#3182F6] bg-[#E8F3FF] px-2 py-0.5 rounded-md">
+                <span className="text-xs font-bold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-1 rounded-md">
                   {post.category}
                 </span>
-                <span className="text-[11px] text-[#4E5968] font-bold flex items-center gap-1">
-                  <Building2 className="w-3 h-3 text-[#8B95A1]" />
+                <span className="text-[13px] text-[#4E5968] font-semibold flex items-center gap-1">
+                  <Building2 className="w-3.5 h-3.5 text-[#8B95A1]" />
                   {post.company}
                 </span>
               </div>
-              <span className="text-[11px] text-[#8B95A1]">{post.time}</span>
+              <span className="text-[13px] text-[#8B95A1]">{post.time}</span>
             </div>
 
             {/* 본문 */}
             <div>
-              <h3 className="text-sm font-extrabold text-[#191F28] leading-snug">
+              <h3 className="text-[17px] font-bold text-[#191F28] leading-snug">
                 {post.title}
               </h3>
-              <p className="text-xs text-[#4E5968] mt-1.5 line-clamp-2 leading-relaxed font-medium">
+              <p className="text-[14.5px] text-[#4E5968] mt-2 line-clamp-2 leading-relaxed font-medium">
                 {post.content}
               </p>
             </div>
 
             {/* 좋아요 & 댓글 액션 바 */}
-            <div className="flex items-center justify-between pt-3 border-t border-[#F2F4F6] text-xs text-[#8B95A1]">
+            <div className="flex items-center justify-between pt-3 border-t border-[#F2F4F6] text-sm text-[#8B95A1]">
               <div className="flex items-center gap-4">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     handleToggleLike(post.id);
                   }}
-                  className={`flex items-center gap-1 font-bold transition-colors ${
+                  className={`flex items-center gap-1.5 font-bold transition-colors cursor-pointer ${
                     post.liked ? "text-rose-500" : "hover:text-[#191F28]"
                   }`}
                 >
                   <Heart
-                    className={`w-4 h-4 ${
+                    className={`w-4.5 h-4.5 ${
                       post.liked ? "fill-rose-500 stroke-rose-500" : ""
                     }`}
                   />
                   <span>{post.likes}</span>
                 </button>
-                <span className="flex items-center gap-1 font-bold hover:text-[#191F28] transition-colors">
-                  <MessageSquare className="w-4 h-4" />
+                <span className="flex items-center gap-1.5 font-bold hover:text-[#191F28] transition-colors">
+                  <MessageSquare className="w-4.5 h-4.5" />
                   <span>{post.comments}</span>
                 </span>
               </div>
-              <span className="text-[11px] text-[#8B95A1] font-medium flex items-center gap-0.5">
-                <Sparkles className="w-3 h-3 text-[#FEE500]" /> 인기글
+              <span className="text-xs text-[#8B95A1] font-medium flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5 text-[#FEE500]" /> 인기글
               </span>
             </div>
           </article>

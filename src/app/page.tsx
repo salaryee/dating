@@ -78,7 +78,7 @@ export default function HomePage() {
         {/* 1. 개인화 퀵 액션 배너 (토스 홈 최상단 계좌/혜택 카드 스타일) */}
         <Link
           href="/chat?tab=today"
-          className="bg-gradient-to-r from-[#3182F6] to-[#1B64DA] rounded-3xl p-5 text-white shadow-lg shadow-blue-500/15 flex items-center justify-between active:scale-[0.99] transition-transform"
+          className="bg-gradient-to-r from-[#3182F6] to-[#1B64DA] rounded-3xl p-5.5 text-white shadow-lg shadow-blue-500/15 flex items-center justify-between active:scale-[0.99] transition-transform"
         >
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-1.5">
@@ -87,10 +87,10 @@ export default function HomePage() {
                 오늘의 인연 도착
               </span>
             </div>
-            <h2 className="text-lg font-black tracking-tight mt-0.5">
+            <h2 className="text-[20px] font-black tracking-tight mt-0.5">
               민지님, 오늘의 인연 2명이 도착했어요
             </h2>
-            <p className="text-[11px] text-blue-100/90 font-medium">
+            <p className="text-[13.5px] text-blue-100/90 font-medium">
               밤 10시 매칭 · 직장과 라이프스타일 확인하기
             </p>
           </div>
@@ -101,21 +101,21 @@ export default function HomePage() {
         </Link>
 
         {/* 2. 실시간 남녀 성비 게이지 (토스식 투명한 지표 공개) */}
-        <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E5E8EB] flex flex-col gap-3.5">
+        <div className="bg-white rounded-3xl p-5.5 shadow-sm border border-[#E5E8EB] flex flex-col gap-3.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-[#3182F6]" />
-              <h3 className="text-sm font-extrabold text-[#191F28]">
+              <Users className="w-4.5 h-4.5 text-[#3182F6]" />
+              <h3 className="text-[17px] font-bold text-[#191F28]">
                 실시간 가입 성비
               </h3>
             </div>
-            <span className="text-[11px] font-bold text-[#00B368] bg-[#E6F7F0] px-2.5 py-0.5 rounded-full">
+            <span className="text-xs font-bold text-[#00B368] bg-[#E6F7F0] px-3 py-1 rounded-full">
               5:5 균형 유지 중
             </span>
           </div>
 
           {/* 비율 바 게이지 */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2.5">
             <div className="h-3.5 w-full bg-[#F2F4F6] rounded-full overflow-hidden flex">
               <div
                 className="bg-[#3182F6] h-full transition-all duration-500 rounded-l-full"
@@ -127,41 +127,41 @@ export default function HomePage() {
               ></div>
             </div>
 
-            <div className="flex items-center justify-between text-xs font-bold px-1">
+            <div className="flex items-center justify-between text-sm font-bold px-1">
               <div className="flex items-center gap-1.5 text-[#3182F6]">
-                <span className="w-2 h-2 rounded-full bg-[#3182F6]"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-[#3182F6]"></span>
                 <span>남성 51% (738명)</span>
               </div>
               <div className="flex items-center gap-1.5 text-[#FF6F61]">
-                <span className="w-2 h-2 rounded-full bg-[#FF6F61]"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FF6F61]"></span>
                 <span>여성 49% (706명)</span>
               </div>
             </div>
           </div>
 
-          <p className="text-[11px] text-[#8B95A1] font-medium leading-relaxed bg-[#F9FAFB] p-2.5 rounded-xl border border-[#F2F4F6]">
+          <p className="text-[13.5px] text-[#6B7684] font-medium leading-relaxed bg-[#F9FAFB] p-3 rounded-2xl border border-[#F2F4F6]">
             특정 성별 쏠림 없는 건강한 5:5 성비로 양방향 매칭 성공률이 높아요.
           </p>
         </div>
 
         {/* 3. 오늘 새롭게 합류한 직장인 (실시간 라이브 피드) */}
-        <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E5E8EB] flex flex-col gap-3">
+        <div className="bg-white rounded-3xl p-5.5 shadow-sm border border-[#E5E8EB] flex flex-col gap-3.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="relative">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#00B368] block"></span>
                 <span className="w-2.5 h-2.5 rounded-full bg-[#00B368] animate-ping absolute top-0 left-0"></span>
               </div>
-              <h3 className="text-sm font-extrabold text-[#191F28]">
+              <h3 className="text-[17px] font-bold text-[#191F28]">
                 오늘 합류한 직장인
               </h3>
             </div>
-            <span className="text-[11px] font-extrabold text-[#8B95A1]">
+            <span className="text-xs font-bold text-[#8B95A1]">
               실시간 LIVE
             </span>
           </div>
 
-          <p className="text-xs text-[#6B7684] font-medium">
+          <p className="text-sm text-[#6B7684] font-medium">
             100% 명함 및 재직 인증을 통과한 직장인들이에요.
           </p>
 
@@ -169,11 +169,11 @@ export default function HomePage() {
             {LIVE_NEWCOMERS.map((person, idx) => (
               <div
                 key={idx}
-                className="py-3 flex items-center justify-between first:pt-1 last:pb-0"
+                className="py-3.5 flex items-center justify-between first:pt-1 last:pb-0"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3.5">
                   <div
-                    className={`w-10 h-10 rounded-2xl flex items-center justify-center font-black text-xs shrink-0 ${
+                    className={`w-11 h-11 rounded-2xl flex items-center justify-center font-black text-sm shrink-0 ${
                       person.gender === "남성"
                         ? "bg-[#E8F3FF] text-[#3182F6]"
                         : "bg-[#FFF0EE] text-[#FF6F61]"
@@ -182,22 +182,22 @@ export default function HomePage() {
                     {person.gender === "남성" ? "남" : "여"}
                   </div>
                   <div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-extrabold text-xs text-[#191F28]">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-[15px] text-[#191F28]">
                         {person.company}
                       </span>
-                      <ShieldCheck className="w-3.5 h-3.5 text-[#00B368]" />
-                      <span className="text-[11px] text-[#6B7684] font-semibold">
+                      <ShieldCheck className="w-4 h-4 text-[#00B368]" />
+                      <span className="text-[13px] text-[#6B7684] font-medium">
                         {person.age}세 · {person.gender}
                       </span>
                     </div>
-                    <p className="text-[11px] text-[#8B95A1] font-medium mt-0.5">
+                    <p className="text-[13px] text-[#8B95A1] font-medium mt-0.5">
                       {person.job} · {person.location}
                     </p>
                   </div>
                 </div>
 
-                <span className="text-[10px] font-bold text-[#8B95A1] bg-[#F2F4F6] px-2 py-0.5 rounded-md">
+                <span className="text-xs font-medium text-[#8B95A1] bg-[#F2F4F6] px-2.5 py-1 rounded-lg">
                   {person.timeAgo}
                 </span>
               </div>
@@ -205,11 +205,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 4. 하단 직장인 인연 바로보기 CTA 버튼 */}
+        {/* 4. 하단 직장인 인연 바로보기 CTA 버튼 (토스 FixedBottomCTA 기준 56px, 16px 폰트) */}
         <div className="pt-2">
           <Link
             href="/chat?tab=today"
-            className="w-full h-14 bg-[#3182F6] text-white font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 active:scale-[0.98] transition-all"
+            className="w-full h-14 bg-[#3182F6] text-white font-bold text-[16px] rounded-2xl flex items-center justify-center gap-2.5 shadow-lg shadow-blue-500/25 active:scale-[0.98] transition-all"
           >
             <HeartHandshake className="w-5 h-5" />
             <span>오늘의 직장인 인연 보러가기</span>

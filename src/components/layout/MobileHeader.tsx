@@ -17,7 +17,7 @@ export default function MobileHeader({
     <header className="sticky top-0 z-40 bg-[#F2F4F6] border-b border-[#E5E8EB]/70 px-5 h-14 flex items-center justify-between transition-colors">
       {/* 토스 스타일: 홈에서는 브랜드 로고, 서브페이지에서는 페이지 타이틀 */}
       {title ? (
-        <h1 className="text-[19px] font-bold text-[#191F28] tracking-tight">{title}</h1>
+        <h1 className="text-[21px] font-extrabold text-[#191F28] tracking-tight">{title}</h1>
       ) : (
         <Link href="/" className="flex items-center active:opacity-80 transition-opacity">
           <Image
@@ -36,7 +36,7 @@ export default function MobileHeader({
         {showVerifiedBadge && (
           <Link
             href="/profile"
-            className="flex items-center gap-1 bg-[#E6F7F0] text-[#00B368] px-2.5 py-1 rounded-full text-[11px] font-bold hover:bg-[#d0f2e3] transition-colors"
+            className="flex items-center gap-1.5 bg-[#E6F7F0] text-[#00B368] px-3 py-1 rounded-full text-xs font-bold hover:bg-[#d0f2e3] transition-colors"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-[#00B368]" />
             <span>인증 완료</span>
