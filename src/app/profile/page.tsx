@@ -37,16 +37,16 @@ export default function ProfilePage() {
                   ENFP
                 </span>
               </div>
-              <p className="text-sm text-[#6B7684] mt-0.5 flex items-center gap-1 font-medium">
-                <Building2 className="w-4 h-4 text-[#8B95A1]" />
-                카카오 · 서비스 기획자 (29세)
+              <p className="text-sm text-[#6B7684] mt-0.5 flex items-center gap-1 font-medium truncate">
+                <Building2 className="w-4 h-4 text-[#8B95A1] shrink-0" />
+                <span className="truncate">카카오 · 서비스 기획자 (29세)</span>
               </p>
             </div>
           </div>
 
           <Link
             href="/auth/profile-step1"
-            className="text-xs font-bold text-[#3182F6] bg-[#E8F3FF] hover:bg-blue-100 px-3 py-1.5 rounded-xl transition-colors active:scale-95"
+            className="text-xs font-bold text-[#3182F6] bg-[#E8F3FF] hover:bg-blue-100 px-3 py-1.5 rounded-xl transition-colors active:scale-95 shrink-0 whitespace-nowrap"
           >
             수정
           </Link>
@@ -59,7 +59,7 @@ export default function ProfilePage() {
               <ShieldCheck className="w-5 h-5 text-[#00B368]" />
               <h3 className="text-[16px] font-bold">100% 직장인 안심 인증</h3>
             </div>
-            <span className="text-xs bg-[#00B368] text-white font-bold px-2.5 py-1 rounded-full">
+            <span className="text-xs bg-[#00B368] text-white font-bold px-2.5 py-1 rounded-full shrink-0">
               인증 유지 중
             </span>
           </div>
@@ -73,7 +73,7 @@ export default function ProfilePage() {
             </div>
             <Link
               href="/auth/verify-work"
-              className="text-xs bg-white/20 hover:bg-white/30 text-white font-bold px-3 py-1.5 rounded-xl transition-colors active:scale-95"
+              className="text-xs bg-white/20 hover:bg-white/30 text-white font-bold px-3 py-1.5 rounded-xl transition-colors active:scale-95 shrink-0 whitespace-nowrap"
             >
               재인증하기
             </Link>

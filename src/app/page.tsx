@@ -87,8 +87,8 @@ export default function HomePage() {
                 오늘의 인연 도착
               </span>
             </div>
-            <h2 className="text-[20px] font-black tracking-tight mt-0.5">
-              민지님, 오늘의 인연 2명이 도착했어요
+            <h2 className="text-[19px] font-black tracking-tight mt-0.5 leading-snug break-keep">
+              민지님을 위한<br className="sm:hidden" /> 오늘의 인연 2명이 도착했어요
             </h2>
             <p className="text-[13.5px] text-blue-100/90 font-medium">
               밤 10시 매칭 · 직장과 라이프스타일 확인하기

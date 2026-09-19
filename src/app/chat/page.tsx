@@ -204,14 +204,14 @@ function ChatContent() {
       )}
 
       {/* 4대 탭 메뉴 (토스 스타일 세그먼트) */}
-      <div className="px-4 pt-3 pb-2">
-        <div className="flex bg-[#E5E8EB]/80 p-1.5 rounded-2xl gap-1">
+      <div className="px-3 pt-3 pb-2">
+        <div className="flex bg-[#E5E8EB]/80 p-1 rounded-2xl gap-0.5">
           <button
             onClick={() => {
               setActiveTab("today");
               setSelectedProfileId(null);
             }}
-            className={`flex-1 py-2.5 text-[13.5px] font-bold rounded-xl transition-all relative flex items-center justify-center gap-1 ${
+            className={`flex-1 py-2 text-[12.5px] font-bold rounded-xl transition-all relative whitespace-nowrap flex items-center justify-center gap-1 ${
               activeTab === "today"
                 ? "bg-white text-[#191F28] shadow-sm font-black"
                 : "text-[#6B7684] hover:text-[#191F28]"
@@ -219,27 +219,27 @@ function ChatContent() {
           >
             <span>오늘의 인연</span>
             {pendingCount > 0 && (
-              <span className="px-1.5 py-0.2 bg-[#3182F6] text-white text-[11px] rounded-full font-black min-w-[18px] text-center">
+              <span className="px-1.5 py-0.2 bg-[#3182F6] text-white text-[10.5px] rounded-full font-black min-w-[16px] text-center">
                 {pendingCount}
               </span>
             )}
           </button>
           <button
             onClick={() => setActiveTab("matched")}
-            className={`flex-1 py-2.5 text-[13.5px] font-bold rounded-xl transition-all relative flex items-center justify-center gap-1 ${
+            className={`flex-1 py-2 text-[12.5px] font-bold rounded-xl transition-all relative whitespace-nowrap flex items-center justify-center gap-1 ${
               activeTab === "matched"
                 ? "bg-white text-[#191F28] shadow-sm font-black"
                 : "text-[#6B7684] hover:text-[#191F28]"
             }`}
           >
             <span>대화 중</span>
-            <span className="px-1.5 py-0.2 bg-[#3182F6] text-white text-[11px] rounded-full font-black min-w-[18px] text-center">
+            <span className="px-1.5 py-0.2 bg-[#3182F6] text-white text-[10.5px] rounded-full font-black min-w-[16px] text-center">
               {matchedRooms.length}
             </span>
           </button>
           <button
             onClick={() => setActiveTab("received")}
-            className={`flex-1 py-2.5 text-[13.5px] font-bold rounded-xl transition-all relative flex items-center justify-center gap-1 ${
+            className={`flex-1 py-2 text-[12.5px] font-bold rounded-xl transition-all relative whitespace-nowrap flex items-center justify-center gap-1 ${
               activeTab === "received"
                 ? "bg-white text-[#191F28] shadow-sm font-black"
                 : "text-[#6B7684] hover:text-[#191F28]"
@@ -247,14 +247,14 @@ function ChatContent() {
           >
             <span>받은 호감</span>
             {receivedLikes.length > 0 && (
-              <span className="px-1.5 py-0.2 bg-[#FF6F61] text-white text-[11px] rounded-full font-black min-w-[18px] text-center">
+              <span className="px-1.5 py-0.2 bg-[#FF6F61] text-white text-[10.5px] rounded-full font-black min-w-[16px] text-center">
                 {receivedLikes.length}
               </span>
             )}
           </button>
           <button
             onClick={() => setActiveTab("sent")}
-            className={`flex-1 py-2.5 text-[13.5px] font-bold rounded-xl transition-all flex items-center justify-center ${
+            className={`flex-1 py-2 text-[12.5px] font-bold rounded-xl transition-all whitespace-nowrap flex items-center justify-center ${
               activeTab === "sent"
                 ? "bg-white text-[#191F28] shadow-sm font-black"
                 : "text-[#6B7684] hover:text-[#191F28]"
