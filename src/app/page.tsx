@@ -4,17 +4,10 @@ import Link from "next/link";
 import MobileHeader from "@/components/layout/MobileHeader";
 import {
   Sparkles,
-  TrendingUp,
   ShieldCheck,
-  Building2,
   Users,
-  Clock,
   ChevronRight,
   HeartHandshake,
-  CheckCircle2,
-  Award,
-  Lock,
-  MessageSquare,
 } from "lucide-react";
 
 // 실시간 가입 피드 데이터
@@ -72,40 +65,6 @@ const LIVE_NEWCOMERS = [
     location: "판교",
     timeAgo: "1시간 전",
     verified: true,
-  },
-];
-
-// 이번 주 인기 직장/업계 랭킹 (토스증권 실시간 차트 스타일)
-const INDUSTRY_RANKINGS = [
-  {
-    rank: 1,
-    industry: "IT · 테크 · 플랫폼",
-    companies: "네이버, 카카오, 토스, 라인, 쿠팡",
-    percent: 34,
-  },
-  {
-    rank: 2,
-    industry: "대기업 · 제조 · 전자",
-    companies: "삼성전자, 현대자동차, SK하이닉스, LG전자",
-    percent: 27,
-  },
-  {
-    rank: 3,
-    industry: "금융 · 전문직 · 회계/법무",
-    companies: "금융지주, 삼일PwC, 김앤장, 대형병원",
-    percent: 19,
-  },
-  {
-    rank: 4,
-    industry: "바이오 · 제약 · 헬스케어",
-    companies: "삼성바이오로직스, 셀트리온, 유한양행",
-    percent: 11,
-  },
-  {
-    rank: 5,
-    industry: "공기업 · 공공기관",
-    companies: "한국전력, 인천국제공항공사, 코레일",
-    percent: 9,
   },
 ];
 
@@ -246,123 +205,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 4. 이번 주 인기 직장 & 업계 랭킹 (토스증권 실시간 차트 스타일) */}
-        <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E5E8EB] flex flex-col gap-3.5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-[#3182F6]" />
-              <h3 className="text-sm font-extrabold text-[#191F28]">
-                이번 주 인기 업계 랭킹
-              </h3>
-            </div>
-            <span className="text-[11px] text-[#8B95A1] font-medium">
-              가입자 비율
-            </span>
-          </div>
-
-          <div className="flex flex-col gap-3 pt-1">
-            {INDUSTRY_RANKINGS.map((item) => (
-              <div key={item.rank} className="flex flex-col gap-1.5">
-                <div className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`w-4 text-center font-black text-xs ${
-                        item.rank <= 3 ? "text-[#3182F6]" : "text-[#8B95A1]"
-                      }`}
-                    >
-                      {item.rank}
-                    </span>
-                    <span className="font-extrabold text-[#191F28]">
-                      {item.industry}
-                    </span>
-                  </div>
-                  <span className="font-extrabold text-[#3182F6]">
-                    {item.percent}%
-                  </span>
-                </div>
-
-                {/* 프로그레스 바 */}
-                <div className="h-1.5 w-full bg-[#F2F4F6] rounded-full overflow-hidden">
-                  <div
-                    className="bg-[#3182F6] h-full rounded-full transition-all duration-500"
-                    style={{ width: `${item.percent * 2.5}%` }}
-                  ></div>
-                </div>
-
-                <p className="text-[10px] text-[#8B95A1] pl-6 truncate font-medium">
-                  {item.companies}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 5. 토스 안심 안전 지표 3종 (Trust Badges) */}
-        <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E5E8EB] flex flex-col gap-3">
-          <div className="flex items-center gap-2">
-            <Lock className="w-4 h-4 text-[#00B368]" />
-            <h3 className="text-sm font-extrabold text-[#191F28]">
-              샐러리 안심 보호 시스템
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-3 gap-2 pt-1 text-center">
-            <div className="bg-[#F9FAFB] p-3 rounded-2xl border border-[#F2F4F6] flex flex-col items-center">
-              <span className="text-base font-black text-[#00B368]">100%</span>
-              <span className="text-[10px] font-bold text-[#191F28] mt-1">
-                Gemini AI
-              </span>
-              <span className="text-[9px] text-[#8B95A1] mt-0.5">
-                손등사진 검증
-              </span>
-            </div>
-
-            <div className="bg-[#F9FAFB] p-3 rounded-2xl border border-[#F2F4F6] flex flex-col items-center">
-              <span className="text-base font-black text-[#3182F6]">98.4%</span>
-              <span className="text-[10px] font-bold text-[#191F28] mt-1">
-                재직 인증
-              </span>
-              <span className="text-[9px] text-[#8B95A1] mt-0.5">
-                사내메일/명함
-              </span>
-            </div>
-
-            <div className="bg-[#F9FAFB] p-3 rounded-2xl border border-[#F2F4F6] flex flex-col items-center">
-              <span className="text-base font-black text-[#191F28]">100%</span>
-              <span className="text-[10px] font-bold text-[#191F28] mt-1">
-                지인 차단
-              </span>
-              <span className="text-[9px] text-[#8B95A1] mt-0.5">
-                회사 동료 필터
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* 6. 건강한 매칭 소셜 프루프 통계 */}
-        <div className="bg-white rounded-3xl p-5 shadow-sm border border-[#E5E8EB] flex flex-col gap-2.5">
-          <div className="flex items-center gap-2">
-            <MessageSquare className="w-4 h-4 text-[#3182F6]" />
-            <h3 className="text-sm font-extrabold text-[#191F28]">
-              어제 성사된 직장인 인연
-            </h3>
-          </div>
-
-          <div className="bg-[#E8F3FF]/70 p-4 rounded-2xl flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold text-[#4E5968]">어제 밤 10시 매칭</p>
-              <p className="text-xl font-black text-[#3182F6] mt-0.5">
-                총 46쌍 성사
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="text-[11px] font-bold text-[#4E5968]">첫 대화 응답률</p>
-              <p className="text-sm font-black text-[#191F28] mt-0.5">91.4%</p>
-            </div>
-          </div>
-        </div>
-
-        {/* 7. 하단 직장인 인연 바로보기 CTA 버튼 */}
+        {/* 4. 하단 직장인 인연 바로보기 CTA 버튼 */}
         <div className="pt-2">
           <Link
             href="/chat?tab=today"
