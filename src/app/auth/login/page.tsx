@@ -4,45 +4,44 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, Hand, Lock, ArrowLeft } from "lucide-react";
+import { ShieldCheck, Hand, Lock, ArrowLeft, Sparkles } from "lucide-react";
 
 export default function LoginPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 w-full">
       <div>
-        {/* 상단 뒤로가기 헤더 (verify-work와 동일한 레이아웃 구조) */}
+        {/* 상단 프로그레스 바 (TDS Onboarding Funnel 규격 일치: 시작 단계) */}
         <div className="pt-2 pb-5">
-          <Link
-            href="/"
-            className="text-[#4E5968] hover:text-[#191F28] inline-flex items-center gap-1 active:scale-95 transition-transform"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
+          <div className="h-1 w-full bg-[#F2F4F6] rounded-full overflow-hidden">
+            <div className="h-full bg-[#3182F6] rounded-full w-[12%] transition-all duration-300"></div>
+          </div>
+          <div className="flex items-center justify-between mt-3">
+            <Link
+              href="/"
+              className="text-[#4E5968] hover:text-[#191F28] inline-flex items-center gap-1 active:scale-95 transition-transform cursor-pointer"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+            <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-3 py-1 rounded-full">
+              시작 단계
+            </span>
+          </div>
         </div>
 
-        {/* 브랜드 로고 */}
-        <div className="mb-5 flex items-center">
-          <Image
-            src="/logo-vertical.png"
-            alt="salaryee"
-            width={128}
-            height={90}
-            className="h-16 w-auto object-contain"
-            priority
-          />
+        {/* 타이틀 및 브랜드 소개 (TDS Mobile 서열: 24px Black 타이틀 + 14px Medium 설명) */}
+        <div>
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-1 rounded-full mb-2.5">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>직장인 전용 100% 안심 소개팅</span>
+          </div>
+          <h1 className="text-[24px] font-black text-[#191F28] tracking-tight leading-snug">
+            얼굴 노출 없이 안심하고,<br />
+            샐러리에서 인연을 만나요
+          </h1>
+          <p className="text-[14px] text-[#6B7684] mt-2 font-medium leading-relaxed">
+            손등의 온기와 정갈한 자필 엽서로 가치관이 통하는 직장인을 찾아요.
+          </p>
         </div>
-
-        {/* 토스식 대화형 헤드라인 */}
-        <h1 className="text-[26px] font-black text-[#191F28] tracking-tight leading-[1.35]">
-          얼굴 노출 없는<br />
-          직장인 안심 소개팅,<br />
-          <span className="text-[#FF6F61]">샐러리</span>
-        </h1>
-
-        <p className="text-[14.5px] text-[#6B7684] mt-2.5 font-medium leading-relaxed">
-          손등의 온기와 정갈한 자필 손글씨로<br />
-          가치관이 통하는 인연을 만나요.
-        </p>
 
         {/* 토스 3대 안심 가치 (순백색 캔버스 일체형 오픈 리스트) */}
         <div className="mt-8 flex flex-col gap-5">
