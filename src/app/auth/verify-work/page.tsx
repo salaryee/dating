@@ -71,7 +71,7 @@ export default function VerifyWorkPage() {
     }, 1500);
   };
 
-  // 2. 인증번호 발송 & OTP 화면 전환 (클릭 시 햅틱 및 로딩 인터랙션 피드백)
+  // 2. 인증번호 발송 & OTP 화면 전환 (클릭 시 하이라이트 및 햅틱 피드백)
   const handleSendOtp = () => {
     if (confirmAction) return;
     if (typeof window !== "undefined" && window.navigator && window.navigator.vibrate) {
@@ -83,10 +83,10 @@ export default function VerifyWorkPage() {
       setTimeLeft(300);
       setConfirmAction(null);
       setToastMessage(`${companyInfo.email}로 인증번호가 발송되었어요.`);
-    }, 400);
+    }, 500);
   };
 
-  // 명함 다시 촬영 전환 (클릭 시 햅틱 및 인터랙션 피드백)
+  // 명함 다시 촬영 전환 (클릭 시 하이라이트 및 햅틱 피드백)
   const handleRescanCard = () => {
     if (confirmAction) return;
     if (typeof window !== "undefined" && window.navigator && window.navigator.vibrate) {
@@ -96,7 +96,7 @@ export default function VerifyWorkPage() {
     setTimeout(() => {
       setStep("scan");
       setConfirmAction(null);
-    }, 250);
+    }, 450);
   };
 
   // 인증번호 재발송
@@ -406,43 +406,49 @@ export default function VerifyWorkPage() {
       <div className="pb-6 pt-4 flex flex-col gap-2.5">
         {step === "confirm" && (
           <>
+            {/* 1. '네, 이 메일이 맞아요 (인증번호 받기)' 버튼 */}
             <button
               type="button"
               onClick={handleSendOtp}
               disabled={confirmAction !== null}
-              className={`w-full h-14 rounded-2xl font-bold text-[16px] transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.96] ${
+              className={`w-full h-14 rounded-2xl font-bold text-[16px] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.96] ${
                 confirmAction === "sending"
-                  ? "bg-[#1B64DA] text-white/90 shadow-md scale-[0.98]"
-                  : "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:bg-[#1553B7]"
+                  ? "bg-[#3182F6] text-white shadow-lg shadow-blue-500/30 ring-4 ring-[#3182F6]/30 scale-[0.98]"
+                  : confirmAction === "rescanning"
+                  ? "bg-[#F2F4F6] text-[#B0B8C1] border border-[#E5E8EB] opacity-60 cursor-not-allowed"
+                  : "bg-[#F2F4F6] text-[#333D4B] border border-[#E5E8EB] hover:bg-[#E8F3FF] hover:text-[#3182F6] hover:border-[#3182F6]/40 active:bg-[#3182F6] active:text-white"
               }`}
             >
               {confirmAction === "sending" ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin text-white" />
-                  <span>인증번호 발송 중...</span>
+                  <span className="text-white">인증번호 발송 중...</span>
                 </>
               ) : (
                 <>
-                  <Check className="w-5 h-5 text-white stroke-[2.5]" />
+                  <Check className={`w-5 h-5 stroke-[2.5] ${confirmAction === null ? "text-[#3182F6]" : "text-[#B0B8C1]"}`} />
                   <span>네, 이 메일이 맞아요 (인증번호 받기)</span>
                 </>
               )}
             </button>
 
+            {/* 2. '메일 주소가 달라요 (명함 다시 찍기)' 버튼 */}
             <button
               type="button"
               onClick={handleRescanCard}
               disabled={confirmAction !== null}
-              className={`w-full h-13 rounded-2xl font-bold text-[14.5px] transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.96] ${
+              className={`w-full h-13 rounded-2xl font-bold text-[14.5px] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.96] ${
                 confirmAction === "rescanning"
-                  ? "bg-[#E5E8EB] text-[#191F28] scale-[0.98]"
-                  : "text-[#4E5968] bg-[#F2F4F6] hover:bg-[#E5E8EB] hover:text-[#191F28] active:bg-[#D1D6DB]"
+                  ? "bg-[#4E5968] text-white shadow-lg shadow-gray-500/25 ring-4 ring-[#4E5968]/30 scale-[0.98]"
+                  : confirmAction === "sending"
+                  ? "bg-[#F9FAFB] text-[#B0B8C1] opacity-60 cursor-not-allowed"
+                  : "bg-[#F9FAFB] text-[#6B7684] border border-[#E5E8EB] hover:bg-[#F2F4F6] hover:text-[#191F28] active:bg-[#4E5968] active:text-white"
               }`}
             >
               {confirmAction === "rescanning" ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin text-[#4E5968]" />
-                  <span>촬영 화면으로 이동 중...</span>
+                  <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                  <span className="text-white">촬영 화면으로 이동 중...</span>
                 </>
               ) : (
                 <>
