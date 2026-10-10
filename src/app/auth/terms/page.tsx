@@ -9,30 +9,26 @@ import { Check, ChevronRight, Lock } from "lucide-react";
 export default function TermsPage() {
   const [allAgreed, setAllAgreed] = useState(false);
   const [terms, setTerms] = useState({
-    age: false,
     service: false,
     privacy: false,
-    marketing: false,
   });
 
   const handleAllAgree = () => {
     const nextVal = !allAgreed;
     setAllAgreed(nextVal);
     setTerms({
-      age: nextVal,
       service: nextVal,
       privacy: nextVal,
-      marketing: nextVal,
     });
   };
 
   const handleToggle = (key: keyof typeof terms) => {
     const nextTerms = { ...terms, [key]: !terms[key] };
     setTerms(nextTerms);
-    setAllAgreed(nextTerms.age && nextTerms.service && nextTerms.privacy && nextTerms.marketing);
+    setAllAgreed(nextTerms.service && nextTerms.privacy);
   };
 
-  const isRequiredDone = terms.age && terms.service && terms.privacy;
+  const isRequiredDone = terms.service && terms.privacy;
 
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 w-full">
@@ -77,7 +73,7 @@ export default function TermsPage() {
             </div>
             <div>
               <span className="text-[17px] font-bold text-[#191F28]">약관 전체 동의하기</span>
-              <p className="text-[13px] text-[#8B95A1] mt-0.5 font-medium">선택 항목까지 모두 포함해요</p>
+              <p className="text-[13px] text-[#8B95A1] mt-0.5 font-medium">서비스 이용에 필요한 필수 항목이에요</p>
             </div>
           </button>
 
@@ -86,26 +82,6 @@ export default function TermsPage() {
 
           {/* 개별 항목들 */}
           <div className="flex flex-col gap-4">
-            {/* 필수 0: 만 19세 이상 */}
-            <div className="flex items-center justify-between">
-              <button
-                type="button"
-                onClick={() => handleToggle("age")}
-                className="flex items-center gap-3 text-left flex-1 cursor-pointer"
-              >
-                <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors shrink-0 ${
-                    terms.age ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
-                  }`}
-                >
-                  <Check className="w-3.5 h-3.5 stroke-[3]" />
-                </div>
-                <span className="text-[15px] font-semibold text-[#191F28]">
-                  [필수] 만 19세 이상 직장인 확인
-                </span>
-              </button>
-            </div>
-
             {/* 필수 1: 서비스 이용약관 */}
             <div className="flex items-center justify-between">
               <button
@@ -146,27 +122,6 @@ export default function TermsPage() {
                 </span>
               </button>
               <ChevronRight className="w-5 h-5 text-[#8B95A1]" />
-            </div>
-
-            {/* 선택 1: 마케팅 / 알림 */}
-            <div className="flex items-center justify-between">
-              <button
-                type="button"
-                onClick={() => handleToggle("marketing")}
-                className="flex items-center gap-3 text-left flex-1 cursor-pointer"
-              >
-                <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors shrink-0 ${
-                    terms.marketing ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
-                  }`}
-                >
-                  <Check className="w-3.5 h-3.5 stroke-[3]" />
-                </div>
-                <span className="text-[15px] font-medium text-[#333D4B]">
-                  [선택] 매일 밤 10시 인연 도착 알림 받기
-                </span>
-              </button>
-              <span className="text-xs text-[#3182F6] font-bold bg-[#E8F3FF] px-2 py-0.5 rounded-md">무료</span>
             </div>
           </div>
         </div>
