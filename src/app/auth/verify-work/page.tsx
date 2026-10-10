@@ -100,6 +100,7 @@ export default function VerifyWorkPage() {
   // 4. 인증번호 확인
   const handleVerifyOtp = () => {
     if (otpInput.length === 6) {
+      setToastMessage(null);
       setStep("success");
     } else {
       setToastMessage("인증번호 6자리를 정확히 입력해 주세요.");
