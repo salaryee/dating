@@ -18,12 +18,14 @@ import {
   Wine,
   Cigarette,
   Heart,
+  Bus,
 } from "lucide-react";
 
 export default function ProfileStep2Page() {
   const [noteStatus, setNoteStatus] = useState<"empty" | "analyzing" | "success">("empty");
   const [workStartTime, setWorkStartTime] = useState("09:00");
   const [workEndTime, setWorkEndTime] = useState("18:00");
+  const [commuteMethod, setCommuteMethod] = useState<"버스" | "지하철" | "버스+지하철" | "자차">("지하철");
   const [drinking, setDrinking] = useState<"가끔 마심" | "자주 마심" | "전혀 안 마심">("가끔 마심");
   const [smoking, setSmoking] = useState<"비흡연" | "전자담배" | "흡연">("비흡연");
   const [mbti, setMbti] = useState("ENFP");
@@ -263,6 +265,33 @@ export default function ProfileStep2Page() {
                     <ChevronDown className="w-4 h-4 text-[#8B95A1] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* 출퇴근 수단 (TDS Segmented Control) */}
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
+                  <Bus className="w-4 h-4 text-[#8B95A1]" />
+                  <span>출퇴근 수단</span>
+                </span>
+                <span className="text-[12.5px] font-bold text-[#3182F6]">{commuteMethod}</span>
+              </div>
+              <div className="flex bg-[#F2F4F6] p-1 rounded-2xl h-13 items-center gap-1">
+                {(["버스", "지하철", "버스+지하철", "자차"] as const).map((method) => (
+                  <button
+                    key={method}
+                    type="button"
+                    onClick={() => setCommuteMethod(method)}
+                    className={`flex-1 h-full rounded-xl text-[12.5px] sm:text-[13px] font-bold transition-all cursor-pointer whitespace-nowrap ${
+                      commuteMethod === method
+                        ? "bg-white text-[#191F28] shadow-xs"
+                        : "text-[#8B95A1] hover:text-[#4E5968]"
+                    }`}
+                  >
+                    {method}
+                  </button>
+                ))}
               </div>
             </div>
 
