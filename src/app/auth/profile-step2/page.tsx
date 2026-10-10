@@ -10,19 +10,21 @@ import {
   FileText,
   RefreshCw,
   Check,
-  Coffee,
   Clock,
   Lock,
   ChevronDown,
   Sun,
   Moon,
+  Wine,
+  Cigarette,
 } from "lucide-react";
 
 export default function ProfileStep2Page() {
   const [noteStatus, setNoteStatus] = useState<"empty" | "analyzing" | "success">("empty");
   const [workStartTime, setWorkStartTime] = useState("09:00");
   const [workEndTime, setWorkEndTime] = useState("18:00");
-  const [lifestyle, setLifestyle] = useState("비흡연 · 가끔 한잔");
+  const [drinking, setDrinking] = useState<"가끔 마심" | "자주 마심" | "전혀 안 마심">("가끔 마심");
+  const [smoking, setSmoking] = useState<"비흡연" | "전자담배" | "흡연">("비흡연");
 
   const simulateCameraCapture = () => {
     setNoteStatus("analyzing");
@@ -235,25 +237,52 @@ export default function ProfileStep2Page() {
               </div>
             </div>
 
-            {/* 성향 및 라이프스타일 */}
+            {/* 음주 여부 (TDS Segmented Control) */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
                 <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
-                  <Coffee className="w-4 h-4 text-[#8B95A1]" />
-                  <span>성향 및 라이프스타일</span>
+                  <Wine className="w-4 h-4 text-[#8B95A1]" />
+                  <span>음주</span>
                 </span>
-                <span className="text-[13.5px] font-bold text-[#3182F6]">{lifestyle}</span>
+                <span className="text-[12.5px] font-bold text-[#3182F6]">{drinking}</span>
               </div>
-              <div className="grid grid-cols-3 gap-2">
-                {["비흡연 · 가끔 한잔", "비흡연 · 술 안 마심", "흡연 · 가끔 한잔"].map((item) => (
+              <div className="flex bg-[#F2F4F6] p-1 rounded-2xl h-13 items-center gap-1">
+                {(["전혀 안 마심", "가끔 마심", "자주 마심"] as const).map((item) => (
                   <button
                     key={item}
                     type="button"
-                    onClick={() => setLifestyle(item)}
-                    className={`h-11 px-1 rounded-xl text-[13px] font-bold transition-all text-center cursor-pointer ${
-                      lifestyle === item
-                        ? "bg-[#3182F6] text-white shadow-xs"
-                        : "bg-[#F2F4F6] text-[#6B7684] hover:bg-[#E5E8EB]"
+                    onClick={() => setDrinking(item)}
+                    className={`flex-1 h-full rounded-xl text-[13.5px] font-bold transition-all cursor-pointer ${
+                      drinking === item
+                        ? "bg-white text-[#191F28] shadow-xs"
+                        : "text-[#8B95A1] hover:text-[#4E5968]"
+                    }`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 흡연 여부 (TDS Segmented Control) */}
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
+                  <Cigarette className="w-4 h-4 text-[#8B95A1]" />
+                  <span>흡연</span>
+                </span>
+                <span className="text-[12.5px] font-bold text-[#3182F6]">{smoking}</span>
+              </div>
+              <div className="flex bg-[#F2F4F6] p-1 rounded-2xl h-13 items-center gap-1">
+                {(["비흡연", "전자담배", "흡연"] as const).map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => setSmoking(item)}
+                    className={`flex-1 h-full rounded-xl text-[13.5px] font-bold transition-all cursor-pointer ${
+                      smoking === item
+                        ? "bg-white text-[#191F28] shadow-xs"
+                        : "text-[#8B95A1] hover:text-[#4E5968]"
                     }`}
                   >
                     {item}
