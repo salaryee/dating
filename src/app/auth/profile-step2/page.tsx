@@ -17,6 +17,7 @@ import {
   Moon,
   Wine,
   Cigarette,
+  Heart,
 } from "lucide-react";
 
 export default function ProfileStep2Page() {
@@ -25,6 +26,34 @@ export default function ProfileStep2Page() {
   const [workEndTime, setWorkEndTime] = useState("18:00");
   const [drinking, setDrinking] = useState<"가끔 마심" | "자주 마심" | "전혀 안 마심">("가끔 마심");
   const [smoking, setSmoking] = useState<"비흡연" | "전자담배" | "흡연">("비흡연");
+  const [mbti, setMbti] = useState("ENFP");
+
+  // MBTI 성향별 한 줄 요약 키워드
+  const mbtiDescriptions: Record<string, string> = {
+    ENFP: "재기발랄한 활동가 · 따뜻하고 에너지 넘치는",
+    ENFJ: "정의로운 주인공 · 배려심 깊고 진정성 있는",
+    ENTP: "뜨거운 논쟁가 · 유쾌하고 호기심 많은",
+    ENTJ: "대담한 통솔자 · 열정적이고 결단력 있는",
+    INFP: "열정적인 중재자 · 사려 깊고 다정한",
+    INFJ: "선의의 옹호자 · 통찰력 있고 따뜻한",
+    INTP: "논리적인 사색가 · 깊이 있고 지적인",
+    INTJ: "용의주도한 전략가 · 목표 지향적이고 독립적인",
+    ESFP: "자유로운 연예인 · 밝고 긍정적인 비타민",
+    ESFJ: "사교적인 외교관 · 세심하고 친화력 있는",
+    ESTP: "모험을 즐기는 사업가 · 즉흥적이고 솔직한",
+    ESTJ: "엄격한 관리자 · 책임감 강하고 든든한",
+    ISFP: "호기심 많은 예술가 · 편안하고 부드러운",
+    ISFJ: "용감한 수호자 · 섬세하고 헌신적인",
+    ISTP: "만능 재주꾼 · 쿨하고 담백한 성격",
+    ISTJ: "청렴결백한 논리주의자 · 신뢰할 수 있고 성실한",
+  };
+
+  const mbtiList = [
+    "ENFP", "ENFJ", "ENTP", "ENTJ",
+    "INFP", "INFJ", "INTP", "INTJ",
+    "ESFP", "ESFJ", "ESTP", "ESTJ",
+    "ISFP", "ISFJ", "ISTP", "ISTJ",
+  ];
 
   const simulateCameraCapture = () => {
     setNoteStatus("analyzing");
@@ -289,6 +318,50 @@ export default function ProfileStep2Page() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* MBTI 선택 (TDS 4x4 Grid Chips + 성향 인지 카드) */}
+            <div className="flex flex-col gap-2 pt-1">
+              <div className="flex items-center justify-between">
+                <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-[#8B95A1]" />
+                  <span>MBTI</span>
+                </span>
+                <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
+                  {mbti}
+                </span>
+              </div>
+
+              {/* 16개 MBTI 선택 칩 (4x4 그리드) */}
+              <div className="grid grid-cols-4 gap-1.5">
+                {mbtiList.map((type) => {
+                  const isSelected = mbti === type;
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setMbti(type)}
+                      className={`h-10 rounded-xl text-[13px] font-bold transition-all cursor-pointer flex items-center justify-center ${
+                        isSelected
+                          ? "bg-[#3182F6] text-white shadow-xs scale-[1.02]"
+                          : "bg-[#F2F4F6] text-[#6B7684] hover:bg-[#E5E8EB] active:scale-95"
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* 선택된 MBTI 성향 한눈에 인지 카드 */}
+              {mbti && mbtiDescriptions[mbti] && (
+                <div className="mt-1 px-3.5 py-2.5 rounded-xl bg-[#F9FAFB] border border-[#F2F4F6] flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-[#3182F6] shrink-0" />
+                  <span className="text-[12.5px] font-bold text-[#4E5968] leading-tight">
+                    {mbtiDescriptions[mbti]}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
