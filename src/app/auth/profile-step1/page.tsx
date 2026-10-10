@@ -4,12 +4,12 @@ export const dynamic = "force-dynamic";
 
 import { useState } from "react";
 import Link from "next/link";
-import { Camera, Sparkles, Hand, RefreshCw, Lock, Check } from "lucide-react";
+import { Camera, Sparkles, Hand, RefreshCw, Lock, Check, ChevronDown, Calendar } from "lucide-react";
 
 export default function ProfileStep1Page() {
   const [nickname, setNickname] = useState("민지");
   const [gender, setGender] = useState<"여성" | "남성">("여성");
-  const [age, setAge] = useState<number>(29);
+  const [birthYear, setBirthYear] = useState<number>(1997);
   const [handPhotoStatus, setHandPhotoStatus] = useState<"empty" | "analyzing" | "success">("empty");
 
   const simulateCameraCapture = () => {
@@ -20,6 +20,13 @@ export default function ProfileStep1Page() {
   };
 
   const isFormValid = nickname.trim().length >= 2 && handPhotoStatus === "success";
+
+  // 현재 연도(2026) 기준 계산되는 나이 안내 (만 나이 기준)
+  const currentYear = 2026;
+  const calculatedAge = currentYear - birthYear;
+
+  // 1970년생부터 2007년생(만 19세 이상)까지의 출생년도 옵션
+  const birthYearOptions = Array.from({ length: 38 }, (_, i) => 2007 - i);
 
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 w-full">
@@ -65,17 +72,17 @@ export default function ProfileStep1Page() {
             </div>
           </div>
 
-          {/* 성별 및 나이 선택 */}
+          {/* 성별 및 출생년도 선택 (TDS Segmented Control & TDS Select Component) */}
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1.5">
               <label className="text-[14.5px] font-bold text-[#333D4B]">성별</label>
-              <div className="flex bg-[#F2F4F6] p-1 rounded-xl h-12 items-center">
+              <div className="flex bg-[#F2F4F6] p-1 rounded-2xl h-14 items-center">
                 {(["여성", "남성"] as const).map((item) => (
                   <button
                     key={item}
                     type="button"
                     onClick={() => setGender(item)}
-                    className={`flex-1 h-full rounded-lg text-[14.5px] font-bold transition-all cursor-pointer ${
+                    className={`flex-1 h-full rounded-xl text-[14.5px] font-bold transition-all cursor-pointer ${
                       gender === item
                         ? "bg-white text-[#191F28] shadow-sm"
                         : "text-[#8B95A1]"
@@ -88,18 +95,26 @@ export default function ProfileStep1Page() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-[14.5px] font-bold text-[#333D4B]">나이</label>
-              <select
-                value={age}
-                onChange={(e) => setAge(Number(e.target.value))}
-                className="w-full h-12 px-3.5 rounded-xl bg-[#F2F4F6] border border-transparent text-[14.5px] font-bold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all cursor-pointer"
-              >
-                {Array.from({ length: 15 }, (_, i) => 24 + i).map((num) => (
-                  <option key={num} value={num}>
-                    {num}세
-                  </option>
-                ))}
-              </select>
+              <div className="flex items-center justify-between">
+                <label className="text-[14.5px] font-bold text-[#333D4B]">출생년도</label>
+                <span className="text-[12px] font-bold text-[#3182F6]">
+                  {calculatedAge}세
+                </span>
+              </div>
+              <div className="relative">
+                <select
+                  value={birthYear}
+                  onChange={(e) => setBirthYear(Number(e.target.value))}
+                  className="w-full h-14 pl-4 pr-10 rounded-2xl bg-[#F2F4F6] border border-transparent text-[15px] font-bold text-[#191F28] appearance-none focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all cursor-pointer"
+                >
+                  {birthYearOptions.map((year) => (
+                    <option key={year} value={year}>
+                      {year}년생 ({currentYear - year}세)
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="w-5 h-5 text-[#8B95A1] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
             </div>
           </div>
 
