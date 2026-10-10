@@ -216,7 +216,7 @@ export default function ProfileStep2Page() {
                   <Clock className="w-4 h-4 text-[#8B95A1]" />
                   <span>출퇴근 시간대</span>
                 </span>
-                <span className="text-[12.5px] font-bold text-[#3182F6]">
+                <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
                   {workStartTime.includes(":") ? `${workStartTime} 출근` : workStartTime} · {workEndTime.includes(":") ? `${workEndTime} 퇴근` : workEndTime}
                 </span>
               </div>
@@ -268,14 +268,16 @@ export default function ProfileStep2Page() {
               </div>
             </div>
 
-            {/* 출퇴근 수단 (TDS Segmented Control) */}
+            {/* 출퇴근 수단 (TDS Segmented Control - TDS 블루 하이라이트) */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
                 <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
                   <Bus className="w-4 h-4 text-[#8B95A1]" />
                   <span>출퇴근 수단</span>
                 </span>
-                <span className="text-[12.5px] font-bold text-[#3182F6]">{commuteMethod}</span>
+                <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
+                  {commuteMethod}
+                </span>
               </div>
               <div className="flex bg-[#F2F4F6] p-1 rounded-2xl h-13 items-center gap-1">
                 {(["버스", "지하철", "버스+지하철", "자차"] as const).map((method) => (
@@ -285,8 +287,8 @@ export default function ProfileStep2Page() {
                     onClick={() => setCommuteMethod(method)}
                     className={`flex-1 h-full rounded-xl text-[12.5px] sm:text-[13px] font-bold transition-all cursor-pointer whitespace-nowrap ${
                       commuteMethod === method
-                        ? "bg-white text-[#191F28] shadow-xs"
-                        : "text-[#8B95A1] hover:text-[#4E5968]"
+                        ? "bg-[#3182F6] text-white shadow-xs"
+                        : "text-[#6B7684] hover:text-[#333D4B]"
                     }`}
                   >
                     {method}
@@ -295,14 +297,16 @@ export default function ProfileStep2Page() {
               </div>
             </div>
 
-            {/* 음주 여부 (TDS Segmented Control) */}
+            {/* 음주 여부 (TDS Segmented Control - TDS 블루 하이라이트) */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
                 <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
                   <Wine className="w-4 h-4 text-[#8B95A1]" />
                   <span>음주</span>
                 </span>
-                <span className="text-[12.5px] font-bold text-[#3182F6]">{drinking}</span>
+                <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
+                  {drinking}
+                </span>
               </div>
               <div className="flex bg-[#F2F4F6] p-1 rounded-2xl h-13 items-center gap-1">
                 {(["전혀 안 마심", "가끔 마심", "자주 마심"] as const).map((item) => (
@@ -312,8 +316,8 @@ export default function ProfileStep2Page() {
                     onClick={() => setDrinking(item)}
                     className={`flex-1 h-full rounded-xl text-[13.5px] font-bold transition-all cursor-pointer ${
                       drinking === item
-                        ? "bg-white text-[#191F28] shadow-xs"
-                        : "text-[#8B95A1] hover:text-[#4E5968]"
+                        ? "bg-[#3182F6] text-white shadow-xs"
+                        : "text-[#6B7684] hover:text-[#333D4B]"
                     }`}
                   >
                     {item}
@@ -322,14 +326,16 @@ export default function ProfileStep2Page() {
               </div>
             </div>
 
-            {/* 흡연 여부 (TDS Segmented Control) */}
+            {/* 흡연 여부 (TDS Segmented Control - TDS 블루 하이라이트) */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
                 <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
                   <Cigarette className="w-4 h-4 text-[#8B95A1]" />
                   <span>흡연</span>
                 </span>
-                <span className="text-[12.5px] font-bold text-[#3182F6]">{smoking}</span>
+                <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
+                  {smoking}
+                </span>
               </div>
               <div className="flex bg-[#F2F4F6] p-1 rounded-2xl h-13 items-center gap-1">
                 {(["비흡연", "전자담배", "흡연"] as const).map((item) => (
@@ -339,8 +345,8 @@ export default function ProfileStep2Page() {
                     onClick={() => setSmoking(item)}
                     className={`flex-1 h-full rounded-xl text-[13.5px] font-bold transition-all cursor-pointer ${
                       smoking === item
-                        ? "bg-white text-[#191F28] shadow-xs"
-                        : "text-[#8B95A1] hover:text-[#4E5968]"
+                        ? "bg-[#3182F6] text-white shadow-xs"
+                        : "text-[#6B7684] hover:text-[#333D4B]"
                     }`}
                   >
                     {item}
