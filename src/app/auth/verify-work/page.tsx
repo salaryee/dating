@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  ArrowLeft,
   Camera,
   Sparkles,
   Building2,
@@ -116,17 +115,6 @@ export default function VerifyWorkPage() {
     }
   };
 
-  // 상단 뒤로가기 핸들러
-  const handleBack = () => {
-    if (step === "scan") {
-      router.push("/auth/profile-step2");
-    } else if (step === "confirm") {
-      setStep("scan");
-    } else if (step === "otp") {
-      setStep("confirm");
-    }
-  };
-
   const formatTimer = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -153,18 +141,7 @@ export default function VerifyWorkPage() {
               }`}
             ></div>
           </div>
-          <div className="flex items-center justify-between mt-3">
-            {step !== "success" ? (
-              <button
-                type="button"
-                onClick={handleBack}
-                className="text-[#4E5968] hover:text-[#191F28] inline-flex items-center gap-1 active:scale-95 transition-transform cursor-pointer"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </button>
-            ) : (
-              <div className="w-5 h-5" />
-            )}
+          <div className="flex items-center justify-end mt-3">
             <span
               className={`text-[12.5px] font-bold px-3 py-1 rounded-full ${
                 step === "success"

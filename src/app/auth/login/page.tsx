@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, Hand, Lock, ArrowLeft, Sparkles } from "lucide-react";
+import { ShieldCheck, Hand, Lock, Sparkles } from "lucide-react";
 
 export default function LoginPage() {
   return (
@@ -15,13 +15,7 @@ export default function LoginPage() {
           <div className="h-1 w-full bg-[#F2F4F6] rounded-full overflow-hidden">
             <div className="h-full bg-[#3182F6] rounded-full w-[12%] transition-all duration-300"></div>
           </div>
-          <div className="flex items-center justify-between mt-3">
-            <Link
-              href="/"
-              className="text-[#4E5968] hover:text-[#191F28] inline-flex items-center gap-1 active:scale-95 transition-transform cursor-pointer"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Link>
+          <div className="flex items-center justify-end mt-3">
             <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-3 py-1 rounded-full">
               시작 단계
             </span>
