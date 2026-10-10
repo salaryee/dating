@@ -49,7 +49,7 @@ export default function TermsPage() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <span className="text-xs font-extrabold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
+            <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-3 py-1 rounded-full">
               1 / 4 단계
             </span>
           </div>
@@ -61,7 +61,7 @@ export default function TermsPage() {
             샐러리 이용을 위해<br />
             약관에 동의해 주세요
           </h1>
-          <p className="text-xs text-[#8B95A1] mt-2 font-medium">
+          <p className="text-[14px] text-[#6B7684] mt-2 font-medium">
             안전하고 깨끗한 직장인 만남을 위해 꼭 필요해요.
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function TermsPage() {
           <button
             type="button"
             onClick={handleAllAgree}
-            className="flex items-center gap-3.5 text-left py-2 active:opacity-75 transition-opacity"
+            className="flex items-center gap-3.5 text-left py-2 active:opacity-75 transition-opacity cursor-pointer"
           >
             <div
               className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors shrink-0 ${
@@ -82,8 +82,8 @@ export default function TermsPage() {
               <Check className="w-4 h-4 stroke-[3]" />
             </div>
             <div>
-              <span className="text-base font-black text-[#191F28]">약관 전체 동의하기</span>
-              <p className="text-xs text-[#8B95A1] mt-0.5 font-medium">선택 항목까지 모두 포함해요</p>
+              <span className="text-[17px] font-bold text-[#191F28]">약관 전체 동의하기</span>
+              <p className="text-[13px] text-[#8B95A1] mt-0.5 font-medium">선택 항목까지 모두 포함해요</p>
             </div>
           </button>
 
@@ -97,16 +97,16 @@ export default function TermsPage() {
               <button
                 type="button"
                 onClick={() => handleToggle("age")}
-                className="flex items-center gap-3 text-left flex-1"
+                className="flex items-center gap-3 text-left flex-1 cursor-pointer"
               >
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0 ${
+                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors shrink-0 ${
                     terms.age ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
                   }`}
                 >
-                  <Check className="w-3 h-3 stroke-[3]" />
+                  <Check className="w-3.5 h-3.5 stroke-[3]" />
                 </div>
-                <span className="text-xs font-bold text-[#333D4B]">
+                <span className="text-[15px] font-semibold text-[#191F28]">
                   [필수] 만 19세 이상 직장인 확인
                 </span>
               </button>
@@ -117,20 +117,20 @@ export default function TermsPage() {
               <button
                 type="button"
                 onClick={() => handleToggle("service")}
-                className="flex items-center gap-3 text-left flex-1"
+                className="flex items-center gap-3 text-left flex-1 cursor-pointer"
               >
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0 ${
+                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors shrink-0 ${
                     terms.service ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
                   }`}
                 >
-                  <Check className="w-3 h-3 stroke-[3]" />
+                  <Check className="w-3.5 h-3.5 stroke-[3]" />
                 </div>
-                <span className="text-xs font-bold text-[#333D4B]">
+                <span className="text-[15px] font-semibold text-[#191F28]">
                   [필수] 서비스 이용약관 동의
                 </span>
               </button>
-              <ChevronRight className="w-4 h-4 text-[#8B95A1]" />
+              <ChevronRight className="w-5 h-5 text-[#8B95A1]" />
             </div>
 
             {/* 필수 2: 개인정보 수집 및 이용 */}
@@ -138,20 +138,20 @@ export default function TermsPage() {
               <button
                 type="button"
                 onClick={() => handleToggle("privacy")}
-                className="flex items-center gap-3 text-left flex-1"
+                className="flex items-center gap-3 text-left flex-1 cursor-pointer"
               >
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0 ${
+                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors shrink-0 ${
                     terms.privacy ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
                   }`}
                 >
-                  <Check className="w-3 h-3 stroke-[3]" />
+                  <Check className="w-3.5 h-3.5 stroke-[3]" />
                 </div>
-                <span className="text-xs font-bold text-[#333D4B]">
+                <span className="text-[15px] font-semibold text-[#191F28]">
                   [필수] 개인정보 수집 및 이용 동의
                 </span>
               </button>
-              <ChevronRight className="w-4 h-4 text-[#8B95A1]" />
+              <ChevronRight className="w-5 h-5 text-[#8B95A1]" />
             </div>
 
             {/* 선택 1: 마케팅 / 알림 */}
@@ -159,29 +159,29 @@ export default function TermsPage() {
               <button
                 type="button"
                 onClick={() => handleToggle("marketing")}
-                className="flex items-center gap-3 text-left flex-1"
+                className="flex items-center gap-3 text-left flex-1 cursor-pointer"
               >
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors shrink-0 ${
+                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors shrink-0 ${
                     terms.marketing ? "bg-[#3182F6] text-white" : "bg-[#E5E8EB] text-[#8B95A1]"
                   }`}
                 >
-                  <Check className="w-3 h-3 stroke-[3]" />
+                  <Check className="w-3.5 h-3.5 stroke-[3]" />
                 </div>
-                <span className="text-xs font-medium text-[#6B7684]">
+                <span className="text-[15px] font-medium text-[#333D4B]">
                   [선택] 매일 밤 10시 인연 도착 알림 받기
                 </span>
               </button>
-              <span className="text-[11px] text-[#3182F6] font-bold">무료</span>
+              <span className="text-xs text-[#3182F6] font-bold bg-[#E8F3FF] px-2 py-0.5 rounded-md">무료</span>
             </div>
           </div>
         </div>
 
         {/* 프라이버시 안심 노트 (verify-work와 동일한 레이아웃) */}
-        <div className="mt-6 flex items-start gap-2 text-[11px] text-[#8B95A1] font-medium px-1">
-          <Lock className="w-3.5 h-3.5 text-[#00B368] shrink-0 mt-0.5" />
+        <div className="mt-6 flex items-start gap-2.5 text-[13px] text-[#6B7684] font-medium px-1">
+          <Lock className="w-4 h-4 text-[#00B368] shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            동의하신 정보는 안전하게 암호화되며, <strong>지인에게는 절대 프로필이 노출되지 않아요.</strong>
+            동의하신 정보는 안전하게 암호화되며, <strong className="text-[#333D4B]">지인에게는 절대 프로필이 노출되지 않아요.</strong>
           </p>
         </div>
       </div>
@@ -190,7 +190,7 @@ export default function TermsPage() {
       <div className="pb-6 pt-4">
         <Link
           href={isRequiredDone ? "/auth/profile-step1" : "#"}
-          className={`w-full h-14 rounded-2xl font-extrabold text-sm transition-all flex items-center justify-center ${
+          className={`w-full h-14 rounded-2xl font-bold text-[16px] transition-all flex items-center justify-center ${
             isRequiredDone
               ? "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:scale-[0.98]"
               : "bg-[#E5E8EB] text-[#8B95A1] cursor-not-allowed pointer-events-none"

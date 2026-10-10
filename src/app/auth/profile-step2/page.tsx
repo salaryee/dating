@@ -47,7 +47,7 @@ export default function ProfileStep2Page() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <span className="text-xs font-extrabold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
+            <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-3 py-1 rounded-full">
               3 / 4 단계
             </span>
           </div>
@@ -59,7 +59,7 @@ export default function ProfileStep2Page() {
             정갈한 자필 한 줄과<br />
             나의 일상을 알려주세요
           </h1>
-          <p className="text-xs text-[#8B95A1] mt-2 leading-relaxed font-medium">
+          <p className="text-[14px] text-[#6B7684] mt-2 leading-relaxed font-medium">
             종이에 적은 따뜻한 글씨와 생활 루틴으로 가치관을 맞춰보아요.
           </p>
         </div>
@@ -67,31 +67,31 @@ export default function ProfileStep2Page() {
         {/* 1. 자필 손글씨 엽서 등록 (1/4단계와 동일한 mt-8 여백 적용) */}
         <div className="mt-8 flex flex-col">
           <div className="flex items-center justify-between mb-2">
-            <label className="text-xs font-extrabold text-[#333D4B]">
+            <label className="text-[14.5px] font-bold text-[#333D4B]">
               자필 손글씨 엽서
             </label>
-            <span className="text-[11px] text-[#3182F6] font-extrabold flex items-center gap-1">
+            <span className="text-xs text-[#3182F6] font-bold flex items-center gap-1 bg-[#E8F3FF] px-2.5 py-0.5 rounded-md">
               <Sparkles className="w-3.5 h-3.5" />
               Gemini AI 클린 검증
             </span>
           </div>
 
-          {/* 클릭 전/후 높이를 h-[88px]로 완전 고정하여 여백 조정/레이아웃 시프트 원천 차단 */}
-          <div className="w-full h-[88px] relative">
+          {/* 클릭 전/후 높이를 h-[96px]로 완전 고정하여 여백 조정/레이아웃 시프트 원천 차단 */}
+          <div className="w-full h-[96px] relative">
             {noteStatus === "empty" && (
               <button
                 type="button"
                 onClick={simulateCameraCapture}
-                className="w-full h-full rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex items-center px-4 gap-3.5 group cursor-pointer active:scale-[0.99]"
+                className="w-full h-full rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex items-center px-4 gap-3.5 group cursor-pointer active:scale-[0.99] border border-[#F2F4F6]"
               >
-                <div className="w-10 h-10 rounded-xl bg-white shadow-xs flex items-center justify-center text-amber-600 shrink-0 group-hover:scale-105 transition-transform">
-                  <Camera className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-2xl bg-white shadow-xs flex items-center justify-center text-amber-600 shrink-0 group-hover:scale-105 transition-transform">
+                  <Camera className="w-6 h-6" />
                 </div>
                 <div className="text-left">
-                  <p className="text-xs font-extrabold text-[#191F28]">
+                  <p className="text-[15px] font-bold text-[#191F28]">
                     자필 엽서 촬영하기
                   </p>
-                  <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
+                  <p className="text-[13px] text-[#6B7684] mt-0.5 font-medium">
                     좋아하는 문구나 인사를 종이에 적어주세요
                   </p>
                 </div>
@@ -99,15 +99,15 @@ export default function ProfileStep2Page() {
             )}
 
             {noteStatus === "analyzing" && (
-              <div className="w-full h-full rounded-2xl bg-[#E8F3FF]/70 flex items-center px-4 gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-white/80 flex items-center justify-center shrink-0">
-                  <RefreshCw className="w-5 h-5 text-[#3182F6] animate-spin" />
+              <div className="w-full h-full rounded-2xl bg-[#E8F3FF]/70 flex items-center px-4 gap-3.5 border border-[#3182F6]/20">
+                <div className="w-12 h-12 rounded-2xl bg-white/80 flex items-center justify-center shrink-0">
+                  <RefreshCw className="w-6 h-6 text-[#3182F6] animate-spin" />
                 </div>
                 <div className="text-left">
-                  <p className="text-xs font-bold text-[#3182F6]">
+                  <p className="text-[15px] font-bold text-[#3182F6]">
                     Gemini AI가 필체와 문구를 분석하고 있어요
                   </p>
-                  <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
+                  <p className="text-[13px] text-[#6B7684] mt-0.5 font-medium">
                     비속어 필터링 및 자필 손글씨 감지 중
                   </p>
                 </div>
@@ -117,24 +117,24 @@ export default function ProfileStep2Page() {
             {noteStatus === "success" && (
               <div className="w-full h-full rounded-2xl bg-[#F9FAFB] px-4 py-2.5 flex flex-col justify-between border border-[#F2F4F6]">
                 <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-black text-[#FF6F61]">
-                    <FileText className="w-3.5 h-3.5 text-[#FF6F61]" />
+                  <span className="inline-flex items-center gap-1.5 text-[14px] font-bold text-[#FF6F61]">
+                    <FileText className="w-4 h-4 text-[#FF6F61]" />
                     <span>자필 엽서 등록 완료</span>
                   </span>
                   <button
                     type="button"
                     onClick={simulateCameraCapture}
-                    className="text-xs text-[#8B95A1] hover:text-[#191F28] font-bold active:scale-95 transition-all"
+                    className="text-[13px] text-[#8B95A1] hover:text-[#191F28] font-bold active:scale-95 transition-all cursor-pointer"
                   >
                     다시 찍기
                   </button>
                 </div>
 
-                <p className="text-xs text-[#191F28] font-serif italic text-left truncate leading-relaxed">
+                <p className="text-[14px] text-[#191F28] font-serif italic text-left truncate leading-relaxed">
                   &ldquo;사소한 일상을 편안하게 나누고, 서로의 성장을 응원해요.&rdquo;
                 </p>
 
-                <div className="flex items-center justify-between text-[11px] pt-1 border-t border-[#E5E8EB]/60">
+                <div className="flex items-center justify-between text-[12.5px] pt-1 border-t border-[#E5E8EB]/60">
                   <span className="text-[#00B368] font-bold flex items-center gap-1">
                     <Check className="w-3.5 h-3.5" /> 비속어 없음 통과
                   </span>
@@ -148,23 +148,23 @@ export default function ProfileStep2Page() {
           <div className="h-px bg-[#F2F4F6] my-3.5 w-full" />
 
           {/* 2. 직장인 일상 루틴 원터치 칩 (1/4단계 리스트와 동일한 여백 밀도) */}
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-3">
             {/* 출퇴근 루틴 */}
             <div className="flex flex-col gap-1.5">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-extrabold text-[#333D4B] flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-[#8B95A1]" />
+              <div className="flex items-center justify-between">
+                <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-[#8B95A1]" />
                   <span>출근 시간대</span>
                 </span>
-                <span className="text-[11px] font-bold text-[#3182F6]">{commuteTime}</span>
+                <span className="text-[13.5px] font-bold text-[#3182F6]">{commuteTime}</span>
               </div>
-              <div className="grid grid-cols-4 gap-1.5">
+              <div className="grid grid-cols-4 gap-2">
                 {["08:30 출근", "09:00 출근", "09:30 출근", "10:00 출근"].map((time) => (
                   <button
                     key={time}
                     type="button"
                     onClick={() => setCommuteTime(time)}
-                    className={`py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+                    className={`h-11 rounded-xl text-[13.5px] font-bold transition-all cursor-pointer ${
                       commuteTime === time
                         ? "bg-[#3182F6] text-white shadow-xs"
                         : "bg-[#F2F4F6] text-[#6B7684] hover:bg-[#E5E8EB]"
@@ -178,20 +178,20 @@ export default function ProfileStep2Page() {
 
             {/* 성향 및 라이프스타일 */}
             <div className="flex flex-col gap-1.5">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-extrabold text-[#333D4B] flex items-center gap-1.5">
-                  <Coffee className="w-3.5 h-3.5 text-[#8B95A1]" />
+              <div className="flex items-center justify-between">
+                <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
+                  <Coffee className="w-4 h-4 text-[#8B95A1]" />
                   <span>성향 및 라이프스타일</span>
                 </span>
-                <span className="text-[11px] font-bold text-[#3182F6]">{lifestyle}</span>
+                <span className="text-[13.5px] font-bold text-[#3182F6]">{lifestyle}</span>
               </div>
-              <div className="grid grid-cols-3 gap-1.5">
+              <div className="grid grid-cols-3 gap-2">
                 {["비흡연 · 가끔 한잔", "비흡연 · 술 안 마심", "흡연 · 가끔 한잔"].map((item) => (
                   <button
                     key={item}
                     type="button"
                     onClick={() => setLifestyle(item)}
-                    className={`py-1.5 px-1 rounded-xl text-[11px] font-extrabold transition-all text-center ${
+                    className={`h-11 px-1 rounded-xl text-[13px] font-bold transition-all text-center cursor-pointer ${
                       lifestyle === item
                         ? "bg-[#3182F6] text-white shadow-xs"
                         : "bg-[#F2F4F6] text-[#6B7684] hover:bg-[#E5E8EB]"
@@ -206,10 +206,10 @@ export default function ProfileStep2Page() {
         </div>
 
         {/* 프라이버시 안심 노트 (1/4단계와 동일한 mt-6 여백) */}
-        <div className="mt-6 flex items-start gap-2 text-[11px] text-[#8B95A1] font-medium px-1">
-          <Lock className="w-3.5 h-3.5 text-[#00B368] shrink-0 mt-0.5" />
+        <div className="mt-6 flex items-start gap-2.5 text-[13px] text-[#6B7684] font-medium px-1">
+          <Lock className="w-4 h-4 text-[#00B368] shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            자필 엽서는 AI 비속어 검증 후 상대방에게 안전하게 전달돼요.
+            자필 엽서는 <strong className="text-[#333D4B]">AI 비속어 검증 후 상대방에게 안전하게 전달돼요.</strong>
           </p>
         </div>
       </div>
@@ -218,7 +218,7 @@ export default function ProfileStep2Page() {
       <div className="pb-6 pt-4">
         <Link
           href={isFormValid ? "/auth/verify-work" : "#"}
-          className={`w-full h-14 rounded-2xl font-extrabold text-sm transition-all flex items-center justify-center ${
+          className={`w-full h-14 rounded-2xl font-bold text-[16px] transition-all flex items-center justify-center ${
             isFormValid
               ? "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:scale-[0.98]"
               : "bg-[#E5E8EB] text-[#8B95A1] cursor-not-allowed pointer-events-none"

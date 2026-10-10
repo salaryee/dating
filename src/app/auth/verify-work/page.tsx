@@ -68,7 +68,7 @@ export default function VerifyWorkPage() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <span className="text-xs font-extrabold text-[#00B368] bg-[#E6F7F0] px-2.5 py-0.5 rounded-full">
+            <span className="text-[12.5px] font-bold text-[#00B368] bg-[#E6F7F0] px-3 py-1 rounded-full">
               4 / 4 마지막 단계
             </span>
           </div>
@@ -80,17 +80,17 @@ export default function VerifyWorkPage() {
             마지막 단계예요<br />
             회사 명함을 비춰주세요
           </h1>
-          <p className="text-xs text-[#8B95A1] mt-2 leading-relaxed font-medium">
-            AI가 회사 정보를 안전하게 읽고, <strong>6개월 동안 재직이 보증</strong>돼요.
+          <p className="text-[14px] text-[#6B7684] mt-2 leading-relaxed font-medium">
+            AI가 회사 정보를 안전하게 읽고, <strong className="text-[#333D4B]">6개월 동안 재직이 보증</strong>돼요.
           </p>
         </div>
 
         {/* 인증 수단 세그먼트 (명함 OCR vs 회사 이메일) */}
-        <div className="mt-6 flex bg-[#F2F4F6] p-1 rounded-2xl">
+        <div className="mt-6 flex bg-[#F2F4F6] p-1 rounded-2xl h-12 items-center">
           <button
             type="button"
             onClick={() => setMethod("card")}
-            className={`flex-1 py-2 text-xs font-extrabold rounded-xl transition-all ${
+            className={`flex-1 h-full text-[14.5px] font-bold rounded-xl transition-all cursor-pointer ${
               method === "card"
                 ? "bg-white text-[#191F28] shadow-sm"
                 : "text-[#8B95A1]"
@@ -101,7 +101,7 @@ export default function VerifyWorkPage() {
           <button
             type="button"
             onClick={() => setMethod("email")}
-            className={`flex-1 py-2 text-xs font-extrabold rounded-xl transition-all ${
+            className={`flex-1 h-full text-[14.5px] font-bold rounded-xl transition-all cursor-pointer ${
               method === "email"
                 ? "bg-white text-[#191F28] shadow-sm"
                 : "text-[#8B95A1]"
@@ -118,16 +118,16 @@ export default function VerifyWorkPage() {
               <button
                 type="button"
                 onClick={handleCardCapture}
-                className="w-full h-40 rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]"
+                className="w-full h-44 rounded-2xl bg-[#F9FAFB] hover:bg-[#F2F4F6] transition-all flex flex-col items-center justify-center gap-2.5 group cursor-pointer active:scale-[0.99] border border-[#F2F4F6]"
               >
-                <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#00B368] group-hover:scale-105 transition-transform">
-                  <Camera className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-2xl bg-white shadow-xs flex items-center justify-center text-[#00B368] group-hover:scale-105 transition-transform">
+                  <Camera className="w-6 h-6" />
                 </div>
                 <div className="text-center">
-                  <p className="text-xs font-extrabold text-[#191F28]">
+                  <p className="text-[15px] font-bold text-[#191F28]">
                     명함 촬영하기 (터치 시뮬레이션)
                   </p>
-                  <p className="text-[11px] text-[#8B95A1] mt-0.5 font-medium">
+                  <p className="text-[13px] text-[#6B7684] mt-0.5 font-medium">
                     회사명과 소속 부서가 잘 보이도록 촬영해 주세요
                   </p>
                 </div>
@@ -135,13 +135,13 @@ export default function VerifyWorkPage() {
             )}
 
             {ocrStatus === "scanning" && (
-              <div className="w-full h-40 rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2.5">
+              <div className="w-full h-44 rounded-2xl bg-[#E8F3FF]/70 flex flex-col items-center justify-center gap-2.5 border border-[#3182F6]/20">
                 <RefreshCw className="w-6 h-6 text-[#3182F6] animate-spin" />
                 <div className="text-center">
-                  <p className="text-xs font-extrabold text-[#3182F6]">
+                  <p className="text-[15px] font-bold text-[#3182F6]">
                     Gemini AI가 명함 정보를 분석하고 있어요
                   </p>
-                  <p className="text-[11px] text-[#8B95A1] mt-0.5">
+                  <p className="text-[13px] text-[#6B7684] mt-0.5 font-medium">
                     회사명, 소속 부서, 공식 재직 상태 판별 중
                   </p>
                 </div>
@@ -152,14 +152,14 @@ export default function VerifyWorkPage() {
               <div className="flex flex-col gap-3 pt-1">
                 {/* 상단 인증 통과 상태 */}
                 <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 bg-[#E6F7F0] text-[#00B368] px-3 py-1 rounded-full text-xs font-black">
+                  <span className="inline-flex items-center gap-1.5 bg-[#E6F7F0] text-[#00B368] px-3 py-1 rounded-full text-[12.5px] font-bold">
                     <ShieldCheck className="w-4 h-4 text-[#00B368]" />
                     <span>100% 직장인 인증 완료</span>
                   </span>
                   <button
                     type="button"
                     onClick={handleCardCapture}
-                    className="text-xs text-[#8B95A1] hover:text-[#191F28] font-bold active:scale-95 transition-all"
+                    className="text-[13px] text-[#8B95A1] hover:text-[#191F28] font-bold active:scale-95 transition-all cursor-pointer"
                   >
                     다시 찍기
                   </button>
@@ -167,22 +167,22 @@ export default function VerifyWorkPage() {
 
                 {/* 오픈형 정보 리스트 */}
                 <div className="flex flex-col divide-y divide-[#F2F4F6] pt-1">
-                  <div className="py-2.5 flex items-center justify-between text-xs">
-                    <span className="text-[#8B95A1] font-bold">인증 회사</span>
-                    <span className="text-[#191F28] font-black text-sm">{companyInfo.name}</span>
+                  <div className="py-2.5 flex items-center justify-between">
+                    <span className="text-[#8B95A1] font-bold text-[14px]">인증 회사</span>
+                    <span className="text-[#191F28] font-black text-[16px]">{companyInfo.name}</span>
                   </div>
-                  <div className="py-2.5 flex items-center justify-between text-xs">
-                    <span className="text-[#8B95A1] font-bold">소속 부서</span>
-                    <span className="text-[#191F28] font-semibold">{companyInfo.dept}</span>
+                  <div className="py-2.5 flex items-center justify-between">
+                    <span className="text-[#8B95A1] font-bold text-[14px]">소속 부서</span>
+                    <span className="text-[#191F28] font-bold text-[15px]">{companyInfo.dept}</span>
                   </div>
-                  <div className="py-2.5 flex items-center justify-between text-xs">
-                    <span className="text-[#8B95A1] font-bold">사내 메일</span>
-                    <span className="text-[#191F28] font-medium">{companyInfo.email}</span>
+                  <div className="py-2.5 flex items-center justify-between">
+                    <span className="text-[#8B95A1] font-bold text-[14px]">사내 메일</span>
+                    <span className="text-[#191F28] font-medium text-[15px]">{companyInfo.email}</span>
                   </div>
-                  <div className="py-2.5 flex items-center justify-between text-xs">
-                    <span className="text-[#8B95A1] font-bold">재인증 주기</span>
-                    <span className="text-[#00B368] font-bold flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5" /> 6개월간 안전 유지
+                  <div className="py-2.5 flex items-center justify-between">
+                    <span className="text-[#8B95A1] font-bold text-[14px]">재인증 주기</span>
+                    <span className="text-[#00B368] font-bold flex items-center gap-1 text-[13.5px]">
+                      <Clock className="w-4 h-4" /> 6개월간 안전 유지
                     </span>
                   </div>
                 </div>
@@ -195,19 +195,19 @@ export default function VerifyWorkPage() {
         {method === "email" && (
           <div className="mt-5 flex flex-col gap-3">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-extrabold text-[#333D4B]">회사 이메일 주소</label>
+              <label className="text-[14.5px] font-bold text-[#333D4B]">회사 이메일 주소</label>
               <div className="flex gap-2">
                 <input
                   type="email"
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
                   placeholder="name@company.com"
-                  className="flex-1 px-4 py-3 rounded-xl bg-[#F2F4F6] border border-transparent text-xs font-bold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
+                  className="flex-1 px-4 h-14 rounded-2xl bg-[#F2F4F6] border border-transparent text-[16px] font-bold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
                 />
                 <button
                   type="button"
                   onClick={handleSendCode}
-                  className="px-3.5 py-3 rounded-xl bg-[#3182F6] text-white text-xs font-bold hover:bg-[#1B64DA] active:scale-95 transition-all shrink-0"
+                  className="h-14 px-4 rounded-2xl bg-[#3182F6] text-white text-[14.5px] font-bold hover:bg-[#1B64DA] active:scale-95 transition-all shrink-0 cursor-pointer"
                 >
                   인증번호 발송
                 </button>
@@ -216,7 +216,7 @@ export default function VerifyWorkPage() {
 
             {codeSent && (
               <div className="flex flex-col gap-1.5 animate-in fade-in duration-200">
-                <label className="text-xs font-extrabold text-[#333D4B]">인증번호 6자리</label>
+                <label className="text-[14.5px] font-bold text-[#333D4B]">인증번호 6자리</label>
                 <div className="flex gap-2">
                   <input
                     type="text"
@@ -224,12 +224,12 @@ export default function VerifyWorkPage() {
                     onChange={(e) => setCodeInput(e.target.value)}
                     placeholder="인증번호 입력"
                     maxLength={6}
-                    className="flex-1 px-4 py-3 rounded-xl bg-[#F2F4F6] border border-transparent text-xs font-bold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
+                    className="flex-1 px-4 h-14 rounded-2xl bg-[#F2F4F6] border border-transparent text-[16px] font-bold text-[#191F28] focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all"
                   />
                   <button
                     type="button"
                     onClick={handleVerifyCode}
-                    className="px-4 py-3 rounded-xl bg-[#00B368] text-white text-xs font-bold hover:bg-emerald-700 active:scale-95 transition-all shrink-0"
+                    className="h-14 px-5 rounded-2xl bg-[#00B368] text-white text-[14.5px] font-bold hover:bg-emerald-700 active:scale-95 transition-all shrink-0 cursor-pointer"
                   >
                     확인
                   </button>
@@ -238,7 +238,7 @@ export default function VerifyWorkPage() {
             )}
 
             {emailVerified && (
-              <div className="p-3 bg-[#F0FDF4] rounded-xl flex items-center gap-2 text-xs text-[#00B368] font-bold">
+              <div className="p-3.5 bg-[#F0FDF4] rounded-2xl flex items-center gap-2 text-[14px] text-[#00B368] font-bold">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>회사 이메일 인증이 완료되었어요!</span>
               </div>
@@ -247,10 +247,10 @@ export default function VerifyWorkPage() {
         )}
 
         {/* 프라이버시 안심 노트 */}
-        <div className="mt-6 flex items-start gap-2 text-[11px] text-[#8B95A1] font-medium px-1">
-          <Lock className="w-3.5 h-3.5 text-[#00B368] shrink-0 mt-0.5" />
+        <div className="mt-6 flex items-start gap-2.5 text-[13px] text-[#6B7684] font-medium px-1">
+          <Lock className="w-4 h-4 text-[#00B368] shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            인증 정보는 직장인 확인 목적으로만 안전하게 사용되며, <strong>회사 동료 및 지인에게는 절대 프로필이 노출되지 않아요.</strong>
+            인증 정보는 직장인 확인 목적으로만 안전하게 사용되며, <strong className="text-[#333D4B]">회사 동료 및 지인에게는 절대 프로필이 노출되지 않아요.</strong>
           </p>
         </div>
       </div>
@@ -259,7 +259,7 @@ export default function VerifyWorkPage() {
       <div className="pb-6 pt-4">
         <Link
           href={isCompleted ? "/" : "#"}
-          className={`w-full h-14 rounded-2xl font-extrabold text-sm transition-all flex items-center justify-center ${
+          className={`w-full h-14 rounded-2xl font-bold text-[16px] transition-all flex items-center justify-center ${
             isCompleted
               ? "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:scale-[0.98]"
               : "bg-[#E5E8EB] text-[#8B95A1] cursor-not-allowed pointer-events-none"
