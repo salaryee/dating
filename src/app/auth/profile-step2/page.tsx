@@ -10,16 +10,18 @@ import {
   FileText,
   RefreshCw,
   Check,
-  Train,
   Coffee,
   Clock,
   Lock,
+  ChevronDown,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 export default function ProfileStep2Page() {
   const [noteStatus, setNoteStatus] = useState<"empty" | "analyzing" | "success">("empty");
-  const [commuteTime, setCommuteTime] = useState("09:30 출근");
-  const [commuteMethod, setCommuteMethod] = useState("지하철");
+  const [workStartTime, setWorkStartTime] = useState("09:00");
+  const [workEndTime, setWorkEndTime] = useState("18:00");
   const [lifestyle, setLifestyle] = useState("비흡연 · 가끔 한잔");
 
   const simulateCameraCapture = () => {
@@ -30,6 +32,38 @@ export default function ProfileStep2Page() {
   };
 
   const isFormValid = noteStatus === "success";
+
+  // 06:00부터 14:00까지 30분 단위 출근 시간 옵션 (유연근무, 자율출퇴근, 교대근무 포함)
+  const startTimeOptions = [
+    "자율/유연근무",
+    "07:00",
+    "07:30",
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "교대/스케줄",
+  ];
+
+  // 15:00부터 23:00까지 30분 단위 퇴근 시간 옵션
+  const endTimeOptions = [
+    "자율/유연근무",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30",
+    "19:00",
+    "19:30",
+    "20:00",
+    "20:30",
+    "21:00",
+    "야근/탄력",
+  ];
 
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 w-full">
@@ -140,32 +174,64 @@ export default function ProfileStep2Page() {
           {/* 1/4단계 약관과 동일한 구분선 여백 (my-3.5) */}
           <div className="h-px bg-[#F2F4F6] my-3.5 w-full" />
 
-          {/* 2. 직장인 일상 루틴 원터치 칩 (1/4단계 리스트와 동일한 여백 밀도) */}
-          <div className="flex flex-col gap-3">
-            {/* 출퇴근 루틴 */}
+          {/* 2. 직장인 일상 루틴 (TDS 출퇴근 시간대 선택 시스템) */}
+          <div className="flex flex-col gap-3.5">
+            {/* 출퇴근 시간대 선택 (출근 & 퇴근 2컬럼 그리드) */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
                 <span className="text-[14.5px] font-bold text-[#333D4B] flex items-center gap-1.5">
                   <Clock className="w-4 h-4 text-[#8B95A1]" />
-                  <span>출근 시간대</span>
+                  <span>출퇴근 시간대</span>
                 </span>
-                <span className="text-[13.5px] font-bold text-[#3182F6]">{commuteTime}</span>
+                <span className="text-[12.5px] font-bold text-[#3182F6]">
+                  {workStartTime.includes(":") ? `${workStartTime} 출근` : workStartTime} · {workEndTime.includes(":") ? `${workEndTime} 퇴근` : workEndTime}
+                </span>
               </div>
-              <div className="grid grid-cols-4 gap-2">
-                {["08:30 출근", "09:00 출근", "09:30 출근", "10:00 출근"].map((time) => (
-                  <button
-                    key={time}
-                    type="button"
-                    onClick={() => setCommuteTime(time)}
-                    className={`h-11 rounded-xl text-[13.5px] font-bold transition-all cursor-pointer ${
-                      commuteTime === time
-                        ? "bg-[#3182F6] text-white shadow-xs"
-                        : "bg-[#F2F4F6] text-[#6B7684] hover:bg-[#E5E8EB]"
-                    }`}
-                  >
-                    {time.replace(" 출근", "")}
-                  </button>
-                ))}
+
+              <div className="grid grid-cols-2 gap-2.5">
+                {/* 출근 시간 선택 셀렉트 */}
+                <div className="flex flex-col gap-1">
+                  <label className="text-[12px] font-bold text-[#6B7684] flex items-center gap-1">
+                    <Sun className="w-3.5 h-3.5 text-amber-500" />
+                    <span>출근 시간</span>
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={workStartTime}
+                      onChange={(e) => setWorkStartTime(e.target.value)}
+                      className="w-full h-13 pl-3.5 pr-8 rounded-2xl bg-[#F2F4F6] border border-transparent text-[14.5px] font-bold text-[#191F28] appearance-none focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all cursor-pointer"
+                    >
+                      {startTimeOptions.map((time) => (
+                        <option key={time} value={time}>
+                          {time.includes(":") ? `${time} 출근` : time}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-[#8B95A1] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* 퇴근 시간 선택 셀렉트 */}
+                <div className="flex flex-col gap-1">
+                  <label className="text-[12px] font-bold text-[#6B7684] flex items-center gap-1">
+                    <Moon className="w-3.5 h-3.5 text-indigo-500" />
+                    <span>퇴근 시간</span>
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={workEndTime}
+                      onChange={(e) => setWorkEndTime(e.target.value)}
+                      className="w-full h-13 pl-3.5 pr-8 rounded-2xl bg-[#F2F4F6] border border-transparent text-[14.5px] font-bold text-[#191F28] appearance-none focus:outline-none focus:border-[#3182F6] focus:bg-white transition-all cursor-pointer"
+                    >
+                      {endTimeOptions.map((time) => (
+                        <option key={time} value={time}>
+                          {time.includes(":") ? `${time} 퇴근` : time}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-[#8B95A1] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  </div>
+                </div>
               </div>
             </div>
 
