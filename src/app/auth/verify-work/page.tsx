@@ -18,7 +18,6 @@ import {
   CheckCircle2,
   Check,
   Send,
-  Edit2,
   PartyPopper,
   AlertCircle,
 } from "lucide-react";
@@ -29,16 +28,12 @@ export default function VerifyWorkPage() {
   const router = useRouter();
   const [step, setStep] = useState<VerifyStep>("scan");
 
-  // 추출된 정보 상태
+  // 추출된 정보 상태 (OCR 자동 추출)
   const [companyInfo, setCompanyInfo] = useState({
     name: "카카오 (Kakao)",
     dept: "서비스 기획팀",
     email: "worker@kakaocorp.com",
   });
-
-  // 이메일 직접 수정 토글
-  const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [editableEmail, setEditableEmail] = useState("worker@kakaocorp.com");
 
   // OTP 6자리 입력 및 타이머 상태
   const [otpInput, setOtpInput] = useState("");
@@ -72,18 +67,7 @@ export default function VerifyWorkPage() {
     }, 1500);
   };
 
-  // 2. 이메일 수정 저장
-  const handleSaveEmail = () => {
-    if (editableEmail.includes("@") && editableEmail.includes(".")) {
-      setCompanyInfo((prev) => ({ ...prev, email: editableEmail }));
-      setIsEditingEmail(false);
-      setToastMessage("사내 메일 주소가 수정되었어요.");
-    } else {
-      setToastMessage("올바른 이메일 주소를 입력해 주세요.");
-    }
-  };
-
-  // 3. 인증번호 발송 & OTP 화면 전환
+  // 2. 인증번호 발송 & OTP 화면 전환
   const handleSendOtp = () => {
     setStep("otp");
     setTimeLeft(300);
@@ -260,55 +244,25 @@ export default function VerifyWorkPage() {
 
               <div className="h-px bg-[#E5E8EB]/60 w-full" />
 
-              {/* 사내 메일 주소 (직접 수정 가능) */}
+              {/* 사내 메일 주소 (임의 수정 불가 - 보안 잠금) */}
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
                   <span className="text-[14px] text-[#8B95A1] font-bold">인증받을 사내 메일</span>
-                  {!isEditingEmail ? (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditableEmail(companyInfo.email);
-                        setIsEditingEmail(true);
-                      }}
-                      className="text-[13px] font-bold text-[#3182F6] hover:underline flex items-center gap-1 cursor-pointer"
-                    >
-                      <Edit2 className="w-3.5 h-3.5" />
-                      직접 수정
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={handleSaveEmail}
-                      className="text-[13px] font-bold text-[#00B368] hover:underline cursor-pointer"
-                    >
-                      완료
-                    </button>
-                  )}
+                  <span className="text-[12px] font-bold text-[#6B7684] bg-[#E5E8EB]/70 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                    <Lock className="w-3 h-3 text-[#6B7684]" />
+                    OCR 자동인식 · 수정 불가
+                  </span>
                 </div>
 
-                {!isEditingEmail ? (
-                  <p className="text-[16px] text-[#3182F6] font-bold bg-[#E8F3FF] px-3.5 py-2.5 rounded-xl break-all">
+                <div className="bg-[#E8F3FF] border border-[#3182F6]/20 px-4 py-3 rounded-xl flex items-center justify-between">
+                  <span className="text-[16px] text-[#3182F6] font-bold break-all">
                     {companyInfo.email}
-                  </p>
-                ) : (
-                  <div className="flex gap-2">
-                    <input
-                      type="email"
-                      value={editableEmail}
-                      onChange={(e) => setEditableEmail(e.target.value)}
-                      placeholder="name@company.com"
-                      className="flex-1 px-3.5 py-2.5 rounded-xl bg-white border border-[#3182F6] text-[15px] font-bold text-[#191F28] focus:outline-none"
-                    />
-                    <button
-                      type="button"
-                      onClick={handleSaveEmail}
-                      className="px-4 py-2.5 rounded-xl bg-[#3182F6] text-white text-[14px] font-bold active:scale-95 transition-all cursor-pointer"
-                    >
-                      저장
-                    </button>
-                  </div>
-                )}
+                  </span>
+                  <CheckCircle2 className="w-5 h-5 text-[#3182F6] shrink-0 ml-2" />
+                </div>
+                <p className="text-[12px] text-[#8B95A1] font-medium leading-tight">
+                  * 직장 인증의 신뢰도를 위해 OCR로 인식된 사내 메일 주소는 임의로 변경할 수 없어요.
+                </p>
               </div>
             </div>
 
@@ -432,14 +386,14 @@ export default function VerifyWorkPage() {
               onClick={handleSendOtp}
               className="w-full h-14 rounded-2xl font-bold text-[16px] bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>이 메일로 인증번호 받기</span>
+              <span>네, 이 메일이 맞아요 (인증번호 받기)</span>
             </button>
             <button
               type="button"
               onClick={() => setStep("scan")}
-              className="w-full h-12 rounded-xl font-bold text-[14px] text-[#8B95A1] hover:text-[#191F28] transition-colors cursor-pointer"
+              className="w-full h-12 rounded-xl font-bold text-[14px] text-[#6B7684] hover:text-[#191F28] bg-[#F2F4F6] hover:bg-[#E5E8EB] transition-colors cursor-pointer"
             >
-              명함 다시 찍기
+              메일 주소가 달라요 (명함 다시 찍기)
             </button>
           </>
         )}
