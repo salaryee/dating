@@ -20,6 +20,7 @@ import {
   Send,
   PartyPopper,
   AlertCircle,
+  Loader2,
 } from "lucide-react";
 
 type VerifyStep = "scan" | "scanning" | "confirm" | "otp" | "success";
@@ -27,6 +28,9 @@ type VerifyStep = "scan" | "scanning" | "confirm" | "otp" | "success";
 export default function VerifyWorkPage() {
   const router = useRouter();
   const [step, setStep] = useState<VerifyStep>("scan");
+
+  // 확인 버튼 피드백 상태 ('sending' | 'rescanning' | null)
+  const [confirmAction, setConfirmAction] = useState<"sending" | "rescanning" | null>(null);
 
   // 추출된 정보 상태 (OCR 자동 추출)
   const [companyInfo, setCompanyInfo] = useState({
@@ -67,11 +71,32 @@ export default function VerifyWorkPage() {
     }, 1500);
   };
 
-  // 2. 인증번호 발송 & OTP 화면 전환
+  // 2. 인증번호 발송 & OTP 화면 전환 (클릭 시 햅틱 및 로딩 인터랙션 피드백)
   const handleSendOtp = () => {
-    setStep("otp");
-    setTimeLeft(300);
-    setToastMessage(`${companyInfo.email}로 인증번호가 발송되었어요.`);
+    if (confirmAction) return;
+    if (typeof window !== "undefined" && window.navigator && window.navigator.vibrate) {
+      window.navigator.vibrate(15);
+    }
+    setConfirmAction("sending");
+    setTimeout(() => {
+      setStep("otp");
+      setTimeLeft(300);
+      setConfirmAction(null);
+      setToastMessage(`${companyInfo.email}로 인증번호가 발송되었어요.`);
+    }, 400);
+  };
+
+  // 명함 다시 촬영 전환 (클릭 시 햅틱 및 인터랙션 피드백)
+  const handleRescanCard = () => {
+    if (confirmAction) return;
+    if (typeof window !== "undefined" && window.navigator && window.navigator.vibrate) {
+      window.navigator.vibrate(10);
+    }
+    setConfirmAction("rescanning");
+    setTimeout(() => {
+      setStep("scan");
+      setConfirmAction(null);
+    }, 250);
   };
 
   // 인증번호 재발송
@@ -384,16 +409,47 @@ export default function VerifyWorkPage() {
             <button
               type="button"
               onClick={handleSendOtp}
-              className="w-full h-14 rounded-2xl font-bold text-[16px] bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              disabled={confirmAction !== null}
+              className={`w-full h-14 rounded-2xl font-bold text-[16px] transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.96] ${
+                confirmAction === "sending"
+                  ? "bg-[#1B64DA] text-white/90 shadow-md scale-[0.98]"
+                  : "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:bg-[#1553B7]"
+              }`}
             >
-              <span>네, 이 메일이 맞아요 (인증번호 받기)</span>
+              {confirmAction === "sending" ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin text-white" />
+                  <span>인증번호 발송 중...</span>
+                </>
+              ) : (
+                <>
+                  <Check className="w-5 h-5 text-white stroke-[2.5]" />
+                  <span>네, 이 메일이 맞아요 (인증번호 받기)</span>
+                </>
+              )}
             </button>
+
             <button
               type="button"
-              onClick={() => setStep("scan")}
-              className="w-full h-12 rounded-xl font-bold text-[14px] text-[#6B7684] hover:text-[#191F28] bg-[#F2F4F6] hover:bg-[#E5E8EB] transition-colors cursor-pointer"
+              onClick={handleRescanCard}
+              disabled={confirmAction !== null}
+              className={`w-full h-13 rounded-2xl font-bold text-[14.5px] transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.96] ${
+                confirmAction === "rescanning"
+                  ? "bg-[#E5E8EB] text-[#191F28] scale-[0.98]"
+                  : "text-[#4E5968] bg-[#F2F4F6] hover:bg-[#E5E8EB] hover:text-[#191F28] active:bg-[#D1D6DB]"
+              }`}
             >
-              메일 주소가 달라요 (명함 다시 찍기)
+              {confirmAction === "rescanning" ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin text-[#4E5968]" />
+                  <span>촬영 화면으로 이동 중...</span>
+                </>
+              ) : (
+                <>
+                  <RefreshCw className="w-4 h-4 text-[#8B95A1]" />
+                  <span>메일 주소가 달라요 (명함 다시 찍기)</span>
+                </>
+              )}
             </button>
           </>
         )}
