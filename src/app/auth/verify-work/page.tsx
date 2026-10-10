@@ -406,17 +406,17 @@ export default function VerifyWorkPage() {
       <div className="pb-6 pt-4 flex flex-col gap-2.5">
         {step === "confirm" && (
           <>
-            {/* 1. '네, 이 메일이 맞아요 (인증번호 받기)' 버튼 */}
+            {/* 1. '네, 이 메일이 맞아요 (인증번호 받기)' 버튼 (디폴트: TDS Blue 하이라이트, 메일 다름 클릭 시: TDS 비활성화 그레이) */}
             <button
               type="button"
               onClick={handleSendOtp}
               disabled={confirmAction !== null}
               className={`w-full h-14 rounded-2xl font-bold text-[16px] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.96] ${
-                confirmAction === "sending"
-                  ? "bg-[#3182F6] text-white shadow-lg shadow-blue-500/30 ring-4 ring-[#3182F6]/30 scale-[0.98]"
-                  : confirmAction === "rescanning"
-                  ? "bg-[#F2F4F6] text-[#B0B8C1] border border-[#E5E8EB] opacity-60 cursor-not-allowed"
-                  : "bg-[#F2F4F6] text-[#333D4B] border border-[#E5E8EB] hover:bg-[#E8F3FF] hover:text-[#3182F6] hover:border-[#3182F6]/40 active:bg-[#3182F6] active:text-white"
+                confirmAction === "rescanning"
+                  ? "bg-[#E5E8EB] text-[#8B95A1] cursor-not-allowed shadow-none"
+                  : confirmAction === "sending"
+                  ? "bg-[#1B64DA] text-white shadow-lg shadow-blue-500/30 ring-4 ring-[#3182F6]/30 scale-[0.98]"
+                  : "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:bg-[#1553B7]"
               }`}
             >
               {confirmAction === "sending" ? (
@@ -426,23 +426,23 @@ export default function VerifyWorkPage() {
                 </>
               ) : (
                 <>
-                  <Check className={`w-5 h-5 stroke-[2.5] ${confirmAction === null ? "text-[#3182F6]" : "text-[#B0B8C1]"}`} />
+                  <Check className={`w-5 h-5 stroke-[2.5] ${confirmAction === "rescanning" ? "text-[#8B95A1]" : "text-white"}`} />
                   <span>네, 이 메일이 맞아요 (인증번호 받기)</span>
                 </>
               )}
             </button>
 
-            {/* 2. '메일 주소가 달라요 (명함 다시 찍기)' 버튼 */}
+            {/* 2. '메일 주소가 달라요 (명함 다시 찍기)' 버튼 (디폴트: TDS 비활성화 그레이, 클릭 시: TDS 활성화 하이라이트) */}
             <button
               type="button"
               onClick={handleRescanCard}
               disabled={confirmAction !== null}
               className={`w-full h-13 rounded-2xl font-bold text-[14.5px] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-[0.96] ${
                 confirmAction === "rescanning"
-                  ? "bg-[#4E5968] text-white shadow-lg shadow-gray-500/25 ring-4 ring-[#4E5968]/30 scale-[0.98]"
+                  ? "bg-[#3182F6] text-white shadow-lg shadow-blue-500/30 ring-4 ring-[#3182F6]/30 scale-[0.98]"
                   : confirmAction === "sending"
-                  ? "bg-[#F9FAFB] text-[#B0B8C1] opacity-60 cursor-not-allowed"
-                  : "bg-[#F9FAFB] text-[#6B7684] border border-[#E5E8EB] hover:bg-[#F2F4F6] hover:text-[#191F28] active:bg-[#4E5968] active:text-white"
+                  ? "bg-[#E5E8EB] text-[#8B95A1] cursor-not-allowed shadow-none opacity-50"
+                  : "bg-[#F2F4F6] text-[#8B95A1] hover:bg-[#E5E8EB] hover:text-[#4E5968] active:bg-[#3182F6] active:text-white"
               }`}
             >
               {confirmAction === "rescanning" ? (
