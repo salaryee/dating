@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF0EE" />
+      <stop offset="100%" stop-color="#FFE0DC" />
+    </linearGradient>
+    <linearGradient id="handGrad" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#FFDFC4" />
+      <stop offset="100%" stop-color="#F0B58D" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#D97757" flood-opacity="0.25" />
+    </filter>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)" rx="32" />
+  
+  <!-- Warm glow circle -->
+  <circle cx="200" cy="200" r="140" fill="#FFF7F5" opacity="0.8" />
+  
+  <!-- Back of Hand Silhouette -->
+  <g filter="url(#shadow)">
+    <!-- Wrist & Forearm -->
+    <path d="M155,380 C150,300 152,250 155,220 C156,200 162,175 168,155 L232,155 C238,175 244,200 245,220 C248,250 250,300 245,380 Z" fill="url(#handGrad)" />
+    
+    <!-- Palm back -->
+    <path d="M150,225 C145,185 155,145 170,135 C185,125 215,125 230,135 C245,145 255,185 250,225 Z" fill="url(#handGrad)" />
+    
+    <!-- Thumb -->
+    <path d="M152,215 C130,205 110,185 118,165 C125,145 145,170 158,185 Z" fill="url(#handGrad)" />
+    
+    <!-- Index Finger -->
+    <path d="M165,140 C162,100 165,65 174,65 C183,65 184,100 183,140 Z" fill="url(#handGrad)" />
+    
+    <!-- Middle Finger -->
+    <path d="M185,135 C184,90 188,50 198,50 C208,50 210,90 207,135 Z" fill="url(#handGrad)" />
+    
+    <!-- Ring Finger -->
+    <path d="M208,138 C209,95 214,60 223,60 C231,60 231,95 228,138 Z" fill="url(#handGrad)" />
+    
+    <!-- Little Finger (Pinky) -->
+    <path d="M229,150 C234,115 238,85 246,85 C253,85 252,115 247,150 Z" fill="url(#handGrad)" />
+    
+    <!-- Subtle Knuckle and Tendon Details -->
+    <path d="M174,155 Q174,170 178,185" stroke="#E29D72" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6" />
+    <path d="M198,150 Q198,168 198,188" stroke="#E29D72" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6" />
+    <path d="M222,152 Q220,170 217,185" stroke="#E29D72" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6" />
+  </g>
+  
+  <!-- Soft aesthetic sparkle -->
+  <path d="M295,95 Q305,95 305,85 Q305,95 315,95 Q305,95 305,105 Q305,95 295,95 Z" fill="#FFAA8A" />
+  <circle cx="105" cy="115" r="4" fill="#FFAA8A" />
+  <circle cx="285" cy="275" r="3" fill="#FFC8B8" />
+</svg>

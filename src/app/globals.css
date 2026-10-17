@@ -45,3 +45,40 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* 손등 AI 스캔 레이저 빔 애니메이션 */
+@keyframes laser-scan {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.animate-laser-scan {
+  animation: laser-scan 2s ease-in-out infinite;
+}
+
+/* 설레는 펄스 효과 */
+@keyframes flutter-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.animate-flutter-pulse {
+  animation: flutter-pulse 2.2s ease-in-out infinite;
+}
+
