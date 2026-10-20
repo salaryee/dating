@@ -82,17 +82,6 @@ export default function ProfileStep1Page() {
     }
   };
 
-  // 간편 테스트 프리셋 (손등 사진 vs 비손등 사물 사진)
-  const triggerTestHand = () => {
-    setPhotoUrl("/sample-hand.svg");
-    startHandAnalysis(undefined, "hand");
-  };
-
-  const triggerTestNotHand = () => {
-    setPhotoUrl("/sample-scenery.svg");
-    startHandAnalysis(undefined, "not-hand");
-  };
-
   const isFormValid = nickname.trim().length >= 2 && handPhotoStatus === "success";
 
   // 현재 연도(2026) 기준 계산되는 나이 안내 (만 나이 기준)
@@ -237,27 +226,6 @@ export default function ProfileStep1Page() {
                   <Camera className="w-4.5 h-4.5" />
                   <span>손등 사진 촬영 / 앨범 선택</span>
                 </button>
-
-                {/* 빠른 테스트용 프리셋 */}
-                <div className="mt-3.5 pt-3 border-t border-[#E5EEF8] w-full flex items-center justify-between text-[11.5px] text-[#6B7684]">
-                  <span className="font-medium">원클릭 테스트:</span>
-                  <div className="flex gap-1.5">
-                    <button
-                      type="button"
-                      onClick={triggerTestHand}
-                      className="px-2.5 py-1 rounded-lg bg-white border border-[#D0E2FF] text-[#3182F6] font-bold hover:bg-blue-50 transition-colors cursor-pointer"
-                    >
-                      ✨ 손등 (성공)
-                    </button>
-                    <button
-                      type="button"
-                      onClick={triggerTestNotHand}
-                      className="px-2.5 py-1 rounded-lg bg-white border border-[#E5E8EB] text-[#4E5968] font-bold hover:bg-gray-100 transition-colors cursor-pointer"
-                    >
-                      🌿 사물 (재촬영)
-                    </button>
-                  </div>
-                </div>
               </div>
             )}
 
@@ -364,18 +332,6 @@ export default function ProfileStep1Page() {
                   <Camera className="w-4.5 h-4.5" />
                   <span>손등 다시 촬영하기</span>
                 </button>
-
-                {/* 원클릭 테스트 (성공 케이스 재시도) */}
-                <div className="flex items-center justify-between pt-2 border-t border-[#FFE5E8] text-[11.5px] text-[#8B95A1]">
-                  <span>빠른 테스트:</span>
-                  <button
-                    type="button"
-                    onClick={triggerTestHand}
-                    className="px-2.5 py-1 rounded-lg bg-white border border-[#D0E2FF] text-[#3182F6] font-bold hover:bg-blue-50 transition-colors cursor-pointer"
-                  >
-                    ✨ 손등 사진으로 다시 시도
-                  </button>
-                </div>
               </div>
             )}
 
