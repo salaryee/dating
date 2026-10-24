@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
+interface GeminiAnalysisResult {
+  isHand: boolean;
+  confidence?: number;
+  reason?: string;
+  handDescription?: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -7,8 +14,7 @@ export async function POST(req: NextRequest) {
 
     // 1. Explicit test simulation for developer / user testing
     if (testType === "not-hand") {
-      // Simulate slight network delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       return NextResponse.json({
         success: true,
         isHand: false,
@@ -18,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (testType === "hand") {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       return NextResponse.json({
         success: true,
         isHand: true,
@@ -28,26 +34,15 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 2. Google Gemini API call if API key exists
+    // 2. Google Gemini Vision API
     const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
     if (apiKey && imageBase64) {
-      try {
-        const mimeMatch = imageBase64.match(/^data:([^;]+);base64,/);
-        const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
-        const cleanBase64 = imageBase64.replace(/^data:[^;]+;base64,/, "");
+      const mimeMatch = imageBase64.match(/^data:([^;]+);base64,/);
+      const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
+      const cleanBase64 = imageBase64.replace(/^data:[^;]+;base64,/, "");
 
-        const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [
-                {
-                  parts: [
-                    {
-                      text: `당신은 소개팅 서비스의 손/손등 사진 검증 AI입니다.
+      const prompt = `당신은 소개팅 서비스의 손/손등 사진 검증 AI입니다.
 사용자가 자신의 손(손등, 손가락, 손바닥, 주먹, 손 전체 등)을 직접 촬영하여 등록하고 있습니다.
 
 [승인 기준 (isHand: true)]:
@@ -67,49 +62,83 @@ export async function POST(req: NextRequest) {
   "confidence": 0.0 ~ 1.0,
   "reason": "한국어로 작성된 친절한 판정 사유",
   "handDescription": "온도 36.5℃ · 따뜻하고 정갈한 손등 (손일 경우 매력적인 한 줄 감성 요약)"
-}`,
-                    },
-                    {
-                      inlineData: {
-                        mimeType,
-                        data: cleanBase64,
-                      },
-                    },
-                  ],
-                },
-              ],
-            }),
-          }
-        );
+}`;
 
-        if (response.ok) {
-          const result = await response.json();
-          const parts = result?.candidates?.[0]?.content?.parts;
-          const textPart = Array.isArray(parts) ? parts.find((p: { text?: string }) => p.text) : null;
-          const text = textPart?.text;
-          if (text) {
-            const jsonMatch = text.match(/\{[\s\S]*\}/);
-            if (jsonMatch) {
-              const parsed = JSON.parse(jsonMatch[0]);
-              return NextResponse.json({
-                success: true,
-                isHand: !!parsed.isHand,
-                confidence: parsed.confidence ?? (parsed.isHand ? 0.95 : 0.2),
-                reason: parsed.reason || (parsed.isHand ? "손등 이미지가 성공적으로 확인되었어요." : "손등 사진이 확인되지 않았어요."),
-                handDescription: parsed.handDescription || "온도 36.5℃ · 따뜻하고 정갈한 손등",
-              });
+      // 우선순위 모델 리스트: 응답 속도가 1.5초 내외로 가장 빠른 flash-lite 최우선, 3.5-flash 및 3.5-flash-lite 순차 폴백
+      const candidateModels = [
+        "models/gemini-flash-lite-latest",
+        "models/gemini-3.5-flash",
+        "models/gemini-3.5-flash-lite",
+        "models/gemini-flash-latest",
+      ];
+
+      for (const model of candidateModels) {
+        try {
+          const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/${model}:generateContent?key=${apiKey}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                contents: [
+                  {
+                    parts: [
+                      { text: prompt },
+                      {
+                        inlineData: {
+                          mimeType,
+                          data: cleanBase64,
+                        },
+                      },
+                    ],
+                  },
+                ],
+                generationConfig: {
+                  temperature: 0.1,
+                  maxOutputTokens: 250,
+                },
+              }),
+              // 5초 타임아웃을 두어 모델 지연 시 20초 이상 멈추지 않고 즉시 다음 모델로 신속 전환
+              signal: AbortSignal.timeout(5000),
             }
+          );
+
+          if (response.ok) {
+            const result = await response.json();
+            const parts = result?.candidates?.[0]?.content?.parts;
+            const textPart = Array.isArray(parts) ? parts.find((p: { text?: string }) => p.text) : null;
+            const text = textPart?.text;
+            if (text) {
+              const jsonMatch = text.match(/\{[\s\S]*\}/);
+              if (jsonMatch) {
+                const parsed: GeminiAnalysisResult = JSON.parse(jsonMatch[0]);
+                return NextResponse.json({
+                  success: true,
+                  isHand: !!parsed.isHand,
+                  confidence: parsed.confidence ?? (parsed.isHand ? 0.95 : 0.1),
+                  reason: parsed.reason || (parsed.isHand ? "손등 이미지가 성공적으로 확인되었어요." : "손등 사진이 확인되지 않았어요."),
+                  handDescription: parsed.handDescription || "온도 36.5℃ · 따뜻하고 정갈한 손등",
+                });
+              }
+            }
+          } else {
+            console.warn(`[VerifyHand] Model ${model} returned HTTP ${response.status}, trying next model...`);
           }
+        } catch (callErr) {
+          console.warn(`[VerifyHand] Model ${model} failed or timed out:`, callErr);
         }
-      } catch (apiErr) {
-        console.error("Gemini API call failed, falling back to heuristic verification:", apiErr);
       }
+
+      // 모든 AI 모델 시도가 실패/타임아웃된 경우
+      return NextResponse.json({
+        success: false,
+        isHand: false,
+        reason: "AI 판별 서버 응답이 지연되고 있습니다. 잠시 후 다시 촬영해 주세요.",
+      });
     }
 
-    // 3. Heuristic / Default verification when no API key is provided
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    // If base64 exists, consider it a captured photo and analyze
+    // 3. Fallback when API key is not configured
+    await new Promise((resolve) => setTimeout(resolve, 1200));
     return NextResponse.json({
       success: true,
       isHand: true,

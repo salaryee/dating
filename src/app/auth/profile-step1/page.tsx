@@ -104,6 +104,7 @@ export default function ProfileStep1Page() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64, testType }),
+        signal: AbortSignal.timeout(12000),
       });
 
       if (!res.ok) {
@@ -128,7 +129,11 @@ export default function ProfileStep1Page() {
       clearTimeout(stepTimer1);
       clearTimeout(stepTimer2);
       const error = err as Error;
-      setErrorMessage(error.message || "이미지 분석 중 일시적인 오류가 발생했어요. 다시 촬영해 주세요.");
+      if (error.name === "AbortError" || error.name === "TimeoutError") {
+        setErrorMessage("AI 분석 응답 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.");
+      } else {
+        setErrorMessage(error.message || "이미지 분석 중 일시적인 오류가 발생했어요. 다시 촬영해 주세요.");
+      }
       setHandPhotoStatus("error");
     }
   };
