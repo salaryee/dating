@@ -33,9 +33,9 @@ export async function POST(req: NextRequest) {
 
     if (apiKey && imageBase64) {
       try {
-        const cleanBase64 = imageBase64.replace(/^data:image\/\w+;base64,/, "");
-        const mimeMatch = imageBase64.match(/^data:(image\/\w+);base64,/);
+        const mimeMatch = imageBase64.match(/^data:([^;]+);base64,/);
         const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
+        const cleanBase64 = imageBase64.replace(/^data:[^;]+;base64,/, "");
 
         const response = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`,
