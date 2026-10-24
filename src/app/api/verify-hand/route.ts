@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
         const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
 
         const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
                 {
                   parts: [
                     {
-                      text: "Analyze whether this image shows a human hand (especially the back of a hand). If it is a hand, isHand should be true. If it is a face, scenery, object, or has no hand, isHand must be false. Respond strictly in JSON format: {\"isHand\": boolean, \"confidence\": number, \"reason\": string, \"handDescription\": string}.",
+                      text: "이 이미지가 사람의 손(특히 손등) 사진인지 분석해 주세요. 사람의 손/손등이 맞다면 isHand: true, 얼굴이나 풍경, 사물, 음식 등 손이 아니거나 얼굴이 크게 노출되었다면 isHand: false로 판정해 주세요. 반드시 다음 JSON 형식으로만 응답하세요: {\"isHand\": boolean, \"confidence\": number, \"reason\": \"한국어로 작성된 판정 이유\", \"handDescription\": \"온도 36.5℃ · 따뜻하고 정갈한 손등 (손등일 경우의 감성적인 한 줄 요약)\"}.",
                     },
                     {
                       inlineData: {
