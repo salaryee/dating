@@ -64,7 +64,9 @@ export async function POST(req: NextRequest) {
 
         if (response.ok) {
           const result = await response.json();
-          const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+          const parts = result?.candidates?.[0]?.content?.parts;
+          const textPart = Array.isArray(parts) ? parts.find((p: { text?: string }) => p.text) : null;
+          const text = textPart?.text;
           if (text) {
             const jsonMatch = text.match(/\{[\s\S]*\}/);
             if (jsonMatch) {
@@ -74,7 +76,7 @@ export async function POST(req: NextRequest) {
                 isHand: !!parsed.isHand,
                 confidence: parsed.confidence ?? (parsed.isHand ? 0.95 : 0.2),
                 reason: parsed.reason || (parsed.isHand ? "손등 이미지가 성공적으로 확인되었어요." : "손등 사진이 확인되지 않았어요."),
-                handDescription: parsed.handDescription || "따뜻하고 정갈한 손등",
+                handDescription: parsed.handDescription || "온도 36.5℃ · 따뜻하고 정갈한 손등",
               });
             }
           }
