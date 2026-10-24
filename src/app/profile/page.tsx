@@ -94,7 +94,7 @@ export default function ProfilePage() {
           <div className="grid grid-cols-2 gap-3 pt-1">
             {/* 손등 사진 카드 */}
             <Link
-              href="/auth/profile-step1"
+              href="/auth/profile-hand"
               className="p-4 rounded-2xl bg-[#FFF5ED] border border-[#FFD2C0] flex flex-col justify-between h-32 hover:border-[#FF6F61] transition-all active:scale-[0.98]"
             >
               <div className="flex items-center justify-between">

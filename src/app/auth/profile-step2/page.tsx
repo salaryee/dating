@@ -101,14 +101,14 @@ export default function ProfileStep2Page() {
   return (
     <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 w-full">
       <div>
-        {/* 상단 프로그레스 바 (토스 스타일 75%, 1/4단계와 완벽 일치) */}
+        {/* 상단 프로그레스 바 (토스 스타일 80%, 5단계 중 4단계) */}
         <div className="pt-2 pb-5">
           <div className="h-1 w-full bg-[#F2F4F6] rounded-full overflow-hidden">
-            <div className="h-full bg-[#3182F6] rounded-full w-3/4 transition-all duration-300"></div>
+            <div className="h-full bg-[#3182F6] rounded-full w-4/5 transition-all duration-300"></div>
           </div>
           <div className="flex items-center justify-end mt-3">
             <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-3 py-1 rounded-full">
-              3 / 4 단계
+              4 / 5 단계
             </span>
           </div>
         </div>
