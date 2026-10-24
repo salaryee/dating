@@ -31,18 +31,63 @@ export default function ProfileStep1Page() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // 클라이언트 단 스마트 이미지 리사이징 (모바일 고화질 사진을 웹/AI 최적화 1024px JPEG로 압축하여 Vercel 페이로드 제한 방지)
+  const compressImage = (file: File): Promise<string> => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 1024;
+
+          if (width > height && width > maxDim) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else if (height > maxDim) {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) {
+            resolve(event.target?.result as string);
+            return;
+          }
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.85);
+          resolve(compressedDataUrl);
+        };
+        img.onerror = () => resolve(event.target?.result as string);
+        img.src = event.target?.result as string;
+      };
+      reader.onerror = () => resolve("");
+      reader.readAsDataURL(file);
+    });
+  };
+
   // 실제 카메라 촬영 또는 앨범 파일 선택 처리
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const base64 = reader.result as string;
-      setPhotoUrl(base64);
-      await startHandAnalysis(base64, undefined);
-    };
-    reader.readAsDataURL(file);
+    try {
+      const optimizedBase64 = await compressImage(file);
+      setPhotoUrl(optimizedBase64);
+      await startHandAnalysis(optimizedBase64, undefined);
+    } catch {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result as string;
+        setPhotoUrl(base64);
+        await startHandAnalysis(base64, undefined);
+      };
+      reader.readAsDataURL(file);
+    }
     e.target.value = "";
   };
 
@@ -60,6 +105,11 @@ export default function ProfileStep1Page() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64, testType }),
       });
+
+      if (!res.ok) {
+        throw new Error(`서버 응답 오류 (${res.status})`);
+      }
+
       const data = await res.json();
 
       clearTimeout(stepTimer1);
@@ -70,14 +120,15 @@ export default function ProfileStep1Page() {
         setHandPhotoStatus("success");
       } else {
         setErrorMessage(
-          data.reason || "손등 사진이 확인되지 않았어요. 얼굴이나 사물 대신 손등이 잘 보이도록 다시 촬영해 주세요."
+          data.reason || "손등 사진이 확인되지 않았어요. 손등이나 손가락이 잘 보이도록 다시 촬영해 주세요."
         );
         setHandPhotoStatus("error");
       }
-    } catch {
+    } catch (err: unknown) {
       clearTimeout(stepTimer1);
       clearTimeout(stepTimer2);
-      setErrorMessage("이미지 분석 중 일시적인 오류가 발생했어요. 다시 촬영해 주세요.");
+      const error = err as Error;
+      setErrorMessage(error.message || "이미지 분석 중 일시적인 오류가 발생했어요. 다시 촬영해 주세요.");
       setHandPhotoStatus("error");
     }
   };
