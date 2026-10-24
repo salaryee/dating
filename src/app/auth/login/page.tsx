@@ -33,7 +33,7 @@ export default function LoginPage() {
             샐러리에서 인연을 만나요
           </h1>
           <p className="text-[14px] text-[#6B7684] mt-2 font-medium leading-relaxed">
-            손등의 온기와 정갈한 자필 엽서로 가치관이 통하는 직장인을 찾아요.
+            손등 사진과 정갈한 자필 엽서로 가치관이 통하는 직장인을 찾아요.
           </p>
         </div>
 
@@ -46,7 +46,7 @@ export default function LoginPage() {
             <div className="pt-0.5">
               <h3 className="text-[16px] font-bold text-[#191F28]">얼굴 비노출 안심</h3>
               <p className="text-[13.5px] text-[#6B7684] mt-1 font-medium leading-relaxed">
-                얼굴 사진 대신 손등의 온기와 자필 엽서로 첫인상을 전해요
+                얼굴 사진 대신 손등 프로필과 자필 엽서로 첫인상을 전해요
               </p>
             </div>
           </div>

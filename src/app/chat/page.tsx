@@ -330,14 +330,14 @@ function ChatContent() {
                     </p>
                   </div>
 
-                  {/* 3. 체온 & 필체 듀얼 뷰 */}
+                  {/* 3. 손등 & 필체 듀얼 뷰 */}
                   <div className="grid grid-cols-2 gap-3">
-                    {/* 좌측: 손등의 온기 카드 */}
+                    {/* 좌측: 손등 프로필 카드 */}
                     <div
                       className={`h-40 rounded-2xl bg-gradient-to-br ${selectedProfile.handGradient} p-3.5 flex flex-col justify-between relative overflow-hidden`}
                     >
                       <span className="self-start text-xs font-bold text-[#4E5968] bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-lg">
-                        얼굴 대신 손등의 온기
+                        얼굴 대신 손등 프로필
                       </span>
                       <div className="flex items-center justify-center my-auto opacity-70">
                         <Hand className="w-8 h-8 text-slate-500" />
@@ -538,7 +538,7 @@ function ChatContent() {
                       </div>
                     </div>
 
-                    {/* 카드 본체: 프로필 인적사항 및 손등 온기 썸네일 */}
+                    {/* 카드 본체: 프로필 인적사항 및 손등 프로필 썸네일 */}
                     <div className="flex items-center gap-3.5">
                       <div
                         className={`w-15 h-15 rounded-2xl bg-gradient-to-br ${profile.handGradient} flex items-center justify-center shrink-0 border border-black/5 relative group-hover:scale-105 transition-transform`}

@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
         isHand: true,
         confidence: 0.98,
         reason: "단정하고 따뜻한 손등 이미지가 감지되었어요.",
-        handDescription: "온도 36.5℃ · 따뜻하고 정갈한 손등",
+        handDescription: "단정하고 정갈한 손등",
       });
     }
 
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
   "isHand": true 또는 false,
   "confidence": 0.0 ~ 1.0,
   "reason": "한국어로 작성된 친절한 판정 사유",
-  "handDescription": "온도 36.5℃ · 따뜻하고 정갈한 손등 (손일 경우 매력적인 한 줄 감성 요약)"
+  "handDescription": "단정하고 정갈한 손등 (손일 경우 매력적인 한 줄 감성 요약)"
 }`;
 
       // 우선순위 모델 리스트: 응답 속도가 1.5초 내외로 가장 빠른 flash-lite 최우선, 3.5-flash 및 3.5-flash-lite 순차 폴백
@@ -117,7 +117,7 @@ export async function POST(req: NextRequest) {
                   isHand: !!parsed.isHand,
                   confidence: parsed.confidence ?? (parsed.isHand ? 0.95 : 0.1),
                   reason: parsed.reason || (parsed.isHand ? "손등 이미지가 성공적으로 확인되었어요." : "손등 사진이 확인되지 않았어요."),
-                  handDescription: parsed.handDescription || "온도 36.5℃ · 따뜻하고 정갈한 손등",
+                  handDescription: parsed.handDescription || "단정하고 정갈한 손등",
                 });
               }
             }
@@ -143,8 +143,8 @@ export async function POST(req: NextRequest) {
       success: true,
       isHand: true,
       confidence: 0.96,
-      reason: "단정하고 따뜻한 손등 이미지가 감지되었어요.",
-      handDescription: "온도 36.5℃ · 따뜻하고 정갈한 손등",
+      reason: "단정하고 정갈한 손등 이미지가 감지되었어요.",
+      handDescription: "단정하고 정갈한 손등",
     });
   } catch (err: unknown) {
     const error = err as Error;

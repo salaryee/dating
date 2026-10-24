@@ -104,7 +104,7 @@ export default function ProfilePage() {
                 <span className="text-xs text-[#8B95A1] font-semibold">변경</span>
               </div>
               <p className="text-xs text-[#6B7684] font-medium leading-relaxed">
-                얼굴 대신 손등의 온기가 등록되어 있어요
+                얼굴 대신 손등 사진이 등록되어 있어요
               </p>
             </Link>
 

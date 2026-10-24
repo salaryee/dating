@@ -11,6 +11,7 @@ import {
   RefreshCw,
   Lock,
   Check,
+  CheckCircle2,
   ChevronDown,
   AlertCircle,
   Heart,
@@ -25,9 +26,9 @@ export default function ProfileStep1Page() {
   // 손등 사진 상태: 'empty' | 'analyzing' | 'error' | 'success'
   const [handPhotoStatus, setHandPhotoStatus] = useState<"empty" | "analyzing" | "error" | "success">("empty");
   const [photoUrl, setPhotoUrl] = useState<string>("/sample-hand.svg");
-  const [analysisStep, setAnalysisStep] = useState<number>(1);
+  const [analysisProgress, setAnalysisProgress] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [handDescription, setHandDescription] = useState<string>("온도 36.5℃ · 따뜻하고 정갈한 손등");
+  const [handDescription, setHandDescription] = useState<string>("단정하고 정갈한 손등");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -91,13 +92,20 @@ export default function ProfileStep1Page() {
     e.target.value = "";
   };
 
-  // Google AI 손등 분석 프로세스 실행
+  // Google AI 손등 분석 프로세스 실행 (실시간 진행상태 추적)
   const startHandAnalysis = async (imageBase64?: string, testType?: "hand" | "not-hand") => {
     setHandPhotoStatus("analyzing");
-    setAnalysisStep(1);
+    setAnalysisProgress(10);
 
-    const stepTimer1 = setTimeout(() => setAnalysisStep(2), 650);
-    const stepTimer2 = setTimeout(() => setAnalysisStep(3), 1300);
+    // 사용자가 대기 시간을 시각적으로 체감할 수 있도록 매끄럽게 진행률을 올려주는 타이머
+    const progressInterval = setInterval(() => {
+      setAnalysisProgress((prev) => {
+        if (prev < 35) return prev + 3; // 1단계: 이미지 윤곽 스캔 (0~35%)
+        if (prev < 75) return prev + 2; // 2단계: AI 손등 피사체 분석 (35~75%)
+        if (prev < 92) return prev + 0.6; // 3단계: 얼굴 미노출 안심 검증 (75~92%)
+        return prev;
+      });
+    }, 45);
 
     try {
       const res = await fetch("/api/verify-hand", {
@@ -112,12 +120,14 @@ export default function ProfileStep1Page() {
       }
 
       const data = await res.json();
+      clearInterval(progressInterval);
 
-      clearTimeout(stepTimer1);
-      clearTimeout(stepTimer2);
+      // 분석 완료 시 100% 도달 후 결과 화면 전환
+      setAnalysisProgress(100);
+      await new Promise((resolve) => setTimeout(resolve, 200));
 
       if (data.isHand) {
-        setHandDescription(data.handDescription || "온도 36.5℃ · 따뜻하고 정갈한 손등");
+        setHandDescription(data.handDescription || "단정하고 정갈한 손등");
         setHandPhotoStatus("success");
       } else {
         setErrorMessage(
@@ -126,8 +136,7 @@ export default function ProfileStep1Page() {
         setHandPhotoStatus("error");
       }
     } catch (err: unknown) {
-      clearTimeout(stepTimer1);
-      clearTimeout(stepTimer2);
+      clearInterval(progressInterval);
       const error = err as Error;
       if (error.name === "AbortError" || error.name === "TimeoutError") {
         setErrorMessage("AI 분석 응답 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.");
@@ -162,14 +171,14 @@ export default function ProfileStep1Page() {
           </div>
         </div>
 
-        {/* 타이틀 (설레임과 온기를 전하는 문구) */}
+        {/* 타이틀 (설레임과 단정한 첫인상을 전하는 문구) */}
         <div>
           <h1 className="text-[24px] font-black text-[#191F28] tracking-tight leading-snug">
             상대방에게 불릴 이름과<br />
             설레는 손등 사진을 올려주세요
           </h1>
           <p className="text-[14px] text-[#6B7684] mt-2 leading-relaxed font-medium">
-            얼굴 대신 손등의 따뜻한 온기로 나와 꼭 맞는 인연을 찾아요.
+            얼굴 대신 손등의 단정한 첫인상으로 나와 꼭 맞는 인연을 찾아요.
           </p>
         </div>
 
@@ -270,7 +279,7 @@ export default function ProfileStep1Page() {
                   두근거리는 첫인상, 손등 촬영하기
                 </h3>
                 <p className="text-[13px] text-[#6B7684] mt-1 font-medium leading-relaxed">
-                  손등의 선과 따뜻한 온도로 나만의 감성을 전해보세요
+                  손등의 선과 정갈한 분위기로 나만의 첫인상을 전해보세요
                 </p>
 
                 {/* 실제 촬영 버튼 */}
@@ -285,11 +294,32 @@ export default function ProfileStep1Page() {
               </div>
             )}
 
-            {/* 상태 2: Google AI 실시간 분석 중 (analyzing) */}
+            {/* 상태 2: Google AI 실시간 분석 중 (analyzing) - 실시간 진행상태 피드백 UX */}
             {handPhotoStatus === "analyzing" && (
-              <div className="w-full rounded-3xl bg-[#0F172A] p-4 text-white relative overflow-hidden shadow-md border border-blue-500/30">
-                {/* 사진 프리뷰 + 레이저 스캔 빔 */}
-                <div className="relative w-full h-[180px] rounded-2xl overflow-hidden bg-black/50 flex items-center justify-center">
+              <div className="w-full rounded-3xl bg-[#0F172A] p-4.5 text-white relative overflow-hidden shadow-lg border border-blue-500/30">
+                {/* 상단 실시간 프로그레스 헤더 */}
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#3182F6] animate-ping" />
+                    <span className="text-[13px] font-bold text-blue-200">
+                      Google AI 비전 정밀 분석
+                    </span>
+                  </div>
+                  <span className="text-[14px] font-mono font-black text-[#60A5FA]">
+                    {Math.min(100, Math.round(analysisProgress))}%
+                  </span>
+                </div>
+
+                {/* 진행률 게이지 바 */}
+                <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden mb-3.5 border border-slate-700/50">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#3182F6] via-[#60A5FA] to-[#00D084] transition-all duration-100 ease-out rounded-full shadow-[0_0_10px_#3B82F6]"
+                    style={{ width: `${Math.min(100, analysisProgress)}%` }}
+                  />
+                </div>
+
+                {/* 사진 프리뷰 + 레이저 스캔 뷰파인더 */}
+                <div className="relative w-full h-[180px] rounded-2xl overflow-hidden bg-black/60 flex items-center justify-center border border-slate-800">
                   <img
                     src={photoUrl}
                     alt="분석 중인 손등 사진"
@@ -299,56 +329,130 @@ export default function ProfileStep1Page() {
                   {/* 레이저 스캔 라인 */}
                   <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#60A5FA] to-transparent shadow-[0_0_16px_#3B82F6] animate-laser-scan pointer-events-none" />
 
-                  {/* 프레임 브라켓 */}
-                  <div className="absolute inset-5 border border-blue-400/40 rounded-xl pointer-events-none flex flex-col justify-between p-2">
+                  {/* 뷰파인더 브라켓 */}
+                  <div className="absolute inset-4 border border-blue-400/40 rounded-xl pointer-events-none flex flex-col justify-between p-2.5">
                     <div className="flex justify-between text-[10px] text-blue-300 font-mono">
                       <span>SCAN: ACTIVE</span>
-                      <span>AI: GEMINI</span>
+                      <span>AI: GEMINI FLASH</span>
                     </div>
                     <div className="flex justify-between text-[10px] text-blue-300 font-mono">
-                      <span>WARMTH: DETECTING</span>
-                      <span>FACE: FILTERED</span>
+                      <span>GESTURE: TRACKING</span>
+                      <span>FACE: PROTECTED</span>
                     </div>
                   </div>
 
-                  {/* 센터 스피너 & 문구 */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/25 backdrop-blur-[1px]">
-                    <div className="w-11 h-11 rounded-full bg-blue-500/20 backdrop-blur-md flex items-center justify-center border border-blue-400/40 mb-2">
+                  {/* 센터 스피너 & 실시간 단계 안내 문구 */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/35 backdrop-blur-[1px]">
+                    <div className="w-11 h-11 rounded-full bg-blue-500/20 backdrop-blur-md flex items-center justify-center border border-blue-400/40 mb-2 shadow-xs">
                       <RefreshCw className="w-5 h-5 text-[#60A5FA] animate-spin" />
                     </div>
                     <p className="text-[14px] font-bold text-white tracking-tight drop-shadow-sm">
-                      Google AI 실시간 온기 분석 중
+                      {analysisProgress < 35
+                        ? "이미지 윤곽 스캔 중..."
+                        : analysisProgress < 75
+                        ? "Google AI 손등 판별 중..."
+                        : "얼굴 미노출 안심 검증 중..."}
                     </p>
+                    <span className="text-[11px] text-blue-300/90 mt-0.5 font-medium">
+                      약 1~2초 내에 분석이 완료돼요
+                    </span>
                   </div>
                 </div>
 
-                {/* 3단계 진행 상태 인디케이터 */}
-                <div className="mt-3.5 space-y-1.5 px-1">
-                  <div className="flex items-center justify-between text-[12px]">
-                    <span className="flex items-center gap-1.5 text-blue-200 font-medium">
-                      <span className={`w-1.5 h-1.5 rounded-full ${analysisStep >= 1 ? "bg-blue-400" : "bg-slate-600"}`} />
-                      손등 윤곽 및 피부결 감지
+                {/* 3단계 진행 상태 리스트 (실시간 체크 아이콘 및 뱃지) */}
+                <div className="mt-4 space-y-2 px-1">
+                  {/* 1단계 */}
+                  <div className="flex items-center justify-between text-[12.5px]">
+                    <span className="flex items-center gap-2 text-slate-200 font-medium">
+                      {analysisProgress >= 35 ? (
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      ) : (
+                        <span className="w-4 h-4 rounded-full border border-blue-400 flex items-center justify-center text-[10px] text-blue-300 font-bold shrink-0">
+                          1
+                        </span>
+                      )}
+                      <span>손등 윤곽 및 피부결 감지</span>
                     </span>
-                    <span className="text-[11px] text-blue-300 font-mono">{analysisStep >= 1 ? "OK" : "READY"}</span>
+                    <span
+                      className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                        analysisProgress >= 35
+                          ? "bg-emerald-950/60 text-emerald-300 border border-emerald-500/30"
+                          : "bg-blue-950/60 text-blue-300 border border-blue-500/30 animate-pulse"
+                      }`}
+                    >
+                      {analysisProgress >= 35 ? "완료" : "스캔 중"}
+                    </span>
                   </div>
-                  <div className="flex items-center justify-between text-[12px]">
-                    <span className="flex items-center gap-1.5 text-blue-200 font-medium">
-                      <span className={`w-1.5 h-1.5 rounded-full ${analysisStep >= 2 ? "bg-blue-400 animate-ping" : "bg-slate-600"}`} />
-                      Google AI 손등 판별 분석
+
+                  {/* 2단계 */}
+                  <div className="flex items-center justify-between text-[12.5px]">
+                    <span className="flex items-center gap-2 text-slate-200 font-medium">
+                      {analysisProgress >= 75 ? (
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      ) : analysisProgress >= 35 ? (
+                        <span className="w-4 h-4 rounded-full bg-blue-500 text-white flex items-center justify-center text-[10px] font-bold shrink-0 animate-pulse">
+                          2
+                        </span>
+                      ) : (
+                        <span className="w-4 h-4 rounded-full border border-slate-600 text-slate-500 flex items-center justify-center text-[10px] font-bold shrink-0">
+                          2
+                        </span>
+                      )}
+                      <span>Google AI 손등 피사체 분석</span>
                     </span>
-                    <span className="text-[11px] text-blue-300 font-mono">{analysisStep >= 2 ? "ANALYZING" : "WAIT"}</span>
+                    <span
+                      className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                        analysisProgress >= 75
+                          ? "bg-emerald-950/60 text-emerald-300 border border-emerald-500/30"
+                          : analysisProgress >= 35
+                          ? "bg-blue-950/60 text-blue-300 border border-blue-500/30 animate-pulse"
+                          : "text-slate-500"
+                      }`}
+                    >
+                      {analysisProgress >= 75
+                        ? "완료"
+                        : analysisProgress >= 35
+                        ? "분석 중"
+                        : "대기"}
+                    </span>
                   </div>
-                  <div className="flex items-center justify-between text-[12px]">
-                    <span className="flex items-center gap-1.5 text-blue-200 font-medium">
-                      <span className={`w-1.5 h-1.5 rounded-full ${analysisStep >= 3 ? "bg-emerald-400" : "bg-slate-600"}`} />
-                      얼굴 비노출 및 프라이버시 안심 확인
+
+                  {/* 3단계 */}
+                  <div className="flex items-center justify-between text-[12.5px]">
+                    <span className="flex items-center gap-2 text-slate-200 font-medium">
+                      {analysisProgress >= 100 ? (
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      ) : analysisProgress >= 75 ? (
+                        <span className="w-4 h-4 rounded-full bg-blue-500 text-white flex items-center justify-center text-[10px] font-bold shrink-0 animate-pulse">
+                          3
+                        </span>
+                      ) : (
+                        <span className="w-4 h-4 rounded-full border border-slate-600 text-slate-500 flex items-center justify-center text-[10px] font-bold shrink-0">
+                          3
+                        </span>
+                      )}
+                      <span>얼굴 비노출 및 프라이버시 안심 확인</span>
                     </span>
-                    <span className="text-[11px] text-blue-300 font-mono">{analysisStep >= 3 ? "PASS" : "WAIT"}</span>
+                    <span
+                      className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                        analysisProgress >= 100
+                          ? "bg-emerald-950/60 text-emerald-300 border border-emerald-500/30"
+                          : analysisProgress >= 75
+                          ? "bg-blue-950/60 text-blue-300 border border-blue-500/30 animate-pulse"
+                          : "text-slate-500"
+                      }`}
+                    >
+                      {analysisProgress >= 100
+                        ? "완료"
+                        : analysisProgress >= 75
+                        ? "확인 중"
+                        : "대기"}
+                    </span>
                   </div>
                 </div>
 
-                <p className="text-center text-[12.5px] text-blue-300 font-medium mt-3 pt-2.5 border-t border-slate-800">
-                  인연에게 닿을 당신만의 손등 온도를 확인하고 있어요 ✨
+                <p className="text-center text-[12.5px] text-blue-300 font-medium mt-3.5 pt-2.5 border-t border-slate-800">
+                  소중한 인연에게 전달될 당신만의 손등 첫인상을 확인하고 있어요 ✨
                 </p>
               </div>
             )}
@@ -423,7 +527,7 @@ export default function ProfileStep1Page() {
                     </div>
                   </div>
 
-                  {/* 프로필 정보 및 온기 설명 */}
+                  {/* 프로필 정보 및 손등 설명 */}
                   <div className="flex flex-col justify-center gap-1 flex-1">
                     <div className="flex items-center gap-1.5">
                       <span className="text-[16px] font-black text-[#191F28] tracking-tight">
@@ -435,7 +539,7 @@ export default function ProfileStep1Page() {
                       {handDescription}
                     </p>
                     <p className="text-[12px] text-[#6B7684] leading-snug font-medium">
-                      따뜻한 온기로 상대방에게 매력적인 첫인상으로 전달돼요.
+                      단정한 손등 이미지로 상대방에게 신뢰와 호감을 전해요.
                     </p>
                   </div>
                 </div>
