@@ -149,7 +149,7 @@ export default function VerifyWorkPage() {
                   : "text-[#3182F6] bg-[#E8F3FF]"
               }`}
             >
-              {step === "success" ? "인증 완료" : "5 / 5 마지막 단계"}
+              {step === "success" ? "인증 완료" : "6 / 6 마지막 단계"}
             </span>
           </div>
         </div>

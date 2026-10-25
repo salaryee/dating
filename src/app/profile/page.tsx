@@ -110,7 +110,7 @@ export default function ProfilePage() {
 
             {/* 자필 글씨 카드 */}
             <Link
-              href="/auth/profile-step2"
+              href="/auth/profile-note"
               className="p-4 rounded-2xl bg-[#FFFBF2] border border-[#F5E8D0] flex flex-col justify-between h-32 hover:border-amber-300 transition-all active:scale-[0.98]"
             >
               <div className="flex items-center justify-between">
