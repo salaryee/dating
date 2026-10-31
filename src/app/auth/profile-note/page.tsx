@@ -229,7 +229,7 @@ export default function ProfileNotePage() {
                 className="mt-5 w-full h-13 rounded-2xl bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold text-[15px] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
               >
                 <Camera className="w-5 h-5" />
-                <span>손글씨 사진 촬영 / 앨범 선택</span>
+                <span>손글씨 사진 촬영</span>
               </button>
 
               <div className="mt-3.5 flex items-center gap-1.5 text-[12px] text-[#8B95A1] font-medium">
