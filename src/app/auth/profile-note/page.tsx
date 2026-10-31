@@ -9,14 +9,10 @@ import {
   Sparkles,
   RefreshCw,
   Check,
-  CheckCircle2,
-  Lock,
   PenTool,
-  Heart,
   AlertCircle,
   RotateCcw,
   Coffee,
-  ShieldCheck,
 } from "lucide-react";
 
 export default function ProfileNotePage() {
@@ -147,380 +143,217 @@ export default function ProfileNotePage() {
   const isFormValid = noteStatus === "success";
 
   return (
-    <div className="flex flex-col min-h-screen bg-white justify-between p-6 sm:p-7 w-full max-w-lg mx-auto">
-      <div>
-        {/* 상단 프로그레스 바 (토스 스타일 83%, 6단계 중 5단계) */}
-        <div className="pt-2 pb-5">
+    <div className="flex flex-col h-[100dvh] max-h-[100dvh] bg-white justify-between px-5 py-3.5 sm:px-7 sm:py-5 w-full max-w-lg mx-auto overflow-hidden select-none">
+      {/* ================= 상단 헤더 & 타이포그래피 ================= */}
+      <div className="shrink-0">
+        {/* 프로그레스 바 & 단계 표시 */}
+        <div>
           <div className="h-1 w-full bg-[#F2F4F6] rounded-full overflow-hidden">
             <div className="h-full bg-[#3182F6] rounded-full w-5/6 transition-all duration-300"></div>
           </div>
-          <div className="flex items-center justify-end mt-3">
-            <span className="text-[12.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-3 py-1 rounded-full">
+          <div className="flex items-center justify-between mt-2.5">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FFF5ED] text-[#FF6F61] text-[11.5px] font-bold border border-[#FFE2D6]">
+              <Coffee className="w-3 h-3" />
+              <span>첫인사 손글씨 엽서</span>
+            </div>
+            <span className="text-[11.5px] font-bold text-[#3182F6] bg-[#E8F3FF] px-2.5 py-0.5 rounded-full">
               5 / 6 단계
             </span>
           </div>
         </div>
 
-        {/* 메인 질문 (시선 집중) & 서브 텍스트 */}
-        <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF5ED] text-[#FF6F61] text-[12.5px] font-bold mb-3 border border-[#FFE2D6]">
-            <Coffee className="w-3.5 h-3.5" />
-            <span>첫인사 손글씨 엽서</span>
-          </div>
-
-          {/* 메인 질문 (화면 상단에 가장 크고 또렷한 타이포그래피) */}
-          <h1 className="text-[23px] sm:text-[25px] font-black text-[#191F28] tracking-tight leading-[1.35] break-keep">
+        {/* 메인 질문 & 서브 텍스트 */}
+        <div className="mt-3">
+          <h1 className="text-[20px] sm:text-[22px] font-black text-[#191F28] tracking-tight leading-[1.3] break-keep">
             &ldquo;제가 퇴근 후 마주 앉아<br />
             커피 한잔하고 싶은 분은...&rdquo;
           </h1>
-
-          {/* 서브 텍스트 (부드러운 톤) */}
-          <p className="text-[14px] text-[#6B7684] mt-3 leading-relaxed font-medium break-keep">
+          <p className="text-[13px] text-[#6B7684] mt-1.5 leading-relaxed font-medium break-keep">
             정성스러운 손글씨 한 줄이 누군가에게는 가장 설레는 첫인사가 됩니다. 좋아하는 펜과 작은 종이를 꺼내볼까요?
-          </p>
-        </div>
-
-        {/* 손글씨 촬영 및 AI 검증 메인 영역 */}
-        <div className="mt-7 flex flex-col gap-3">
-          {/* 숨겨진 실제 카메라/파일 인풋 */}
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            capture="environment"
-            className="hidden"
-            onChange={handleFileUpload}
-          />
-
-          {/* ================= 상태 1: 촬영 전 (empty) ================= */}
-          {noteStatus === "empty" && (
-            <div className="w-full rounded-3xl bg-gradient-to-b from-[#FFFDF8] via-[#FFFBF2] to-[#FFF6E9] p-6 border-2 border-[#F5E8D0] shadow-sm flex flex-col items-center text-center relative overflow-hidden">
-              {/* 장식용 종이 라인 패턴 */}
-              <div className="w-14 h-14 rounded-2xl bg-white shadow-xs flex items-center justify-center text-amber-600 mb-3.5 border border-[#F5E8D0] animate-flutter-pulse">
-                <PenTool className="w-7 h-7" />
-              </div>
-
-              <h3 className="text-[17px] font-black text-[#191F28] tracking-tight">
-                종이에 적은 손글씨 한 줄 담기
-              </h3>
-              <p className="text-[13.5px] text-[#7C6A46] mt-1.5 font-medium leading-relaxed break-keep px-2">
-                포스트잇, 메모지, 다이어리 어디든 좋아요.<br />
-                질문에 이어질 나의 생각을 직접 손으로 적어주세요.
-              </p>
-
-              {/* 예시 문구 힌트 박스 */}
-              <div className="mt-4 w-full bg-white/80 rounded-2xl p-3.5 border border-[#EEDBBA] text-left text-[12.5px] text-[#6B7684] space-y-1">
-                <p className="font-bold text-[#8F6B00] flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                  <span>이런 마음을 적어보면 좋아요</span>
-                </p>
-                <p className="text-[#333D4B] font-serif italic">
-                  • &ldquo;사소한 이야기에도 잘 웃어주는 다정한 사람&rdquo;
-                </p>
-                <p className="text-[#333D4B] font-serif italic">
-                  • &ldquo;오늘 하루도 수고했다고 서로 토닥여줄 수 있는 분&rdquo;
-                </p>
-              </div>
-
-              {/* 실제 촬영 버튼 */}
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="mt-5 w-full h-13 rounded-2xl bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold text-[15px] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
-              >
-                <Camera className="w-5 h-5" />
-                <span>손글씨 사진 촬영</span>
-              </button>
-
-              <div className="mt-3.5 flex items-center gap-1.5 text-[12px] text-[#8B95A1] font-medium">
-                <ShieldCheck className="w-4 h-4 text-[#00B368]" />
-                <span>Gemini AI가 손글씨 인식 및 비속어 클린 검증을 수행해요</span>
-              </div>
-            </div>
-          )}
-
-          {/* ================= 상태 2: Google AI 분석 중 (analyzing) ================= */}
-          {noteStatus === "analyzing" && (
-            <div className="w-full rounded-3xl bg-[#0F172A] p-5 text-white relative overflow-hidden shadow-lg border border-blue-500/30">
-              {/* 상단 실시간 프로그레스 헤더 */}
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#3182F6] animate-ping" />
-                  <span className="text-[13px] font-bold text-blue-200">
-                    Google AI 손글씨 엽서 분석
-                  </span>
-                </div>
-                <span className="text-[14px] font-mono font-black text-[#60A5FA]">
-                  {Math.min(100, Math.round(analysisProgress))}%
-                </span>
-              </div>
-
-              {/* 진행률 게이지 바 */}
-              <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden mb-4 border border-slate-700/50">
-                <div
-                  className="h-full bg-gradient-to-r from-[#3182F6] via-[#60A5FA] to-[#00D084] transition-all duration-100 ease-out rounded-full shadow-[0_0_10px_#3B82F6]"
-                  style={{ width: `${Math.min(100, analysisProgress)}%` }}
-                />
-              </div>
-
-              {/* 사진 프리뷰 + 레이저 스캔 뷰파인더 */}
-              <div className="relative w-full h-[200px] rounded-2xl overflow-hidden bg-black/60 flex items-center justify-center border border-slate-800">
-                <img
-                  src={photoUrl}
-                  alt="분석 중인 손글씨 사진"
-                  className="w-full h-full object-cover opacity-60 filter blur-[0.3px]"
-                />
-
-                {/* 레이저 스캔 라인 */}
-                <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#60A5FA] to-transparent shadow-[0_0_16px_#3B82F6] animate-laser-scan pointer-events-none" />
-
-                {/* 뷰파인더 브라켓 */}
-                <div className="absolute inset-4 border border-blue-400/40 rounded-xl pointer-events-none flex flex-col justify-between p-2.5">
-                  <div className="flex justify-between text-[10px] text-blue-300 font-mono">
-                    <span>SCAN: HANDWRITING</span>
-                    <span>AI: GEMINI FLASH</span>
-                  </div>
-                  <div className="flex justify-between text-[10px] text-blue-300 font-mono">
-                    <span>CLEAN: VERIFYING</span>
-                    <span>SAFE: ACTIVE</span>
-                  </div>
-                </div>
-
-                {/* 센터 스피너 & 실시간 단계 안내 문구 */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[1px]">
-                  <div className="w-12 h-12 rounded-full bg-blue-500/20 backdrop-blur-md flex items-center justify-center border border-blue-400/40 mb-2 shadow-xs">
-                    <RefreshCw className="w-5 h-5 text-[#60A5FA] animate-spin" />
-                  </div>
-                  <p className="text-[14.5px] font-bold text-white tracking-tight drop-shadow-sm">
-                    {analysisProgress < 40
-                      ? "종이 및 손글씨 필체 스캔 중..."
-                      : analysisProgress < 80
-                      ? "Gemini AI 문구 판독 및 안심 검증 중..."
-                      : "소중한 첫인사 엽서 등록 준비 중..."}
-                  </p>
-                  <span className="text-[11.5px] text-blue-300/90 mt-0.5 font-medium">
-                    약 1~2초 내에 분석이 완료돼요
-                  </span>
-                </div>
-              </div>
-
-              {/* 3단계 진행 상태 리스트 */}
-              <div className="mt-4 space-y-2.5 px-1">
-                {/* 1단계 */}
-                <div className="flex items-center justify-between text-[12.5px]">
-                  <span className="flex items-center gap-2 text-slate-200 font-medium">
-                    {analysisProgress >= 40 ? (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                    ) : (
-                      <span className="w-4 h-4 rounded-full border border-blue-400 flex items-center justify-center text-[10px] text-blue-300 font-bold shrink-0">
-                        1
-                      </span>
-                    )}
-                    <span>종이 질감 및 손글씨 필체 감지</span>
-                  </span>
-                  <span
-                    className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-                      analysisProgress >= 40
-                        ? "bg-emerald-950/60 text-emerald-300 border border-emerald-500/30"
-                        : "bg-blue-950/60 text-blue-300 border border-blue-500/30 animate-pulse"
-                    }`}
-                  >
-                    {analysisProgress >= 40 ? "완료" : "스캔 중"}
-                  </span>
-                </div>
-
-                {/* 2단계 */}
-                <div className="flex items-center justify-between text-[12.5px]">
-                  <span className="flex items-center gap-2 text-slate-200 font-medium">
-                    {analysisProgress >= 80 ? (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                    ) : analysisProgress >= 40 ? (
-                      <span className="w-4 h-4 rounded-full bg-blue-500 text-white flex items-center justify-center text-[10px] font-bold shrink-0 animate-pulse">
-                        2
-                      </span>
-                    ) : (
-                      <span className="w-4 h-4 rounded-full border border-slate-600 text-slate-500 flex items-center justify-center text-[10px] font-bold shrink-0">
-                        2
-                      </span>
-                    )}
-                    <span>비속어·거부감 유발 표현 필터링</span>
-                  </span>
-                  <span
-                    className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-                      analysisProgress >= 80
-                        ? "bg-emerald-950/60 text-emerald-300 border border-emerald-500/30"
-                        : analysisProgress >= 40
-                        ? "bg-blue-950/60 text-blue-300 border border-blue-500/30 animate-pulse"
-                        : "text-slate-500"
-                    }`}
-                  >
-                    {analysisProgress >= 80 ? "완료" : analysisProgress >= 40 ? "검증 중" : "대기"}
-                  </span>
-                </div>
-
-                {/* 3단계 */}
-                <div className="flex items-center justify-between text-[12.5px]">
-                  <span className="flex items-center gap-2 text-slate-200 font-medium">
-                    {analysisProgress >= 100 ? (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                    ) : analysisProgress >= 80 ? (
-                      <span className="w-4 h-4 rounded-full bg-blue-500 text-white flex items-center justify-center text-[10px] font-bold shrink-0 animate-pulse">
-                        3
-                      </span>
-                    ) : (
-                      <span className="w-4 h-4 rounded-full border border-slate-600 text-slate-500 flex items-center justify-center text-[10px] font-bold shrink-0">
-                        3
-                      </span>
-                    )}
-                    <span>설레는 첫인사 엽서 등록 준비</span>
-                  </span>
-                  <span
-                    className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-                      analysisProgress >= 100
-                        ? "bg-emerald-950/60 text-emerald-300 border border-emerald-500/30"
-                        : analysisProgress >= 80
-                        ? "bg-blue-950/60 text-blue-300 border border-blue-500/30 animate-pulse"
-                        : "text-slate-500"
-                    }`}
-                  >
-                    {analysisProgress >= 100 ? "완료" : analysisProgress >= 80 ? "준비 중" : "대기"}
-                  </span>
-                </div>
-              </div>
-
-              <p className="text-center text-[12.5px] text-blue-300 font-medium mt-4 pt-2.5 border-t border-slate-800">
-                인연에게 닿을 당신만의 온기 어린 필체를 담고 있어요 ✨
-              </p>
-            </div>
-          )}
-
-          {/* ================= 상태 3: 재촬영 유도 (error) ================= */}
-          {noteStatus === "error" && (
-            <div className="w-full rounded-3xl bg-[#FFF8F8] border border-[#FFD0D4] p-5 shadow-xs flex flex-col gap-3.5">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#FFE8E8] flex items-center justify-center text-[#F04452] shrink-0 mt-0.5">
-                  <AlertCircle className="w-5 h-5" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-[15.5px] font-bold text-[#D62828]">
-                    손글씨 엽서가 확인되지 않았어요
-                  </h3>
-                  <p className="text-[13px] text-[#4E5968] mt-1 leading-relaxed font-medium break-keep">
-                    {errorMessage}
-                  </p>
-                </div>
-                {photoUrl && (
-                  <div className="w-14 h-14 rounded-2xl overflow-hidden border border-[#FFD0D4] shrink-0 bg-white">
-                    <img src={photoUrl} alt="등록 시도된 사진" className="w-full h-full object-cover" />
-                  </div>
-                )}
-              </div>
-
-              <div className="bg-white/90 rounded-2xl p-3.5 border border-[#FFE0E3] text-[12.5px] text-[#6B7684] space-y-1.5">
-                <p className="font-bold text-[#333D4B] flex items-center gap-1">
-                  <span>💡 이렇게 작성하고 촬영해 보세요</span>
-                </p>
-                <p>• 작은 종이나 메모지에 직접 펜으로 한 줄을 적어주세요</p>
-                <p>• 비속어, 성적인 표현, 연락처 대신 따뜻한 인사를 남겨주세요</p>
-                <p>• 글씨가 또렷하게 보이도록 밝은 곳에서 촬영해 주세요</p>
-              </div>
-
-              {/* 재촬영 액션 버튼 */}
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="w-full h-12 rounded-xl bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold text-[14.5px] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
-              >
-                <Camera className="w-4.5 h-4.5" />
-                <span>손글씨 다시 촬영하기</span>
-              </button>
-            </div>
-          )}
-
-          {/* ================= 상태 4: 손글씨 승인 완료 (success) ================= */}
-          {noteStatus === "success" && (
-            <div className="w-full rounded-3xl bg-gradient-to-b from-[#FFFDF8] via-[#FFFBF2] to-[#FFF7EC] border-2 border-[#F5E8D0] p-5 shadow-sm flex flex-col gap-4">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 text-[13px] font-bold text-[#8F6B00] bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200/50">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Gemini AI 클린 손글씨 승인</span>
-                </span>
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="text-[12.5px] text-[#8B95A1] hover:text-[#191F28] font-bold flex items-center gap-1 active:scale-95 transition-all cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>다시 찍기</span>
-                </button>
-              </div>
-
-              {/* 촬영된 실제 손글씨 사진 렌더링 */}
-              <div className="relative w-full h-[170px] rounded-2xl overflow-hidden bg-white border border-[#EEDBBA] shadow-xs flex items-center justify-center">
-                <img
-                  src={photoUrl}
-                  alt="등록된 자필 손글씨 엽서"
-                  className="w-full h-full object-cover"
-                />
-                {/* 우측 하단 인증 뱃지 */}
-                <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-sm border border-emerald-400 flex items-center gap-1 text-[11.5px] text-[#00B368] font-bold shadow-xs">
-                  <Check className="w-3.5 h-3.5 stroke-[3]" />
-                  <span>자필 손글씨 인증</span>
-                </div>
-              </div>
-
-              {/* AI가 읽어낸 손글씨 문구 인용 */}
-              {extractedText && (
-                <div className="p-3.5 rounded-2xl bg-white/80 border border-[#F5E8D0] text-center">
-                  <p className="text-[11.5px] text-[#8B95A1] font-medium mb-1">인식된 첫인사 문구</p>
-                  <p className="text-[15px] font-serif italic text-[#191F28] leading-relaxed">
-                    &ldquo;{extractedText}&rdquo;
-                  </p>
-                </div>
-              )}
-
-              {/* 하단 안심 보증 바 */}
-              <div className="flex items-center justify-between text-[12px] pt-1 border-t border-[#F5E8D0]/80">
-                <span className="text-[#00B368] font-bold flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5" /> 비속어 없는 정갈한 문구
-                </span>
-                <span className="text-[#3182F6] font-bold">엽서 등록 완료</span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* 안심 보증 노트 */}
-        <div className="mt-6 flex items-start gap-2.5 text-[13px] text-[#6B7684] font-medium px-1">
-          <Lock className="w-4 h-4 text-[#00B368] shrink-0 mt-0.5" />
-          <p className="leading-relaxed">
-            등록하신 손글씨 엽서는 <strong className="text-[#333D4B]">상대방과의 1:1 매칭 카드</strong>에 따뜻한 첫인상으로 전달돼요.
           </p>
         </div>
       </div>
 
-      {/* 하단 CTA & 나중에 작성하기 옵션 */}
-      <div className="pb-6 pt-5 flex flex-col gap-2.5">
+      {/* ================= 중앙 메인 엽서 카드 영역 ================= */}
+      <div className="flex-1 flex flex-col justify-center my-auto py-2">
+        {/* 숨겨진 실제 카메라/파일 인풋 */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          className="hidden"
+          onChange={handleFileUpload}
+        />
+
+        {/* ================= 상태 1: 촬영 전 (empty) ================= */}
+        {noteStatus === "empty" && (
+          <div className="w-full rounded-3xl bg-gradient-to-b from-[#FFFDF9] via-[#FFFBF4] to-[#FFF7EC] p-5 border border-[#EEDBBA] shadow-[0_4px_24px_rgba(238,219,186,0.3)] flex flex-col justify-between relative overflow-hidden">
+            {/* 상단 엽서 장식 헤더 */}
+            <div className="flex items-center justify-between pb-3 border-b border-dashed border-[#E5D7BF]">
+              <div className="flex items-center gap-1.5 text-amber-900 text-[12.5px] font-serif font-semibold">
+                <PenTool className="w-3.5 h-3.5 text-amber-600" />
+                <span>나만의 첫인사 엽서</span>
+              </div>
+              <span className="text-[10px] tracking-widest uppercase font-mono px-2 py-0.5 rounded border border-dashed border-[#D4C3A3] text-[#9E8256] bg-amber-50/60 font-bold">
+                POSTCARD ☕
+              </span>
+            </div>
+
+            {/* 감성 손글씨 메모 영역 */}
+            <div className="my-4 py-3 px-3.5 rounded-2xl bg-white/80 border border-[#F3E7D3] shadow-xs flex flex-col gap-1.5">
+              <p className="text-[11px] font-bold text-[#A08040] flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-amber-500" />
+                <span>이런 마음을 적어보면 좋아요</span>
+              </p>
+              <p className="text-[14px] sm:text-[14.5px] text-[#2C2416] font-serif italic leading-relaxed">
+                &ldquo;사소한 이야기에도 잘 웃어주는 다정한 사람&rdquo;
+              </p>
+            </div>
+
+            {/* 촬영 안내 & 버튼 */}
+            <p className="text-center text-[12.5px] text-[#8C7654] font-medium mb-3">
+              종이에 적은 글씨를 카메라로 담아주세요
+            </p>
+
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="w-full h-12 rounded-2xl bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold text-[14.5px] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
+            >
+              <Camera className="w-4.5 h-4.5" />
+              <span>손글씨 사진 촬영</span>
+            </button>
+          </div>
+        )}
+
+        {/* ================= 상태 2: Google AI 분석 중 (analyzing) ================= */}
+        {noteStatus === "analyzing" && (
+          <div className="w-full rounded-3xl bg-[#0F172A] p-4 text-white relative overflow-hidden shadow-lg border border-blue-500/30 flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#3182F6] animate-ping" />
+                <span className="text-[12.5px] font-bold text-blue-200">
+                  Google AI 손글씨 확인 중
+                </span>
+              </div>
+              <span className="text-[13px] font-mono font-black text-[#60A5FA]">
+                {Math.min(100, Math.round(analysisProgress))}%
+              </span>
+            </div>
+
+            <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden mb-3">
+              <div
+                className="h-full bg-gradient-to-r from-[#3182F6] via-[#60A5FA] to-[#00D084] transition-all duration-100 ease-out rounded-full shadow-[0_0_8px_#3B82F6]"
+                style={{ width: `${Math.min(100, analysisProgress)}%` }}
+              />
+            </div>
+
+            {/* 뷰파인더 스캔 영역 */}
+            <div className="relative w-full h-[140px] rounded-2xl overflow-hidden bg-black/60 flex items-center justify-center border border-slate-800">
+              <img
+                src={photoUrl}
+                alt="분석 중인 손글씨 사진"
+                className="w-full h-full object-cover opacity-60 filter blur-[0.3px]"
+              />
+              <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#60A5FA] to-transparent shadow-[0_0_16px_#3B82F6] animate-laser-scan pointer-events-none" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[1px]">
+                <RefreshCw className="w-5 h-5 text-[#60A5FA] animate-spin mb-1.5" />
+                <p className="text-[13.5px] font-bold text-white tracking-tight drop-shadow-sm">
+                  {analysisProgress < 50
+                    ? "종이 위 손글씨를 스캔하고 있어요..."
+                    : "소중한 첫인사 엽서를 담고 있어요..."}
+                </p>
+              </div>
+            </div>
+
+            <p className="text-center text-[11.5px] text-blue-300 font-medium mt-2.5">
+              인연에게 닿을 당신만의 온기 어린 필체를 담고 있어요 ✨
+            </p>
+          </div>
+        )}
+
+        {/* ================= 상태 3: 재촬영 유도 (error) ================= */}
+        {noteStatus === "error" && (
+          <div className="w-full rounded-3xl bg-[#FFF8F8] border border-[#FFD0D4] p-4 shadow-xs flex flex-col gap-3">
+            <div className="flex items-start gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#FFE8E8] flex items-center justify-center text-[#F04452] shrink-0 mt-0.5">
+                <AlertCircle className="w-4.5 h-4.5" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-[14.5px] font-bold text-[#D62828]">
+                  손글씨가 확인되지 않았어요
+                </h3>
+                <p className="text-[12px] text-[#4E5968] mt-0.5 leading-relaxed font-medium break-keep">
+                  {errorMessage}
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="w-full h-11 rounded-xl bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold text-[14px] shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98]"
+            >
+              <Camera className="w-4 h-4" />
+              <span>손글씨 다시 촬영하기</span>
+            </button>
+          </div>
+        )}
+
+        {/* ================= 상태 4: 손글씨 승인 완료 (success) ================= */}
+        {noteStatus === "success" && (
+          <div className="w-full rounded-3xl bg-gradient-to-b from-[#FFFDF9] to-[#FFF8EE] border border-[#EEDBBA] p-4 shadow-sm flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <span className="inline-flex items-center gap-1.5 text-[12px] font-bold text-[#8F6B00] bg-amber-50 px-2.5 py-0.5 rounded-md border border-amber-200/50">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <span>첫인사 엽서 등록 완료</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="text-[12px] text-[#8B95A1] hover:text-[#191F28] font-bold flex items-center gap-1 active:scale-95 transition-all cursor-pointer"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>다시 찍기</span>
+              </button>
+            </div>
+
+            <div className="relative w-full h-[140px] rounded-2xl overflow-hidden bg-white border border-[#EEDBBA] shadow-xs flex items-center justify-center">
+              <img
+                src={photoUrl}
+                alt="등록된 자필 손글씨 엽서"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute bottom-2 right-2 px-2.5 py-0.5 rounded-full bg-white/95 backdrop-blur-sm border border-emerald-400 flex items-center gap-1 text-[11px] text-[#00B368] font-bold shadow-xs">
+                <Check className="w-3 h-3 stroke-[3]" />
+                <span>자필 인증 완료</span>
+              </div>
+            </div>
+
+            {extractedText && (
+              <div className="p-2.5 rounded-xl bg-white/80 border border-[#F5E8D0] text-center">
+                <p className="text-[13.5px] font-serif italic text-[#191F28] leading-snug">
+                  &ldquo;{extractedText}&rdquo;
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* ================= 하단 CTA 버튼 ================= */}
+      <div className="shrink-0 pt-2 pb-3 sm:pb-4">
         <Link
           href={isFormValid ? "/auth/verify-work" : "#"}
-          className={`w-full h-14 rounded-2xl font-bold text-[16px] transition-all flex items-center justify-center ${
+          className={`w-full h-13 rounded-2xl font-bold text-[15.5px] transition-all flex items-center justify-center ${
             isFormValid
               ? "bg-[#3182F6] text-white hover:bg-[#1B64DA] shadow-lg shadow-blue-500/25 active:scale-[0.98]"
               : "bg-[#E5E8EB] text-[#8B95A1] cursor-not-allowed pointer-events-none"
           }`}
         >
-          다음 (마지막 회사 인증)
+          다음 (회사 인증)
         </Link>
-
-        {/* 종이와 펜이 지금 당장 없는 직장인을 위한 건너뛰기 배려 */}
-        <div className="text-center pt-1">
-          <Link
-            href="/auth/verify-work"
-            className="text-[13px] text-[#8B95A1] hover:text-[#6B7684] font-semibold underline underline-offset-4 cursor-pointer transition-colors"
-          >
-            지금 펜과 종이가 없다면? 나중에 등록하기
-          </Link>
-        </div>
       </div>
     </div>
   );
